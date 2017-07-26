@@ -1,0 +1,71 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'日志管理', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">日志查询</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/system/log" method="get">
+			<input type="hidden" name="page" />
+			<label>用户名</label>
+			<input type="text" class="input-small" name="uid" placeholder="用户名称" value="${uid!}"/>
+			<label>操作类型</label>
+			<input type="text" class="input-small" name="operation" placeholder="操作类型" value="${operation!}"/> 
+			<button type="submit" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>查询
+			</button>
+			</a>			
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th data-width="5%">编号</th>
+      <th data-width="10%">用户</th>
+      <th data-width="10%">浏览器</th> 
+      <th data-width="5%">操作类型</th>
+      <th data-width="10%">ip</th>
+      <th data-width="30%">来源</th>
+      <th data-width="15%">访问地址</th>
+      <th data-width="15%">创建时间</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td>${item.id}</td>
+    <td>${item.name}</td>
+    <td>${item.browser}</td>
+    <td>${item.operation}</td>
+    <td>${item.ip}</td>
+    <td>${item.from}</td>
+    <td>${item.url}</td>
+    <td>${item.createDate}</td>   
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/system/log" page="${page}" params="uid,operation"/>
+
+</div>
+<%} %>

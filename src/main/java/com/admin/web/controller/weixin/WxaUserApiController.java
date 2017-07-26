@@ -1,0 +1,193 @@
+package com.admin.web.controller.weixin;
+
+import com.admin.web.base.BaseBussinessController;
+import com.admin.web.model.JobMember;
+import com.admin.web.service.job.JobMemberService;
+import com.admin.web.util.R;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.jfinal.aop.Duang;
+import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.kit.PropKit;
+import com.jfinal.kit.StrKit;
+import com.jfinal.weixin.sdk.api.*;
+import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
+import com.jfinal.wxaapp.api.WxaUserApi;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Date;
+
+/**
+ *  微信小程序 用户 接口Controller
+ * <p>Description: JobMessageController </p>
+ * @author:  xutie
+ * @created: 2017/6/15
+ * @version: 1.0
+ */
+@ControllerBind(controllerKey = "/wx/wxa")
+public class WxaUserApiController extends BaseBussinessController {
+
+	// 微信用户接口api
+	protected WxaUserApi wxaUserApi = Duang.duang(WxaUserApi.class);
+
+	/**
+	 * 登陆接口
+	 */
+	public void login() {
+		String jsCode = getPara("code");
+		System.out.println("jsCode = " + jsCode);
+		if (StrKit.isBlank(jsCode)) {
+			renderJson(R.error().put("code is blank"));
+			return;
+		}
+		// 获取SessionKey
+		ApiResult apiResult = wxaUserApi.getSessionKey(jsCode);
+		System.out.println("apiResult = " + apiResult);
+		// 返回{"session_key":"nzoqhc3OnwHzeTxJs+inbQ==","expires_in":2592000,"openid":"oVBkZ0aYgDMDIywRdgPW8-joxXc4"}
+		if (!apiResult.isSucceed()) {
+			renderJson(apiResult.getJson());
+			return;
+		}
+		// 利用 appId 与 accessToken 建立关联，支持多账户
+		IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+		String sessionId = StrKit.getRandomUUID();
+
+
+		accessTokenCache.set("wxa:session:" + sessionId, apiResult.getJson());
+		renderJson(R.ok().put("sessionId", sessionId));
+	}
+
+	/**
+	 * 服务端解密用户信息接口
+	 * 获取unionId
+	 */
+	public void info() {
+		String signature = getPara("signature");
+		String rawData = getPara("rawData").replace("&quot;", "\"");
+
+		String encryptedData = getPara("encryptedData");
+		String iv = getPara("iv");
+
+		// 参数空校验 不做演示
+		// 利用 appId 与 accessToken 建立关联，支持多账户
+		IAccessTokenCache accessTokenCache = ApiConfigKit.getAccessTokenCache();
+		String sessionId = getHeader("wxa-sessionid");
+		if (StrKit.isBlank(sessionId)) {
+			renderJson(R.error().put("wxa_session Header is blank"));
+			return;
+		}
+		String sessionJson = accessTokenCache.get("wxa:session:" + sessionId);
+		if (StrKit.isBlank(sessionJson)) {
+			renderJson(R.error().put("wxa_session sessionJson is blank"));
+			return;
+		}
+		ApiResult sessionResult = ApiResult.create(sessionJson);
+		// 获取sessionKey
+		String sessionKey = sessionResult.get("session_key");
+		if (StrKit.isBlank(sessionKey)) {
+			renderJson(R.error().put("sessionKey is blank"));
+			return;
+		}
+		// 用户信息校验
+		boolean check = wxaUserApi.checkUserInfo(sessionKey, rawData, signature);
+		if (!check) {
+			renderJson(R.error().put("UserInfo check fail"));
+			return;
+		}
+		// 服务端解密用户信息
+		ApiResult apiResult = wxaUserApi.getUserInfo(sessionKey, encryptedData, iv);
+		if (!apiResult.isSucceed()) {
+
+			System.out.println("apiResult.getJson() = " + apiResult.getJson());
+			renderJson(apiResult.getJson());
+			return;
+		}
+		// 如果开发者拥有多个移动应用、网站应用、和公众帐号（包括小程序），可通过unionid来区分用户的唯一性
+		// 同一用户，对同一个微信开放平台下的不同应用，unionid是相同的。
+		String unionId = apiResult.get("unionId");
+
+		JSONObject userJson =  JSON.parseObject(apiResult.getJson());
+		JobMember member = new JobMember();
+		member.setOpenId(userJson.getString("openId"));
+		//member.setName(userJson.getString("nickName"));
+		member.setLanguage(userJson.getString("language"));
+		member.setImage(userJson.getString("avatarUrl"));	//头像
+		member.setCountry(userJson.getString("country"));	//国家
+		member.setSex(userJson.getString("gender"));		////性别 值为1时是男性，值为2时是女性，值为0时是未知
+		member.setRole("0");		//默认角色  应聘者
+		member.setState("0");		//状态 激活
+		member.setCreateDate(new Date());
+		member.setMobileCode(userJson.getString("province"));	//城市 拼音 全拼 TODO 暂时使用 mobileCode字段
+
+		JobMemberService jobService = Duang.duang(JobMemberService.class);
+		try {
+			System.out.println("jobmember =======" + member.toString());
+			member = jobService.saveAndUpdateMember(member);
+			renderJson(R.ok().put(member));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			renderJson(R.error("保存用户错误"));
+		}
+
+	}
+
+	/**
+	 * 公众号 网页授权
+	 */
+	public void apiLogin() {
+		//用户同意授权，获取code
+		String code   = getPara("code");
+		if (StrKit.isBlank(code)) {
+			renderText("code is Blank!");
+		}
+		String appId  = ApiConfigKit.getAppId();
+		String secret = ApiConfigKit.getApiConfig().getAppSecret();
+		SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
+
+		System.out.println("snsAccessToken: " + snsAccessToken);
+		String openId = snsAccessToken.getOpenid();
+		String token  = snsAccessToken.getAccessToken();
+
+		//拉取用户信息(需scope为 snsapi_userinfo)
+		ApiResult apiResult = SnsApi.getUserInfo(token, openId);
+		System.out.println("openId: " + openId);
+
+		String nickname = apiResult.get("nickname");
+		String sex = apiResult.get("sex");
+		String city = apiResult.get("city");
+		String province = apiResult.get("province");
+		String country = apiResult.get("country");
+		String headimgurl = apiResult.get("headimgurl");
+
+		System.out.println("nickname:"+nickname);
+		System.out.println("sex:" + sex);//用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+		System.out.println("city:" + city);//城市
+		System.out.println("province:" + province);//省份
+		System.out.println("country:" + country);//国家
+		System.out.println("headimgurl:" + headimgurl);
+
+		renderText("apiResult:" + apiResult);
+	}
+
+
+	public void apiOauth() {
+		String appId = ApiConfigKit.getAppId();
+		String redirectUri = "";
+		try {
+			redirectUri = URLEncoder.encode(PropKit.get("weixin.url"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+
+		String state = System.currentTimeMillis() + "";
+
+		String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
+		redirect(url);
+	}
+
+
+	@Override
+	public void onExceptionError(Exception e) {renderJson(R.error("接口调用异常"));}
+
+}

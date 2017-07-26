@@ -1,0 +1,222 @@
+<% var pageJavaScript = { %>
+<script>
+    var textList ;
+    var imageList ;
+    var new_page = 0;
+    var image_page = 0;
+
+    jQuery(function($) {
+		$("#tuwen").hide();
+		$("#wenzi").hide();
+		$("#Image").hide();
+
+        $("#msgType").change(function(){
+
+            var p1=$(this).children('option:selected').val();
+            if (p1 == 1){
+                $("#tuwen").show();
+                $("#wenzi").hide();
+                $("#Image").hide();
+                getNew();
+			}else if (p1 == 0) {
+                $("#tuwen").hide();
+                $("#Image").hide();
+                $("#wenzi").show();
+			}else if (p1 == 2) {         //图片回复
+                $("#tuwen").hide();
+                $("#wenzi").hide();
+                $("#Image").show();
+                getImage();
+            }
+        });
+
+		$('#newTable').on('click', 'button', function() {
+
+		    var id = $(this)[0].id.substring(2);
+
+            $("#newTitle").val(textList[id].title);
+            $("#newUrl").val(textList[id].url);
+            $("#newDescription").val(textList[id].description);
+            $("#newPicUrl").val(textList[id].picUrl);
+
+        });
+
+        $('#imageTable').on('click', 'button', function() {
+
+            var id = $(this)[0].id.substring(2);
+            $("#wxText").val(imageList[id].media_id);
+            $("#newTitle").val(imageList[id].name);
+            $("#newPicUrl").val(imageList[id].url);
+            console.log($("#wxText").val());
+
+        });
+
+    });
+
+    function getImage() {
+        $.ajax({
+            url: '${ctxPath}/weixin/config/getImage',
+            data: {page : image_page},
+            success: function(data) {
+                imageList = data;
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<tr><td>'+data[i].name+'</td>' +
+                        '<td><img src="'+data[i].url+'"></td>' +
+                        '<td><button class="btn btn-primary" type="button" id="ii'+i+'">选择</button></td></tr>'
+                }
+                $('#imageTbody').html(html);
+            }
+        });
+    }
+
+    function getNew() {
+        $.ajax({
+            url: '${ctxPath}/weixin/config/getNew',
+            data: {page : new_page},
+            success: function(data) {
+                textList = data;
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<tr><td>' + data[i].title + '</td><td><button class="btn btn-primary" type="button" id="bb'+i+'">选择</button></td></tr>';
+                }
+                $('#newTbody').html(html);
+            }
+        });
+    }
+
+    function newPage(index) {
+        new_page = new_page + parseInt(index);
+        getNew();
+    }
+
+    function imagePage(index) {
+        image_page = image_page + parseInt(index);
+        getImage();
+    }
+
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'消息回复 - 关键字回复', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		关键字回复
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/weixin/msg/keyword_to_add" method="post">
+			${token}
+
+			<input type="hidden" id="newTitle" name="info.newTitle" >
+			<input type="hidden" id="newUrl" name="info.newUrl" >
+			<input type="hidden" id="newDescription" name="info.newDescription" >
+			<input type="hidden" id="newPicUrl" name="info.newPicUrl" >
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" > 关键字 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.keyword" placeholder="关键字" class="col-xs-10 col-sm-5" value="${info.keyword!}"/>
+					<span class="help-inline col-xs-12 col-sm-7">
+						<span class="middle red">${nameMsg!}</span>
+					</span>
+				</div>
+
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 回复类型 </label>
+				<div class="col-sm-9">
+					<#select name='info.msgType' id="msgType" class='form-control' key='MSG_TYPE' value='${info.msgType!}' pleaseSelect = '请选择回复类型' class="col-xs-10 col-sm-5"/>
+					<span class="help-inline col-xs-12 col-sm-7">
+						<span class="middle red">${msgTypeMsg!}</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group" id="wenzi">
+				<label class="col-sm-3 control-label no-padding-right"> 文字回复 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.text" id="wxText" placeholder="请输入文字" class="col-xs-10 col-sm-5" value="${text!}"/>
+					<span class="help-inline col-xs-12 col-sm-7">
+						<span class="middle red">${textMsg!}</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group" id="tuwen">
+				<div class="col-sm-3 control-label no-padding-right" >图文素材</div>
+				<div class="col-sm-6">
+					<table class="table datatable" id="newTable">
+						<thead>
+						<tr>
+							<th data-width="80%">标题</th>
+							<th data-width="20%">操作</th>
+						</tr>
+						</thead>
+						<tbody id="newTbody">
+
+						</tbody>
+					</table>
+
+				</div>
+
+                <div>
+                    <ul class="pagination">
+                        <li><a onclick="newPage(-1)" href="javascript:void(0);"><i class='ace-icon fa fa-angle-double-left'></i>上一页</a></li>
+                        <li><a onclick='newPage(1)' href="javascript:void(0);"><i class='ace-icon fa fa-angle-double-right'></i>下一页</a></li>
+                    </ul>
+                </div>
+			</div>
+
+            <div class="form-group" id="Image">
+                <div class="col-sm-3 control-label no-padding-right" >图片素材</div>
+                <div class="col-sm-6">
+                    <table class="table datatable" id="imageTable">
+                        <thead>
+                        <tr>
+                            <th data-width="30%">图片名称</th>
+                            <th data-width="50%">图片预览</th>
+                            <th data-width="20%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="imageTbody">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div>
+                    <ul class="pagination">
+                        <li><a onclick="imagePage(-1)" href="javascript:void(0);"><i class='ace-icon fa fa-angle-double-left'></i>上一页</a></li>
+                        <li><a onclick="imagePage(1)" href="javascript:void(0);"><i class='ace-icon fa fa-angle-double-right'></i>下一页</a></li>
+                    </ul>
+                </div>
+            </div>
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="${ctxPath}/system/data" class="btn">
+						返回
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<%} %>

@@ -1,0 +1,130 @@
+<% var pageJavaScript = { %>
+<script>
+$(document).ready(function() {
+    $('#roleIds').multiselect({
+    	enableFiltering: false,
+		buttonClass: 'btn btn-white btn-primary',
+		buttonWidth: '100%',
+    	includeSelectAllOption: true,
+    	nonSelectedText: '请选择角色',
+    	nSelectedText: ' 项 - 已被选择',
+    	allSelectedText: '已选择全部选项',
+    	numberDisplayed: 5,
+    	selectAllText: '选择全部',
+		templates: {
+			button: '<button type="button" style="text-align: left;" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
+			ul: '<ul class="multiselect-container dropdown-menu"></ul>',
+			filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
+			li: '<li><a href="javascript:void(0);"><label></label></a></li>',
+			divider: '<li class="multiselect-item divider"></li>',
+			liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
+		}   	
+    });
+});    
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'用户管理', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		修改用户 
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/system/user/do_update" method="post">
+			${token}
+			<input type="hidden" name="info.id" value="${info.id!}" />
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.name" placeholder="用户名" class="col-xs-10 col-sm-5" value="${info.name!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${nameMsg!}</span>
+					</span>						
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 密码 </label>
+				<div class="col-sm-9">
+					<input type="password" name="info.pwd" placeholder="密码" class="col-xs-10 col-sm-5" value="${info.pwd!}"/> 
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${pwdMsg!}</span>
+					</span>					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 邮箱 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.email" placeholder="邮箱" class="col-xs-10 col-sm-5" value="${info.email!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${emailMsg!}</span>
+					</span>	
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电话 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.phone" placeholder="电话" class="col-xs-10 col-sm-5" value="${info.phone!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${phoneMsg!}</span>
+					</span>	
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 角色</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='roleIds' name='roleIds' class='form-control' map='${listmap}' value='${roleIds!}' isMultiple='true'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${roleIdsMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>				
+		
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='status' name='info.status' class='form-control' key='STATUS_USER4S' value='${info.status!}' pleaseSelect = '请选择状态'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${statusMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>		
+			
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="${ctxPath}/system/user" class="btn">
+						返回
+					</a>					
+				</div>
+			</div>											
+		</form>
+	</div>
+</div>	
+
+<%} %>

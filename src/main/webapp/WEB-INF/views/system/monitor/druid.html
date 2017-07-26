@@ -1,0 +1,14 @@
+<% var pageJavaScript = { %>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'数据库监控', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="row">
+	<div class="col-xs-12">
+		<iframe id="reportFrame" height="600" width=100% frameborder="0" src="/druid"></iframe>
+	</div>
+</div>
+
+<%} %>

@@ -1,0 +1,105 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+
+function deleteByid(id) {
+	bootbox.confirm("确定删除 ?", function(result) {
+		if(result) {
+			location.href = "${ctxPath}/system/data/delete?id=" + id;
+		}
+	});
+}
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'数据字典', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">数据查询</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/system/data" method="get">
+			<input type="hidden" name="page" />
+			<label>类型编码</label>
+			<input type="text" class="input-small" name="type" placeholder="类型编码" value="${type!}"/>
+			<label>类型描述</label>
+			<input type="text" class="input-small" name="typeDesc" placeholder="类型描述" value="${typeDesc!}"/> 
+			<button type="submit" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>查询
+			</button>
+			<a type="button" href="${ctxPath}/system/data/add" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>新增
+			</a>
+			<a type="button" href="${ctxPath}/system/data/refreshCache" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>刷新缓存
+			</a>			
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th data-width="5%">编号</th>
+      <th data-width="5%">代码</th>
+      <th data-width="8%">代码描述</th> 
+      <th data-width="12%">类型代码</th>
+      <th data-width="15%">类型描述</th>
+      <th data-width="5%">排序</th>
+      <th data-width="5%">状态</th>
+      <th data-width="15%">创建时间</th>
+      <th data-width="7%">最后更新人</th>
+      <th data-width="13%">最后更新时间</th>
+      <th data-width="10%">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td>${item.id}</td>
+    <td>${item.code}</td>
+    <td>${item.codeDesc}</td>
+    <td>${item.type}</td>
+    <td>${item.typeDesc}</td>
+    <td>${item.orderNo}</td>
+    <td>${valuedesc("STATUS_COMMON", item.status)}</td>
+    <td>${item.createDate}</td>   
+    <td>${item.lastUpdAcct}</td>
+    <td>${item.lastUpdTime}</td>   
+	<td>
+		<div class="hidden-sm hidden-xs action-buttons">
+			<a title="编辑" class="green" href="${ctxPath}/system/data/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a> 
+			<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+		</div>
+	
+		<div class="hidden-md hidden-lg">
+			<div class="inline position-relative">
+				<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down bigger-110"></i></button>
+				<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+					<li><a href="${ctxPath}/system/data/update?id=${item.id}" class="tooltip-success" data-rel="tooltip" title="编辑"> <span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>
+					<li><a href="javascript:deleteByid(${item.id});" class="tooltip-error" data-rel="tooltip" title="删除"> <span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>
+				</ul>
+			</div>
+		</div>
+	</td>     
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/system/data" page="${page}" params="type,typeDesc"/>
+
+</div>
+<%} %>

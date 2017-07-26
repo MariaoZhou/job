@@ -1,0 +1,54 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'首页', pageName:'用户首页', pageJavaScript:pageJavaScript}){
+%>
+<div id="table-container">
+
+<%
+#ajax ajaxMode: {
+%>
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>from</th>
+      <th>ip</th> 
+      <th>date</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(log in list.list){
+%>
+
+  <tr>
+    <td>${log.id}</td>
+    <td>${log.from}</td>
+    <td>${log.ip}</td>
+    <td>${log.date}</td>
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<%
+
+include("/system/common/include/_page.html",{
+    uri : '/ajaxMode',
+    page : list
+}){}
+
+%>
+
+<%} %>
+</div>
+<%} %>

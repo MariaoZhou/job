@@ -1,0 +1,114 @@
+<% var pageJavaScript = { %>
+<script>
+
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'会员管理', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		修改会员
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/shop/member/do_update" method="post">
+			${token}
+			<input type="hidden" name="info.id" value="${info.id!}" />
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 用户名 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.name" placeholder="用户名" class="col-xs-10 col-sm-5" value="${info.name!}"/>
+					<span class="help-inline col-xs-12 col-sm-7">
+						<span class="middle red">${nameMsg!}</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 密码 </label>
+				<div class="col-sm-9">
+					<input type="password" name="info.password" placeholder="密码" class="col-xs-10 col-sm-5" value="${info.password!}"/>
+					<span class="help-inline col-xs-12 col-sm-7">
+						<span class="middle red">${passwordMsg!}</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 手机号码 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.mobileCode" placeholder="国家代码" class="col-xs-10 col-sm-1" value="${info.mobileCode!}"/>
+					<input type="text" name="info.mobile" placeholder="手机号码" class="col-xs-10 col-sm-4" value="${info.mobile!}"/>
+					<span class="help-inline col-xs-12 col-sm-7">
+						<span class="middle red">${mobileMsg!}</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 国家</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='country' name='info.country' class='form-control' key='COUNTRY' value='${info.country!}'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7">
+							<span class="middle red">${countryMsg!}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 语言</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='language' name='info.language' class='form-control' key='LANGUAGE' value='${info.language!}'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7">
+							<span class="middle red">${languageMsg!}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 状态</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='state' name='info.state' class='form-control' key='STATE' value='${info.state!}'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7">
+							<span class="middle red">${stateMsg!}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="#" onclick="history.go(-1);" class="btn">
+						返回
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<%} %>

@@ -1,0 +1,19 @@
+<li class="light-blue">
+	<a data-toggle="dropdown" href="#" class="dropdown-toggle"> 
+		<img class="nav-user-photo" src="${ctxPath}/static/lib/avatars/avatar2.png" alt="用户头像" /> 
+		<span class="user-info"> <small>欢迎您,</small> ${session.user.name!} </span> 
+		<i class="ace-icon fa fa-caret-down"></i> 
+	</a>
+
+	<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+		
+		<% if (so.hasPermission('/system/user/changepwd')) { %>
+		<li><a href="/system/user/changepwd"> <i class="ace-icon fa fa-cog"></i> 修改密码 </a></li>
+		<% } %>
+		<% if (so.hasPermission('/system/user/profile')) { %>
+		<li><a href="/system/user/profile"> <i class="ace-icon fa fa-user"></i> 个人档案 </a></li>
+		<% } %>		
+		<li class="divider"></li>
+		<li><a href="${ctxPath}/logout"> <i class="ace-icon fa fa-power-off"></i> 退出 </a></li>
+	</ul>
+</li>

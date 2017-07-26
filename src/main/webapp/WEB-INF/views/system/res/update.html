@@ -1,0 +1,120 @@
+<% var pageJavaScript = { %>
+<script>
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'资源管理', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		修改资源
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/system/res/do_update" method="post">
+			${token}
+			<input type="hidden" name="info.pid" value="${info.pid!}"/>
+			<input type="hidden" name="info.id" value="${info.id!}" />
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 资源父级名称 </label>
+				<div class="col-sm-9">
+					<input type="text" name="pname" placeholder="资源父级名称" class="col-xs-10 col-sm-5" value="${pname!}" readonly="readonly"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${pnameMsg!}</span>
+					</span>						
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 资源名称 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.name" placeholder="资源名称" class="col-xs-10 col-sm-5" value="${info.name!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${nameMsg!}</span>
+					</span>						
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 资源URL </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.url" placeholder="资源URL" class="col-xs-10 col-sm-5" value="${info.url!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${urlMsg!}</span>
+					</span>						
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 资源描述 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.des" placeholder="资源描述" class="col-xs-10 col-sm-5" value="${info.des!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${desMsg!}</span>
+					</span>						
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 资源类型</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='type' name='info.type' class='form-control' key='TYPE_RES4S' value='${info.type!}' pleaseSelect = '请选择资源类型'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${typeMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>	
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 排序号 </label>
+				<div class="col-sm-9">
+					<input type="number" name="info.seq" placeholder="排序号" class="col-xs-10 col-sm-5" value="${info.seq!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${seqMsg!}</span>
+					</span>	
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='status' name='info.status' class='form-control' key='STATUS_COMMON' value='${info.status!}' pleaseSelect = '请选择状态'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${statusMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>		
+			
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="${ctxPath}/system/res/index?pid=${info.pid!}" class="btn">
+						返回
+					</a>					
+				</div>
+			</div>											
+		</form>
+	</div>
+</div>	
+
+<%} %>

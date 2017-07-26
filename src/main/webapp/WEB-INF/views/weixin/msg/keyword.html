@@ -1,0 +1,74 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+
+function deleteByid(id) {
+	bootbox.confirm("确定删除 ?", function(result) {
+		if(result) {
+			location.href = "${ctxPath}/weixin/msg/delete_keyword?id=" + id;
+		}
+	});
+}
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'关键字回复', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">关键字回复</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/system/user" method="get">
+			<input type="hidden" name="page" />
+
+			<a type="button" href="${ctxPath}/weixin/msg/keyword_add" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>新增
+			</a>
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th data-width="5%">编号</th>
+      <th data-width="20%">关键字</th>
+      <th data-width="10%">类型</th>
+      <th data-width="40%">回复内容</th>
+      <th data-width="15%">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td>${item.id}</td>
+    <td>${item.keyword}</td>
+    <td>${valuedesc("MSG_TYPE", item.msgType)}</td>
+    <td>${item.newTitle!}${item.text!}</td>
+	<td>
+		<div class="hidden-sm hidden-xs action-buttons">
+		<!--<a title="编辑" class="green" href="${ctxPath}/system/user/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a>-->
+		<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+		</div>
+	</td>
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/weixin/msg/keyword" page="${page}" />
+
+</div>
+<%} %>

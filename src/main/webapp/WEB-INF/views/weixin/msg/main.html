@@ -1,0 +1,63 @@
+<% var pageJavaScript = { %>
+<script>
+$(document).ready(function() {
+
+});    
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'微信消息设置', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		微信消息设置
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/weixin/msg/update" method="post">
+
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" > 关注回复 </label>
+				<div class="col-sm-4">
+					<textarea name="focusMsg" class="form-control col-sm-10" rows="5">${focusMsg!}</textarea>
+
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right"> 自动回复 </label>
+				<div class="col-sm-4">
+					<textarea name="textMsg" class="form-control col-sm-10" rows="5">${textMsg!}</textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-5 control-label no-padding-right" style="color: red"> 换行输入 #br#  </label>
+			</div>
+
+			
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="#" onClick="history.go(-1);" class="btn">
+						返回
+					</a>					
+				</div>
+			</div>											
+		</form>
+	</div>
+</div>	
+
+<%} %>

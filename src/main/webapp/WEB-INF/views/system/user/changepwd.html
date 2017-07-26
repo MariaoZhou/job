@@ -1,0 +1,66 @@
+<% var pageJavaScript = { %>
+<script>
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'修改密码', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		修改密码
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/system/user/do_changepwd" method="post">
+			${token}
+			<input type="hidden" name="info.id" value="${info.id!}" />
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户名 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.name" placeholder="用户名" class="col-xs-10 col-sm-5" value="${info.name!}" readonly="readonly"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${nameMsg!}</span>
+					</span>						
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 当前登录密码 </label>
+				<div class="col-sm-9">
+					<input type="password" name="info.pwd" placeholder="当前登录密码" class="col-xs-10 col-sm-5" value="${info.pwd!}"/> 
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${pwdMsg!}</span>
+					</span>					
+				</div>
+			</div>	
+	
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 新登录密码 </label>
+				<div class="col-sm-9">
+					<input type="password" name="newPwd" placeholder="新登录密码" class="col-xs-10 col-sm-5" /> 
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${newPwdMsg!}</span>
+					</span>					
+				</div>
+			</div>		
+			
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+				</div>
+			</div>											
+		</form>
+	</div>
+</div>	
+
+<%} %>

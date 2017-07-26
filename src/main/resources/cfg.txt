@@ -1,0 +1,174 @@
+#---------------------------------------------------------------------------------#
+#  database　Config
+# 1. db.active:ture, use db;
+# 2. db.dscnt: db datasource count;
+# 3. db.cfgname*: configname;
+# 4. db.url*: db url;
+# 5. db.user: db username;
+# 6. db.password: db password, 
+#	use `java -cp druid-xx.jar com.alibaba.druid.filter.config.ConfigTools your_password`
+#	java -cp druid-1.0.29.jar com.alibaba.druid.filter.config.ConfigTools KhoY6A7Exh7T
+#   得到 publickey/privatekey/password，配置publickey和password到配置
+#	generate your encrypt password;
+# 7. db.initsize: db pool init size;
+# 8. db.maxactive: db pool maxactive;
+# 9. db.showsql: ture, show execute sql;
+# 10. db.localdev.usesystem: 是否包含系统mapping的model
+#---------------------------------------------------------------------------------#
+db.ds = localdev,test,prod
+db.localdev.active = true
+db.localdev.url = localhost:3306/job
+db.localdev.dbtype = mysql
+db.localdev.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOxCRVdIy/YGy823SUVTplSCc2cRnYJsuMBizk/wMsJ5OBTMxsFvbJ3yj+MaGQrrGTuJad9Vp9pmAZGxBemuxzkCAwEAAQ==
+db.localdev.user = root
+db.localdev.password = Ai5/E3gskcVdtgsW6CPy/UQEpJA0AOAT4AiJaQfOBWprLbKsyxqjXr4s+TmTHvqfFgExEcfya3iI4ACM/TKTng==
+db.localdev.initsize = 1
+db.localdev.maxactive = 10
+db.localdev.showsql = true
+db.localdev.usesystem = true
+
+db.test.active = false
+db.test.url = localhost:3306/jruc-admin
+db.test.dbtype = mysql
+db.test.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOYTCY018G6SRYLh+fZ8jIg/CB3yhbYTvUl5loTJrrHA2ed/CJBW8y4chojMnrCJkcRbvVBkzcOPZtU3OakKh1ECAwEAAQ==
+db.test.user = testuser
+db.test.password = bNVOqb7WKLX5Bjnw+LMv92taj25KOxDimXxILPQjw42wgv+1lHzOH8kr97xDwWdhpY67QuYCS7sWN4W46YbkFA==
+db.test.initsize = 1
+db.test.maxactive = 10
+db.test.showsql = false
+db.test.usesystem = true
+
+db.prod.active = false
+db.prod.url = localhost:3306/jruc-admin
+db.prod.dbtype = mysql
+db.prod.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOYTCY018G6SRYLh+fZ8jIg/CB3yhbYTvUl5loTJrrHA2ed/CJBW8y4chojMnrCJkcRbvVBkzcOPZtU3OakKh1ECAwEAAQ==
+db.prod.user = produser
+db.prod.password = bNVOqb7WKLX5Bjnw+LMv92taj25KOxDimXxILPQjw42wgv+1lHzOH8kr97xDwWdhpY67QuYCS7sWN4W46YbkFA==
+db.prod.initsize = 10
+db.prod.maxactive = 100
+db.prod.showsql = false
+db.prod.usesystem = true
+#---------------------------------------------------------------------------------#
+# Generator Config
+# 1. ge.dict: true, generate the data dict;
+# 2. ge.base.model.outdir: the basemodel output dir path;  写绝对位置稳定不出错
+# 3. ge.base.model.package: the basemodel package;
+# 4. ge.model.outdir: the model output dir path;
+# 5. ge.model.package: the model package;
+# 6. ge.removedtablenameprefixes: 需要移除表名前缀只留下后部分
+# 7. ge.excludedtable: 生成时不包含表名列表
+# 8. ge.excludedtableprefixes：生成时不包含的表名前缀
+#---------------------------------------------------------------------------------#
+ge.localdev.dict=true
+ge.localdev.base.model.outdir=E:/jFinal/jruc-job/src/main/java/com/admin/web/model/base
+ge.localdev.base.model.package=com.admin.web.model.base
+ge.localdev.model.outdir=E:/jFinal/jruc-job/src/main/java/com/admin/web/model
+ge.localdev.model.package=com.admin.web.model
+ge.localdev.removedtablenameprefixes=
+ge.localdev.excludedtable=
+ge.localdev.excludedtableprefixes=system_,website_,temp_,v_
+
+ge.test.dict=true
+ge.test.base.model.outdir=./src/main/java/com/admin/web/model/base
+ge.test.base.model.package=com.admin.web.model.base
+ge.test.model.outdir=./src/main/java/com/admin/web/model
+ge.test.model.package=com.admin.web.model
+ge.test.removedtablenameprefixes=T_,t_
+ge.test.excludedtable=
+ge.test.excludedtableprefixes=system_,website_,temp_,v_
+
+ge.prod.dict=true
+ge.prod.base.model.outdir=./src/main/java/com/admin/web/model/base
+ge.prod.base.model.package=com.admin.web.model.base
+ge.prod.model.outdir=./src/main/java/com/admin/web/model
+ge.prod.model.package=com.admin.web.model
+ge.prod.removedtablenameprefixes=T_,t_
+ge.prod.excludedtable=
+ge.prod.excludedtableprefixes=system_,website_,temp_,v_
+#---------------------------------------------------------------------------------#
+## App Config
+# 1. app.dev: true, the app is debug mode;
+# 2. app.upload.basedir: upload file save base dir;
+# 3. app.post: ture, use Http Post method;
+# 4. app.name: app's name;
+#---------------------------------------------------------------------------------#
+
+#---------------------------------------------------------------------------------#
+#app config
+app.dev = true
+app.uploads.basedir = /var/uploads
+app.downloads.basedir = /var/downloads
+app.post = false
+app.name = 华人老板
+#---------------------------------------------------------------------------------#
+
+## APP更新使用
+#---------------------------------------------------------------------------------#
+#app update
+app.update.version = 2.0.2
+app.update.wgtfilename = app/update/update.wgt
+app.update.desc = 提高用户体验，修复一些已知问题。
+#---------------------------------------------------------------------------------#
+
+##微信公众号 config
+#---------------------------------------------------------------------------------#
+weixin.url = https://hboss.htmlk.cn
+weixin.token = hbossjob
+weixin.appid = wx3ce66e0d82944807
+weixin.appSecret = 610a20439b871eeee479b06cbec091b7
+#是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
+weixin.encryptMessage = false
+weixin.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
+#---------------------------------------------------------------------------------#
+
+##微信服务号 config
+#---------------------------------------------------------------------------------#
+service.url = https://hboss.htmlk.cn
+service.token = hbossService
+service.appid = wxc6fffa9280cb63e9
+service.appSecret = fkstU85z6jTcznsUydiElAIImloDgP9NlZLSooPE3RA
+#是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
+service.encryptMessage = false
+service.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
+#---------------------------------------------------------------------------------#
+
+
+
+##微信小程序
+#---------------------------------------------------------------------------------#
+wxaapp.appid = wx0690ff14d4e29e03
+wxaapp.appSecret = d15393a2b833837b2cbe94e0c3089f7c
+
+#---------------------------------------------------------------------------------#
+
+
+## 阿里云OSS配置
+#---------------------------------------------------------------------------------#
+file.oss.endpoint = http://oss-cn-beijing.aliyuncs.com
+file.oss.accessId = youraccessId
+file.oss.accessKey = youraccessKey
+file.oss.bucket = yourbucket
+file.oss.download = http://yourbucket.oss-cn-beijing.aliyuncs.com
+#---------------------------------------------------------------------------------#
+
+#---------------------------------------------------------------------------------#
+#ueditor config
+file.ueditor.endpoint = http://oss-cn-beijing.aliyuncs.com
+file.ueditor.accessId = youraccessId
+file.ueditor.accessKey = youraccessKey
+file.ueditor.bucket = yourbucket
+#---------------------------------------------------------------------------------#
+
+#---------------------------------------------------------------------------------#
+#aliyun sms config
+sms.aliyun.accessId = yoursmsaccessId
+sms.aliyun.accessKey = yoursmsaccessKey
+#---------------------------------------------------------------------------------#
+
+#---------------------------------------------------------------------------------#
+#aliyun message service sms config
+sms.ms.aliyun.accessId = yourmsaccessId
+sms.ms.aliyun.accessKey = yourmsaccessKey
+sms.ms.aliyun.mnsEndpoint = https://1962790071204690.mns.cn-beijing.aliyuncs.com
+sms.ms.aliyun.topic = sms.topic-cn-beijing
+#---------------------------------------------------------------------------------#

@@ -1,0 +1,107 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+function deleteByid(id) {
+	bootbox.confirm("确定删除 ?", function(result) {
+		if(result) {
+			location.href = "${ctxPath}/system/role/delete?id=" + id;
+		}
+	});
+}
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'角色管理', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">角色查询</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/system/role" method="get">
+			<input type="hidden" name="page" />
+			<label>名称</label>
+			<input type="text" class="input-small" name="name" placeholder="角色名称" value="${name!}"/>
+			<label>描述</label>
+			<input type="text" class="input-small" name="des" placeholder="角色描述" value="${des!}"/> 
+			<button type="submit" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>查询
+			</button>
+			<% if (so.hasPermission("/system/role/add")) { %>
+			<a type="button" href="${ctxPath}/system/role/add" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>新增
+			</a>
+			<% } %>
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th data-width="5%">编号</th>
+      <th data-width="15%">名称</th>
+      <th data-width="20%">描述</th>
+      <th data-width="5%">排序</th>
+      <th data-width="5%">状态</th>
+      <th data-width="15%">创建时间</th>
+      <th data-width="10%">最后更新人</th>
+      <th data-width="15%">最后更新时间</th>
+      <th data-width="10%">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td>${item.id}</td>
+    <td>${item.name}</td>
+    <td>${item.des}</td>
+    <td>${item.seq}</td>
+    <td>${valuedesc("STATUS_COMMON", item.status)}</td>
+    <td>${item.createdate}</td>
+    <td>${item.lastUpdAcct}</td>
+    <td>${item.lastUpdTime}</td> 
+	<td>
+		<div class="hidden-sm hidden-xs action-buttons">
+			<% if (so.hasPermission("/system/role/update")) { %> 
+			<a title="设置" class="green" href="${ctxPath}/system/role/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a> 
+			<% } %>
+			<% if (so.hasPermission("/system/role/delete")) { %>
+			<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+			<% } %>
+		</div>
+
+		<div class="hidden-md hidden-lg">
+			<div class="inline position-relative">
+				<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"><i class="ace-icon fa fa-caret-down bigger-110"></i></button>
+				<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+					<% if (so.hasPermission("/system/role/update")) { %>
+					<li><a href="${ctxPath}/system/role/update?id=${item.id}" class="tooltip-success" data-rel="tooltip" title="设置"> <span class="green"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i></span></a></li>
+					<% } %>
+					<% if (so.hasPermission("/system/role/delete")) { %>
+					<li><a href="javascript:deleteByid(${item.id});" class="tooltip-error" data-rel="tooltip" title="删除"> <span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span></a></li>
+					<% } %>				
+				</ul>
+			</div>
+		</div>
+	</td>          
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/system/role" page="${page}" params="name,des"/>
+
+</div>
+<%} %>

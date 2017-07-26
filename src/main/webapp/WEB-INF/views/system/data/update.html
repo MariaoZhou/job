@@ -1,0 +1,104 @@
+<% var pageJavaScript = { %>
+<script>
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'数据字典 - 修改数据', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		修改数据
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/system/data/do_update" method="post">
+			${token}
+			<input type="hidden" name="info.id" value="${info.id!}" />
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 代码 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.code" placeholder="代码" class="col-xs-10 col-sm-5" value="${info.code!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${codeMsg!}</span>
+					</span>						
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 代码描述 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.codeDesc" placeholder="代码描述" class="col-xs-10 col-sm-5" value="${info.codeDesc!}"/> 
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${codeDescMsg!}</span>
+					</span>					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 类型编码 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.type" placeholder="类型编码" class="col-xs-10 col-sm-5" value="${info.type!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${typeMsg!}</span>
+					</span>	
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 类型描述 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.typeDesc" placeholder="类型描述" class="col-xs-10 col-sm-5" value="${info.typeDesc!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${typeDescMsg!}</span>
+					</span>	
+				</div>
+			</div>	
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 排序号 </label>
+				<div class="col-sm-9">
+					<input type="number" name="info.orderNo" placeholder="排序号" class="col-xs-10 col-sm-5" value="${info.orderNo!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${orderNoMsg!}</span>
+					</span>	
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='status' name='info.status' class='form-control' key='STATUS_COMMON' value='${info.status!}' pleaseSelect = '请选择状态'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${statusMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>			
+			
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="${ctxPath}/system/data" class="btn">
+						返回
+					</a>
+				</div>
+			</div>											
+		</form>
+	</div>
+</div>	
+
+<%} %>

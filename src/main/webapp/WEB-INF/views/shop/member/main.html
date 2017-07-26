@@ -1,0 +1,129 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+
+function deleteByid(id) {
+	bootbox.confirm("确定删除 ?", function(result) {
+		if(result) {
+			location.href = "${ctxPath}/shop/member/delete?id=" + id;
+		}
+	});
+}
+var myModalTrigger =$.zui.modalTrigger;
+
+function showPoints(id, points) {
+    myModalTrigger.toggle({custom: '当前积分： <input type="text" class="input-md" id="points" value="0"/>' + '<button class="btn btn-info btn-sm" onclick="updatePoints('+id+')" style="margin-left: 20px">确认</button>', title:"调整积分"});
+}
+function updatePoints(id) {
+    var points = $('#points').val();
+    myModalTrigger.close();
+    location.href = "${ctxPath}/shop/member/updatePoints?id=" + id + "&points=" + points;
+}
+function updateState(id, state) {
+    location.href = "${ctxPath}/shop/member/updateState?id=" + id + "&state=" + state;
+}
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'会员管理', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">会员查询</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/shop/member" method="get">
+			<input type="hidden" name="page" />
+			<label>电话号码</label>
+			<input type="text" class="input-md" name="mobile" placeholder="电话号码" value="${mobile!}"/>
+			<label>用户名</label>
+			<input type="text" class="input-md" name="name" placeholder="用户名" value="${name!}"/>
+
+			<button type="submit" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>查询
+			</button>
+			<% if (so.hasPermission("/shop/member/add")) { %>
+			<a type="button" href="${ctxPath}/shop/member/add" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>新增
+			</a>
+			<% } %>
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr class="text-center">
+        <th data-width="3%">编号</th>
+		<th data-width="10%">用户名</th>
+		<th data-width="7%">分组名称</th>
+		<th data-width="3%">区号</th>
+		<th data-width="10%">电话</th>
+		<th data-width="7%">会员级别</th>
+		<th data-width="7%">当前积分</th>
+		<th data-width="3%">状态</th>
+		<th data-width="5%">国家</th>
+		<th data-width="5%">语言</th>
+		<th data-width="10%">创建时间</th>
+		<th data-width="10%">最后登陆时间</th>
+		<th data-width="7%">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td>${item.id}</td>
+    <td>${item.name}</td>
+    <td>${item.groupName!}</td>
+    <td>+${item.mobileCode}</td>
+    <td>${item.mobile}</td>
+    <td>${valuedesc("MEMBER_LEVEL",item.level)}</td>
+    <td>${item.points!}</td>
+    <td>${valuedesc("STATE", item.state)}</td>
+    <td>${valuedesc("COUNTRY",item.country)}</td>
+    <td>${valuedesc("LANGUAGE",item.language)}</td>
+    <td>${item.createDate!,dateFormat="yyyy-MM-dd HH:mm"}</td>
+    <td>${item.loginDate!,dateFormat="yyyy-MM-dd HH:mm"}</td>
+	<td>
+		<div class="hidden-sm hidden-xs action-buttons">
+		<% if (so.hasPermission("/shop/member/update")) { %>
+			<a title="编辑" class="green" href="${ctxPath}/shop/member/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a>
+		<% } %>	
+		<% if (so.hasPermission("/shop/member/delete")) { %>
+			<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+		<% } %>
+
+		<% if (so.hasPermission("/shop/member/update")) { %>
+			<a title="调整积分" class="blue" href="javascript:showPoints('${item.id}','${item.points}');"> <i class="ace-icon fa icon-leaf bigger-130"></i></a>
+		<% } %>
+
+		<% if (so.hasPermission("/shop/member/update")) { %>
+			<% if(item.state == "1") {%>
+			<a title="激活会员" class="green" href="javascript:updateState('${item.id}','0');"> <i class="icon-check-circle-o bigger-130"></i></a>
+			<% } else if (item.state == "0") {%>
+			<a title="冻结会员" class="red" href="javascript:updateState('${item.id}','1');"> <i class="icon-remove-circle bigger-130"></i></a>
+			<% } %>
+		<% } %>
+		</div>
+
+	</td>         
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/shop/member" page="${page}" params="mobile,name"/>
+
+</div>
+<%} %>

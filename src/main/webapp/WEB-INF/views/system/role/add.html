@@ -1,0 +1,132 @@
+<% var pageJavaScript = { %>
+<script>
+		var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onCheck: onCheck
+			}			
+		};
+
+		var zNodes = ${urls};
+
+		$(document).ready(function(){
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		});
+		
+		function onCheck(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			var selectNodes = zTree.getCheckedNodes(true);
+			
+            var ids = "";
+            for (var i=0; i < selectNodes.length; i++) {
+            	ids += selectNodes[i].id + ",";
+            }			
+            $("#resIds").val(ids);
+		}		
+		
+		
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'角色管理', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="page-header">
+	<h1>
+		新增角色
+	</h1>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal" role="form" action="${ctxPath}/system/role/do_add" method="post">
+			${token}
+			<input type="hidden" name="info.id" value="${info.id!}" />
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 角色名称 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.name" placeholder="角色名称" class="col-xs-10 col-sm-5" value="${info.name!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${nameMsg!}</span>
+					</span>						
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 角色描述 </label>
+				<div class="col-sm-9">
+					<input type="text" name="info.des" placeholder="角色描述" class="col-xs-10 col-sm-5" value="${info.des!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${desMsg!}</span>
+					</span>						
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 排序号 </label>
+				<div class="col-sm-9">
+					<input type="number" name="info.seq" placeholder="排序号" class="col-xs-10 col-sm-5" value="${info.seq!}"/>
+					<span class="help-inline col-xs-12 col-sm-7"> 
+						<span class="middle red">${seqMsg!}</span>
+					</span>	
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<#select id='status' name='info.status' class='form-control' key='STATUS_COMMON' value='${info.status!}' pleaseSelect = '请选择状态'/>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${statusMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>		
+
+			<input type="hidden" id="resIds" name="resIds" />
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 权限设置</label>
+				<div class="col-sm-9">
+					<div class="col-xs-10 col-sm-5 no-padding">
+						<ul id="tree" class="ztree"></ul>
+					</div>
+					<div class="col-xs-12 col-sm-7 no-padding">
+						<span class="help-inline col-xs-12 col-sm-7"> 
+							<span class="middle red">${resMsg!}</span>
+						</span>		
+					</div>	
+				</div>			
+			</div>	
+			
+			<div class="clearfix form-actions">
+				<div class="col-md-offset-3 col-md-9">
+					<button class="btn btn-info" type="submit">
+						<i class="ace-icon fa fa-check bigger-110"></i> 提交
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<button class="btn" type="reset">
+						<i class="ace-icon fa fa-undo bigger-110"></i> 重置
+					</button>
+					&nbsp; &nbsp; &nbsp;
+					<a href="${ctxPath}/system/role/index" class="btn">
+						返回
+					</a>					
+				</div>
+			</div>											
+		</form>
+	</div>
+</div>	
+
+<%} %>

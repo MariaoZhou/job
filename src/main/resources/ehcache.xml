@@ -1,0 +1,38 @@
+<ehcache>
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="/system/log" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<!-- 
+	cacheEventListenerFactory 注册相应的的缓存监听类,用于处理缓存事件.
+	replicateAsynchronously true|false 复制操作是异步(ture),还是同步(false)默认值为true.
+	replicatePuts true|false 当新对象被放入缓存,集群内其他缓存也放入,默认为true.
+	replicateUpdates true|false 新对象覆盖已经存在具有相同key的对象是否被复制,默认值为true.
+	replicateUpdatesViaCopy true|false 直接将更新之后的对象复制到集群中的其他缓存(true);不复制对象,只想集群众的其他缓存发布一个对象更新的消息(false),默认为true.
+	replicateRemovals true|false 对象被移除,是否复制状态到集群中其他缓存,默认true.
+	-->
+
+	<!-- keyValue 数据 不会过期 手动刷新 -->
+	<cache name="keyValue" maxElementsInMemory="10000" eternal="true"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>
+
+	<!-- pageCache 页面数据 不会过期 手动刷新 -->
+	<cache name="pageCache" maxElementsInMemory="1000" eternal="true"
+		memoryStoreEvictionPolicy="LRU">
+	</cache>		
+		
+
+	<!-- 最大存活 1小时 如果30分钟没访问则 30分钟失效 -->
+	<cache name="h1m30" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="true"
+		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+</ehcache>

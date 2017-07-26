@@ -1,0 +1,61 @@
+<% var pageJavaScript = { %>
+<script>
+$(document).ready(function() {
+    $("#myArticleForm").ajaxForm({
+        dataType: "json",
+        success: function(data) {
+            bootbox.alert(data.msg);
+        },
+        error: function(data) {}
+    });
+});    
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'Excel导入/导出', pageJavaScript:pageJavaScript}){
+%>
+
+<div class="row">
+	<div class="col-xs-12">
+
+		<form id="myArticleForm" action="${ctxPath}/job/pc/excelImport" method="post" enctype=”multipart/form-data”>
+            <div class="page-header">
+                <h1>
+                    Excel导入
+                </h1>
+            </div>
+
+            <div>
+                <input type="file" name="file" id="file" class="col-xs-3">
+                <button type="submit" class="btn btn-default" class="col-xs-3">确认上传</button>
+            </div>
+            <div style="margin-top: 30px;color: red">
+                <p>导入不会删除原有的数据</p>
+                <p>建议使用导出的 Excel 为模板进行导入</p>
+            </div>
+
+
+            <div class="page-header" style="margin-top: 50px">
+                <h1>
+                    Excel导出
+                </h1>
+            </div>
+            <a type="button" href="${ctxPath}/job/pc/excelDownload" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>导出Excel文件
+            </a>
+
+
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <a href="#" onClick="history.go(-1);" class="btn">
+                        返回
+                    </a>
+                </div>
+            </div>
+		</form>
+
+	</div>
+</div>	
+
+<%} %>

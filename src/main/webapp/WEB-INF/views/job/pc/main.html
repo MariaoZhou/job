@@ -1,0 +1,122 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+
+    //$('table.datatable').datatable({checkable: false, sortable: true});
+    $('#checkAll').click(function(){
+        $('input[name="job_ids"]').attr("checked",this.checked);
+    });
+
+
+
+});
+
+function deleteByid(id) {
+	bootbox.confirm("确定删除 ?", function(result) {
+		if(result) {
+			location.href = "${ctxPath}/job/pc/delete?id=" + id;
+		}
+	});
+}
+
+function deleteAll() {
+    var ids = [];
+
+    bootbox.confirm("确定删除 ?", function(result) {
+
+        if(result) {
+            $('input[name="job_ids"]:checked').each(function(){
+                ids.push($(this).val());
+            });
+
+            location.href = "${ctxPath}/job/pc/delete?id=" + ids.join();
+        }
+    });
+
+}
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'职位管理', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">职位列表</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/job/pc" method="get">
+			<input type="hidden" name="page" />
+			<label>职位标题</label>
+			<input type="text" class="input-large" name="job" placeholder="职位名称" value="${job!}"/>
+			<label style="margin-left: 30px">国家</label>
+            <#select id='status' name='country' class='form-control' key='COUNTRY' value='${country!}' pleaseSelect = '请选择国家'/>
+			<button type="submit" class="btn btn-info btn-sm" style="margin-left: 30px">
+				<i class="ace-icon fa fa-key bigger-110"></i>查询
+			</button>
+
+            <button type="button" onclick="deleteAll()" class="btn btn-info btn-sm" style="margin-left: 30px">
+                <i class="ace-icon fa fa fa-trash-o bigger-110"></i>删除当前选中
+            </button>
+
+			<a type="button" href="${ctxPath}/job/pc/excel" class="btn btn-info btn-sm" style="margin-left: 30px">导入/导出</a>
+			<% if (so.hasPermission("/job/pc/add")) { %>
+			<a type="button" href="${ctxPath}/job/pc/add" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>新增
+			</a>
+			<% } %>
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+
+        <th data-width="3%"><input type="checkbox" id="checkAll"></th>
+        <th data-width="5%">编号</th>
+        <th data-width="25%">职位标题</th>
+        <th data-width="10%">国家</th>
+        <th data-width="45%">职位详情</th>
+        <th data-width="10%">联系电话</th>
+        <th data-width="5%">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td><input type="checkbox" name="job_ids" value="${item.id}"></td>
+    <td>${item.id}</td>
+    <td>${item.job}</td>
+    <td>${item.country}</td>
+    <td>${item.jobDetail}</td>
+    <td>${item.tel}</td>
+
+	<td>
+		<div class="hidden-sm hidden-xs action-buttons">
+		<% if (so.hasPermission("/job/pc/update")) { %>
+			<a title="编辑" class="green" href="${ctxPath}/system/user/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a> 
+		<% } %>	
+		<% if (so.hasPermission("/job/pc/delete")) { %>
+			<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+		<% } %>
+		</div>
+
+	</td>         
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/job/pc" page="${page}" params="job,country"/>
+
+</div>
+<%} %>
