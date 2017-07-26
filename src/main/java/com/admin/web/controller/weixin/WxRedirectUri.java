@@ -56,9 +56,7 @@ public class WxRedirectUri extends BaseBussinessController {
 	
 	public void oauth() {
 		String appId = ApiConfigKit.getAppId();
-		String redirectUri = null;
-
-			//redirectUri = URLEncoder.encode(PropKit.get("weixin.url")+"/oauth2", "UTF-8");
+		String redirectUri = "http://test.13701918.com/oauth2";
 
 		String state = System.currentTimeMillis() + "";
 

@@ -99,7 +99,7 @@ public class AppConfig extends AppBaseConfig {
         serviceAC.setAppId(PropKit.get("service.appid"));
         serviceAC.setAppSecret(PropKit.get("service.appSecret"));
 
-		ApiConfigKit.putApiConfig(ac);
+//		ApiConfigKit.putApiConfig(ac);
 		ApiConfigKit.putApiConfig(serviceAC);
 
 	    //CacheExtKit.use(CacheExtKit.REDIS_TYPE);

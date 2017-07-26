@@ -8,14 +8,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Duang;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.api.*;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
+import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.wxaapp.api.WxaUserApi;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Date;
 
 /**
@@ -131,61 +129,6 @@ public class WxaUserApiController extends BaseBussinessController {
 		}
 
 	}
-
-	/**
-	 * 公众号 网页授权
-	 */
-	public void apiLogin() {
-		//用户同意授权，获取code
-		String code   = getPara("code");
-		if (StrKit.isBlank(code)) {
-			renderText("code is Blank!");
-		}
-		String appId  = ApiConfigKit.getAppId();
-		String secret = ApiConfigKit.getApiConfig().getAppSecret();
-		SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
-
-		System.out.println("snsAccessToken: " + snsAccessToken);
-		String openId = snsAccessToken.getOpenid();
-		String token  = snsAccessToken.getAccessToken();
-
-		//拉取用户信息(需scope为 snsapi_userinfo)
-		ApiResult apiResult = SnsApi.getUserInfo(token, openId);
-		System.out.println("openId: " + openId);
-
-		String nickname = apiResult.get("nickname");
-		String sex = apiResult.get("sex");
-		String city = apiResult.get("city");
-		String province = apiResult.get("province");
-		String country = apiResult.get("country");
-		String headimgurl = apiResult.get("headimgurl");
-
-		System.out.println("nickname:"+nickname);
-		System.out.println("sex:" + sex);//用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
-		System.out.println("city:" + city);//城市
-		System.out.println("province:" + province);//省份
-		System.out.println("country:" + country);//国家
-		System.out.println("headimgurl:" + headimgurl);
-
-		renderText("apiResult:" + apiResult);
-	}
-
-
-	public void apiOauth() {
-		String appId = ApiConfigKit.getAppId();
-		String redirectUri = "";
-		try {
-			redirectUri = URLEncoder.encode(PropKit.get("weixin.url"), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-
-		String state = System.currentTimeMillis() + "";
-
-		String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
-		redirect(url);
-	}
-
 
 	@Override
 	public void onExceptionError(Exception e) {renderJson(R.error("接口调用异常"));}
