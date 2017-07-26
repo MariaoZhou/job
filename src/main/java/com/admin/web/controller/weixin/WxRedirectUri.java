@@ -61,7 +61,7 @@ public class WxRedirectUri extends BaseBussinessController {
 		String appId = ApiConfigKit.getAppId();
         String redirectUri = null;
         try {
-            redirectUri = URLEncoder.encode("http://test.13701918.com/oauth2", "UTF-8");
+            redirectUri = URLEncoder.encode("http://test.13701918.com/wx/oauth2", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
