@@ -5,6 +5,9 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * @author Javen
  * 2015年12月5日下午2:20:44
@@ -56,9 +59,14 @@ public class WxRedirectUri extends BaseBussinessController {
 	
 	public void oauth() {
 		String appId = ApiConfigKit.getAppId();
-		String redirectUri = "http://test.13701918.com/oauth2";
+        String redirectUri = null;
+        try {
+            redirectUri = URLEncoder.encode("http://test.13701918.com/oauth2", "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-		String state = System.currentTimeMillis() + "";
+        String state = System.currentTimeMillis() + "";
 
 		String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
 		redirect(url);
