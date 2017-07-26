@@ -69,7 +69,9 @@ public class WxRedirectUri extends BaseBussinessController {
         String state = System.currentTimeMillis() + "";
 
 		String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
-		redirect(url);
+        System.out.println("url = " + url);
+        renderText(url);
+		//redirect(url);
 	}
 
 	@Override
