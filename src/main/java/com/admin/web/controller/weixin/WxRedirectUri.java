@@ -1,6 +1,8 @@
 package com.admin.web.controller.weixin;
 
 import com.admin.web.base.BaseBussinessController;
+import com.admin.web.model.weixin.WxUserInfo;
+import com.admin.web.util.WxUtils;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.*;
@@ -26,34 +28,21 @@ public class WxRedirectUri extends BaseBussinessController {
 		String secret = ApiConfigKit.getApiConfig().getAppSecret();
 		SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
 
-		System.out.println("snsAccessToken: " + snsAccessToken);
 		String openId = snsAccessToken.getOpenid();
 		String token  = snsAccessToken.getAccessToken();
 
 		//拉取用户信息(需scope为 snsapi_userinfo)
 		ApiResult apiResult = SnsApi.getUserInfo(token, openId);
-		System.out.println("openId: " + openId);
+		System.out.println("apiResult: " + apiResult);
 
-		String nickname = apiResult.get("nickname");
-		String sex = apiResult.get("sex");
-		String city = apiResult.get("city");
-		String province = apiResult.get("province");
-		String country = apiResult.get("country");
-		String headimgurl = apiResult.get("headimgurl");
+        try {
+            WxUserInfo userInfo = WxUtils.wxUserInfo(apiResult);
+            renderText("WxUserInfo:" + userInfo.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		System.out.println("nickname:"+nickname);
-	/*	try {
-			System.out.println("nickname:"+URLEncoder.encode(nickname, "utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}*/
-		System.out.println("sex:" + sex);//用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
-		System.out.println("city:" + city);//城市
-		System.out.println("province:" + province);//省份
-		System.out.println("country:" + country);//国家
-		System.out.println("headimgurl:" + headimgurl);
 
-		renderText("apiResult:" + apiResult);
 	}
 	
 	
