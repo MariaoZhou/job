@@ -87,11 +87,11 @@ public class AppConfig extends AppBaseConfig {
 
 		/** 公众号 订阅号*/
 
-		ApiConfig ac = new ApiConfig();
+/*		ApiConfig ac = new ApiConfig();
 		// 配置微信 API 相关参数
 		ac.setToken(PropKit.get("weixin.token"));
 		ac.setAppId(PropKit.get("weixin.appid"));
-		ac.setAppSecret(PropKit.get("weixin.appSecret"));
+		ac.setAppSecret(PropKit.get("weixin.appSecret"));*/
 
         /** 公众号 服务号*/
         ApiConfig serviceAC = new ApiConfig();

@@ -126,7 +126,7 @@ weixin.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 service.url = https://hboss.htmlk.cn
 service.token = hbossService
 service.appid = wxc6fffa9280cb63e9
-service.appSecret = fkstU85z6jTcznsUydiElAIImloDgP9NlZLSooPE3RA
+service.appSecret = f3a1cbde291ec0ef3bb5c1c002f32c27
 #是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
 service.encryptMessage = false
 service.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
