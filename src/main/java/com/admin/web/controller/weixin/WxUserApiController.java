@@ -67,6 +67,7 @@ public class WxUserApiController extends BaseBussinessController {
 
             if (StrKit.notBlank(state)){
                 state = state.replace("okid",openId);
+                System.out.println("jobService = " + state);
                 redirect(state);
             }else {
                 // TODO 重定向 默认错误页
