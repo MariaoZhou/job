@@ -8,9 +8,9 @@ import com.admin.web.util.R;
 import com.admin.web.util.WxUtils;
 import com.jfinal.aop.Duang;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.api.UserApi;
+import com.jfinal.weixin.sdk.api.*;
 
 import java.util.Date;
 
@@ -23,6 +23,57 @@ import java.util.Date;
  */
 @ControllerBind(controllerKey = "/wx/user")
 public class WxUserApiController extends BaseBussinessController {
+
+    /**
+     * 用户授权登录
+     */
+    public void login(){
+        //用户同意授权，获取code
+        String code   = getPara("code");
+        if (StrKit.isBlank(code)) {
+            renderJson(R.error("未获取到 weixin code 信息"));
+            return;
+        }
+        String appId  = PropKit.get("service.appid");
+        String secret = PropKit.get("service.appSecret");
+        SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
+
+        String openId = snsAccessToken.getOpenid();
+        String token  = snsAccessToken.getAccessToken();
+
+        //拉取用户信息(需scope为 snsapi_userinfo)
+        ApiResult apiResult = SnsApi.getUserInfo(token, openId);
+
+        try {
+            WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
+            System.out.println("wxUserInfo ========== " + wxUserInfo.toString());
+            JobMember member = new JobMember();
+            member.setOpenId(wxUserInfo.getOpenid());
+            //member.setName(userJson.getString("nickName"));
+            member.setLanguage(wxUserInfo.getLanguage());
+            member.setImage(wxUserInfo.getHeadimgurl());	//头像
+            member.setCountry(wxUserInfo.getCountry());	//国家
+            member.setSex(wxUserInfo.getSex());			//性别 值为1时是男性，值为2时是女性，值为0时是未知
+            member.setRole("0");						//默认角色  应聘者
+            member.setState("0");						//状态 激活
+            member.setCreateDate(new Date());
+            member.setMobileCode(wxUserInfo.getProvince());	//城市 拼音 全拼 TODO 暂时使用 mobileCode字段
+
+            JobMemberService jobService = Duang.duang(JobMemberService.class);
+            System.out.println("jobmember =======" + member.toString());
+            member = jobService.saveAndUpdateMember(member);
+
+            renderJson(R.ok().put(member));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            renderJson(R.error("用户信息错误, 请确定参数是否正确"));
+        }
+
+
+
+    }
+
 
 	/**
 	 * 通过 openid 查询 微信用户信息

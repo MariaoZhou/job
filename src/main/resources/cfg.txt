@@ -123,7 +123,8 @@ weixin.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 
 ##微信服务号 config
 #---------------------------------------------------------------------------------#
-service.url = https://hboss.htmlk.cn
+#service.url = https://hboss.htmlk.cn
+service.url = http://test.13701918.com
 service.token = hbossService
 service.appid = wxc6fffa9280cb63e9
 service.appSecret = f3a1cbde291ec0ef3bb5c1c002f32c27

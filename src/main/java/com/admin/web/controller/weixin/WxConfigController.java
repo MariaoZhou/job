@@ -6,10 +6,13 @@ import com.admin.web.util.WxUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.HashKit;
+import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.*;
 import org.omg.CORBA.Object;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -17,6 +20,27 @@ import java.util.*;
  */
 @ControllerBind(controllerKey = "/weixin/config")
 public class WxConfigController extends Controller {
+
+    /**
+     *  服务号授权跳转
+     */
+    public void oauth() {
+        String appId = PropKit.get("service.appid");
+        String redirectUri = null;
+        try {
+            redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String state = System.currentTimeMillis() + "";
+
+        String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
+        System.out.println("url = " + url);
+        //renderText(url);
+        redirect(url);
+    }
+
 
     /**
      *
