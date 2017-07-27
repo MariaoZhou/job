@@ -33,7 +33,7 @@ public class WxConfigController extends Controller {
             e.printStackTrace();
         }
 
-        String state = System.currentTimeMillis() + "";
+        String state = "http://www.baidu.com";
 
         String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
         System.out.println("url = " + url);

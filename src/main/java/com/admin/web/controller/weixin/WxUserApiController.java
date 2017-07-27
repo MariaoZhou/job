@@ -28,6 +28,9 @@ public class WxUserApiController extends BaseBussinessController {
      * 用户授权登录
      */
     public void login(){
+
+        String state   = getPara("state");
+        System.out.println("state ::: " + state);
         //用户同意授权，获取code
         String code   = getPara("code");
         if (StrKit.isBlank(code)) {
