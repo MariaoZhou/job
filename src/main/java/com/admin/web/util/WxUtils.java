@@ -41,6 +41,11 @@ public class WxUtils {
 
         System.out.println("ApiResult :::: "+r.toString());
 
+
+        if (r.get("errcode")!=null){
+            throw new Exception();
+        }
+
         String city = "";
         if (r.get("city")!=null){
             city = r.get("city").toString();

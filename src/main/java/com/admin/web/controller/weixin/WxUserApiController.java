@@ -29,10 +29,9 @@ public class WxUserApiController extends BaseBussinessController {
      */
     public void login(){
 
-        String state   = getPara("state");
-        System.out.println("state ::: " + state);
+        String state = getPara("state","");
         //用户同意授权，获取code
-        String code   = getPara("code");
+        String code = getPara("code");
         if (StrKit.isBlank(code)) {
             renderJson(R.error("未获取到 weixin code 信息"));
             return;
@@ -49,7 +48,7 @@ public class WxUserApiController extends BaseBussinessController {
 
         try {
             WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
-            System.out.println("wxUserInfo ========== " + wxUserInfo.toString());
+
             JobMember member = new JobMember();
             member.setOpenId(wxUserInfo.getOpenid());
             //member.setName(userJson.getString("nickName"));
@@ -64,9 +63,14 @@ public class WxUserApiController extends BaseBussinessController {
 
             JobMemberService jobService = Duang.duang(JobMemberService.class);
             System.out.println("jobmember =======" + member.toString());
-            member = jobService.saveAndUpdateMember(member);
+            jobService.saveAndUpdateMember(member);
 
-            renderJson(R.ok().put(member));
+            if (StrKit.notBlank(state)){
+                state = state.replace("okid",openId);
+                redirect(state);
+            }else {
+                // TODO 重定向 默认错误页
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +83,7 @@ public class WxUserApiController extends BaseBussinessController {
 
 
 	/**
-	 * 通过 openid 查询 微信用户信息
+	 * 通过 openid 查询 微信用户信息(不再使用)
 	 */
 	public void findWxUserInfo () {
 		String openid = getPara("openid");
