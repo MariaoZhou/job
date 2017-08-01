@@ -20,7 +20,7 @@ db.localdev.active = true
 db.localdev.url = localhost:3306/job
 db.localdev.dbtype = mysql
 db.localdev.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOxCRVdIy/YGy823SUVTplSCc2cRnYJsuMBizk/wMsJ5OBTMxsFvbJ3yj+MaGQrrGTuJad9Vp9pmAZGxBemuxzkCAwEAAQ==
-db.localdev.user = root
+db.localdev.user = shop
 db.localdev.password = Ai5/E3gskcVdtgsW6CPy/UQEpJA0AOAT4AiJaQfOBWprLbKsyxqjXr4s+TmTHvqfFgExEcfya3iI4ACM/TKTng==
 db.localdev.initsize = 1
 db.localdev.maxactive = 10
@@ -60,11 +60,11 @@ db.prod.usesystem = true
 # 8. ge.excludedtableprefixes：生成时不包含的表名前缀
 #---------------------------------------------------------------------------------#
 ge.localdev.dict=true
-ge.localdev.base.model.outdir=E:/jFinal/jruc-job/src/main/java/com/admin/web/model/base
+ge.localdev.base.model.outdir=E:/rongrong/rr-job/src/main/java/com/admin/web/model/base
 ge.localdev.base.model.package=com.admin.web.model.base
-ge.localdev.model.outdir=E:/jFinal/jruc-job/src/main/java/com/admin/web/model
+ge.localdev.model.outdir=E:/rongrong/rr-job/src/main/java/com/admin/web/model
 ge.localdev.model.package=com.admin.web.model
-ge.localdev.removedtablenameprefixes=
+ge.localdev.removedtablenameprefixes=j_
 ge.localdev.excludedtable=
 ge.localdev.excludedtableprefixes=system_,website_,temp_,v_
 

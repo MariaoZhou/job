@@ -1,35 +1,14 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
-import com.admin.web.model.JobUnitPosition;
-import com.admin.web.util.R;
-import com.admin.web.util.excel.JobExcel;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.kit.PropKit;
-import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.upload.UploadFile;
-import com.rlax.framework.common.Consts;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.jeecgframework.poi.excel.ExcelExportUtil;
-import org.jeecgframework.poi.excel.ExcelImportUtil;
-import org.jeecgframework.poi.excel.entity.ExportParams;
-import org.jeecgframework.poi.excel.entity.ImportParams;
-import org.jeecgframework.poi.excel.entity.enmus.ExcelType;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 招聘管理
  */
-@ControllerBind(controllerKey = "/job/pc")
-public class JobController extends BaseBussinessController {
-
+@ControllerBind(controllerKey = "/job/setting")
+public class JobSettingController extends BaseBussinessController {
+/*
 	public void index() {
 		int page = getParaToInt("_page", 1);
 		JobUnitPosition info = new JobUnitPosition();
@@ -59,16 +38,16 @@ public class JobController extends BaseBussinessController {
         redirect("/job/pc");
     }
 
-	/**
+	*//**
 	 * excel 导出导入 跳转
-	 */
+	 *//*
 	public void excel(){
         render("excel.html");
 	}
 
-    /**
+    *//**
      * excel 下载
-     */
+     *//*
 	public void excelDownload(){
 
 	    List<JobUnitPosition> lists = JobUnitPosition.dao.find("select * from job_unit_position") ;
@@ -111,9 +90,9 @@ public class JobController extends BaseBussinessController {
 
     }
 
-    /**
+    *//**
      * excel 导入
-     */
+     *//*
 	public void excelImport(){
 
         UploadFile uploadFile = getFile();
@@ -148,7 +127,7 @@ public class JobController extends BaseBussinessController {
             renderJson(R.ok("上传失败, 请检测文件类型是否正确, 请使用 xlsx 格式的Excel文件!"));
         }
 
-    }
+    }*/
 
 	@Override
 	public void onExceptionError(Exception e) {

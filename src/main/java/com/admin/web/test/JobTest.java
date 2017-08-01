@@ -1,6 +1,5 @@
 package com.admin.web.test;
 
-import com.admin.web.model.JobMember;
 import com.admin.web.util.DateUtils;
 import com.admin.web.util.excel.JobExcel;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
@@ -20,10 +19,7 @@ public class JobTest {
 
         ImportParams params = new ImportParams();
         List<JobExcel> list = ExcelImportUtil.importExcel(new File("D:/333.xlsx"), JobExcel.class, params);
-        JobMember member = new JobMember();
-        member.setId(null);
-        member.setName(null);
-        member.setImage(null);
+
 
         for (JobExcel job : list){
             //System.out.println(job.toString());

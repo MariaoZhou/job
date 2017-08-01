@@ -1,128 +1,103 @@
-Table: job_member
------------------+--------------+------+-----+---------+---------
- Field           | Type         | Null | Key | Default | Remarks 
------------------+--------------+------+-----+---------+---------
- id              | INT(10)      | NO   | PRI |         |         
- name            | VARCHAR(255) | YES  |     |         | 姓名      
- password        | VARCHAR(255) | YES  |     |         | 密码      
- birthday        | VARCHAR(255) | YES  |     |         | 出生年月    
- sex             | VARCHAR(255) | YES  |     |         | 性别（0男，1女）
- mobile          | VARCHAR(255) | YES  |     |         | 手机号     
- mobileCode      | VARCHAR(255) | YES  |     |         | 手机号 国家前缀
- role            | VARCHAR(255) | YES  |     |         | 角色 0个人求职 1企业招人
- openId          | VARCHAR(255) | YES  |     |         | 微信openid
- state           | VARCHAR(255) | YES  |     |         | 状态 0激活 1冻结
- language        | VARCHAR(255) | YES  |     |         | 语言 默认中文 
- country         | VARCHAR(255) | YES  |     |         | 国家      
- createDate      | DATETIME(19) | YES  |     |         | 创建时间    
- loginDate       | DATETIME(19) | YES  |     |         | 最后登录时间  
- image           | VARCHAR(255) | YES  |     |         | 头像图片    
- unitId          | INT(10)      | YES  |     |         | 公司id    
- unit            | VARCHAR(255) | YES  |     |         | 公司名称    
- jobStatus       | VARCHAR(255) | YES  |     |         | 应聘者状态（0离职1在职）
- beginWork       | VARCHAR(255) | YES  |     |         | 参加工作年份  
- residencePermit | VARCHAR(255) | YES  |     |         | 持有居留证（0有1无）
- branchOfWork    | VARCHAR(255) | YES  |     |         | 工种      
------------------+--------------+------+-----+---------+---------
-
-Table: job_member_learningexperiences
---------------------+--------------+------+-----+---------+---------
- Field              | Type         | Null | Key | Default | Remarks 
---------------------+--------------+------+-----+---------+---------
- id                 | INT(10)      | NO   | PRI |         |         
- memberId           | INT(10)      | YES  |     |         | 会员id    
- school             | VARCHAR(255) | YES  |     |         | 毕业学校    
- specialty          | VARCHAR(255) | YES  |     |         | 专业      
- qualification      | VARCHAR(255) | YES  |     |         | 学历      
- learingStart       | VARCHAR(255) | YES  |     |         | 学习开始时间  
- learnEnd           | VARCHAR(255) | YES  |     |         | 学习结束时间  
- learningExperience | VARCHAR(255) | YES  |     |         | 在校经历    
---------------------+--------------+------+-----+---------+---------
-
-Table: job_member_position
-----------+--------------+------+-----+---------+---------
- Field    | Type         | Null | Key | Default | Remarks 
-----------+--------------+------+-----+---------+---------
- id       | INT(10)      | NO   | PRI |         | 会员id    
- memberId | INT(10)      | YES  |     |         |         
- jobId    | INT(10)      | YES  |     |         | zhi为id  
- status   | VARCHAR(255) | YES  |     |         | 状态 0未阅 1已阅
-----------+--------------+------+-----+---------+---------
-
-Table: job_member_workexperiences
-------------+--------------+------+-----+---------+---------
- Field      | Type         | Null | Key | Default | Remarks 
-------------+--------------+------+-----+---------+---------
- id         | INT(10)      | NO   | PRI |         |         
- memberId   | INT(10)      | YES  |     |         |         
- unit       | VARCHAR(255) | YES  |     |         | 工作公司    
- positon    | VARCHAR(255) | YES  |     |         | 职位      
- jobContent | VARCHAR(255) | YES  |     |         | 工作内容    
- workStart  | VARCHAR(255) | YES  |     |         | 工作开始时间  
- workEnd    | VARCHAR(255) | YES  |     |         | 工作结束时间  
-------------+--------------+------+-----+---------+---------
-
-Table: job_message_details
-------------+--------------+------+-----+---------+---------
- Field      | Type         | Null | Key | Default | Remarks 
-------------+--------------+------+-----+---------+---------
- id         | INT(10)      | NO   | PRI |         |         
- windowId   | INT(10)      | YES  |     |         | 消息会话ID  
- memberId   | INT(10)      | YES  |     |         | 用户id    
- message    | VARCHAR(255) | YES  |     |         | 消息      
- createDate | DATETIME(19) | YES  |     |         | 创建时间    
- status     | VARCHAR(255) | YES  |     |         | 状态（0待阅1已阅）
- identity   | VARCHAR(255) | YES  |     |         | 身份(0应聘者1招聘者)
-------------+--------------+------+-----+---------+---------
-
-Table: job_message_window
-----------------+--------------+------+-----+---------+---------
- Field          | Type         | Null | Key | Default | Remarks 
-----------------+--------------+------+-----+---------+---------
- id             | INT(10)      | NO   | PRI |         |         
- memberId       | INT(10)      | YES  |     |         | 应聘用户ID  
- memberName     | VARCHAR(255) | YES  |     |         | 用户名     
- memberImage    | VARCHAR(255) | YES  |     |         | 会员头像    
- unitUserId     | INT(10)      | YES  |     |         | 公司招聘人ID 
- unitUserName   | VARCHAR(255) | YES  |     |         | 公司招聘人名  
- unitUserImage  | VARCHAR(255) | YES  |     |         | 公司招聘人头像 
- unitPositionId | INT(10)      | YES  |     |         | 公司职位Id  
- unit           | VARCHAR(255) | YES  |     |         | 公司名称    
-----------------+--------------+------+-----+---------+---------
-
-Table: job_unit
--------+--------------+------+-----+---------+---------
- Field | Type         | Null | Key | Default | Remarks 
--------+--------------+------+-----+---------+---------
- id    | INT(10)      | NO   | PRI |         |         
- unit  | VARCHAR(255) | YES  |     |         | 公司名称    
- group | VARCHAR(255) | YES  |     |         | 团队介绍    
- image | VARCHAR(255) | YES  |     |         | 公司图片    
--------+--------------+------+-----+---------+---------
-
-Table: job_unit_position
+Table: j_city
 ---------------+--------------+------+-----+---------+---------
  Field         | Type         | Null | Key | Default | Remarks 
 ---------------+--------------+------+-----+---------+---------
  id            | INT(10)      | NO   | PRI |         |         
- memberId      | INT(10)      | YES  |     |         | 发布人ID   
- memberName    | VARCHAR(255) | YES  |     |         | 发布人名称   
- memberImage   | VARCHAR(255) | YES  |     |         | 发布人 头像  
- job           | VARCHAR(255) | YES  |     |         | 职位名称    
- salary        | VARCHAR(10)  | YES  |     |         | 薪资      
- unit          | VARCHAR(255) | YES  |     |         | 公司      
- unitId        | INT(10)      | YES  |     |         | 公司id    
- country       | VARCHAR(255) | YES  |     |         | 国家      
- city          | VARCHAR(255) | YES  |     |         | 城市      
- dutyDetails   | VARCHAR(255) | YES  |     |         | 职位详情    
- skill         | VARCHAR(255) | YES  |     |         | 技能要求,以，分割
- street        | VARCHAR(255) | YES  |     |         | 街道      
- jobDetail     | VARCHAR(255) | YES  |     |         | 职位详情    
- tel           | VARCHAR(255) | YES  |     |         | 联系电话    
- qualification | VARCHAR(255) | YES  |     |         | 学历      
- strength      | VARCHAR(255) | YES  |     |         | 职位吸引力   
- createDate    | DATETIME(19) | YES  |     |         | 创建时间    
+ name          | VARCHAR(255) | YES  |     |         | 城市名称    
+ countriesId   | INT(10)      | YES  |     |         | 国家id    
+ countriesName | VARCHAR(255) | YES  |     |         | 国家名称    
 ---------------+--------------+------+-----+---------+---------
+
+Table: j_company_info
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         |         
+ name      | VARCHAR(255) | YES  |     |         | 公司名称    
+ logo      | VARCHAR(255) | YES  |     |         | logo 文件路径
+ publicity | VARCHAR(255) | YES  |     |         | 宣传图 地址  
+ QRCode    | VARCHAR(255) | YES  |     |         | 二维码 文件位置
+ info      | VARCHAR(255) | YES  |     |         | 广告语     
+-----------+--------------+------+-----+---------+---------
+
+Table: j_countries
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ name     | VARCHAR(255) | YES  |     |         | 国家名称    
+ currency | VARCHAR(255) | YES  |     |         | 币种符号    
+----------+--------------+------+-----+---------+---------
+
+Table: j_job_info
+----------------------+--------------+------+-----+---------+---------
+ Field                | Type         | Null | Key | Default | Remarks 
+----------------------+--------------+------+-----+---------+---------
+ id                   | INT(10)      | NO   | PRI |         |         
+ companyId            | INT(10)      | YES  |     |         | 公司id    
+ companyName          | VARCHAR(255) | YES  |     |         | 公司名称    
+ companyLogo          | VARCHAR(255) | YES  |     |         | 公司logo 地址
+ title                | VARCHAR(255) | YES  |     |         | 招聘标题    
+ tel                  | VARCHAR(255) | YES  |     |         | 联系电话    
+ countriesId          | INT(10)      | YES  |     |         | 国家id    
+ countriesName        | VARCHAR(255) | YES  |     |         | 国家名称    
+ cityId               | INT(10)      | YES  |     |         | 城市id    
+ cityName             | VARCHAR(255) | YES  |     |         | 城市名称    
+ jobTypeName          | INT(10)      | YES  |     |         | 工作种类id  
+ jobTypeValue         | VARCHAR(255) | YES  |     |         | 工作种类名称  
+ jobNatureName        | INT(10)      | YES  |     |         | 工作性质    
+ jobNatureValue       | VARCHAR(255) | YES  |     |         | 工作性质名称  
+ jobWelfareName       | INT(10)      | YES  |     |         | 工作福利id  
+ jobWelfareValue      | VARCHAR(255) | YES  |     |         | 工作福利名称  
+ jobSalaryName        | INT(10)      | YES  |     |         | 工作薪资id  
+ jobSalaryValue       | VARCHAR(255) | YES  |     |         | 工作薪资名称  
+ jobRequirementsName  | INT(10)      | YES  |     |         | 居住要求    
+ jobRequirementsValue | VARCHAR(255) | YES  |     |         | 居住要求 名称 
+ details              | VARCHAR(255) | YES  |     |         | 居住详情    
+ createDate           | DATETIME(19) | YES  |     |         |         
+ updateDate           | DATETIME(19) | YES  |     |         |         
+----------------------+--------------+------+-----+---------+---------
+
+Table: j_someone
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | INT(10)      | NO   | PRI |         |         
+ countriesId      | INT(10)      | YES  |     |         | 国家id    
+ countriesName    | VARCHAR(255) | YES  |     |         | 国家名称    
+ cityId           | INT(10)      | YES  |     |         | 城市id    
+ cityName         | VARCHAR(255) | YES  |     |         | 城市名称    
+ someoneTypeId    | INT(10)      | YES  |     |         | 分类 类型id 
+ someoneTypeValue | VARCHAR(255) | YES  |     |         | 分类 类型 名称
+ title            | VARCHAR(255) | YES  |     |         | 标题      
+ tel              | VARCHAR(255) | YES  |     |         | 联系电话    
+ details          | VARCHAR(255) | YES  |     |         | 详细说明    
+ createDate       | DATETIME(19) | YES  |     |         |         
+ updateDate       | DATETIME(19) | YES  |     |         |         
+------------------+--------------+------+-----+---------+---------
+
+Table: user_collection
+-------+--------------+------+-----+---------+---------
+ Field | Type         | Null | Key | Default | Remarks 
+-------+--------------+------+-----+---------+---------
+ id    | INT(10)      | NO   | PRI |         |         
+ titel | VARCHAR(255) | YES  |     |         | 标题      
+ type  | VARCHAR(5)   | YES  |     |         | 类型 1招聘 2找人办事
+ jobId | INT(10)      | YES  |     |         | 关联id 关联招聘/找人办事
+-------+--------------+------+-----+---------+---------
+
+Table: user_info
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         |         
+ openId     | VARCHAR(255) | YES  |     |         |         
+ name       | VARCHAR(255) | YES  |     |         | 名称      
+ head       | VARCHAR(255) | YES  |     |         | 头像      
+ tel        | VARCHAR(255) | YES  |     |         | 联系方式    
+ createDate | DATETIME(19) | YES  |     |         | 创建时间    
+ updateDate | DATETIME(19) | YES  |     |         | 修改时间    
+------------+--------------+------+-----+---------+---------
 
 Table: wx_msg
 ----------------+--------------+------+-----+---------+---------

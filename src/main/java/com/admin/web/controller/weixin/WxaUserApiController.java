@@ -1,8 +1,6 @@
 package com.admin.web.controller.weixin;
 
 import com.admin.web.base.BaseBussinessController;
-import com.admin.web.model.JobMember;
-import com.admin.web.service.job.JobMemberService;
 import com.admin.web.util.R;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -13,8 +11,6 @@ import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.wxaapp.api.WxaUserApi;
-
-import java.util.Date;
 
 /**
  *  微信小程序 用户 接口Controller
@@ -106,7 +102,7 @@ public class WxaUserApiController extends BaseBussinessController {
 		String unionId = apiResult.get("unionId");
 
 		JSONObject userJson =  JSON.parseObject(apiResult.getJson());
-		JobMember member = new JobMember();
+		/*JobMember member = new JobMember();
 		member.setOpenId(userJson.getString("openId"));
 		//member.setName(userJson.getString("nickName"));
 		member.setLanguage(userJson.getString("language"));
@@ -127,7 +123,7 @@ public class WxaUserApiController extends BaseBussinessController {
 			System.out.println(e.getMessage());
 			renderJson(R.error("保存用户错误"));
 		}
-
+*/
 	}
 
 	@Override
