@@ -34,6 +34,8 @@ Table: j_job_info
  Field                | Type         | Null | Key | Default | Remarks 
 ----------------------+--------------+------+-----+---------+---------
  id                   | INT(10)      | NO   | PRI |         |         
+ userId               | INT(10)      | YES  |     |         | 发布人id   
+ userName             | VARCHAR(255) | YES  |     |         | 发布人名称   
  companyId            | INT(10)      | YES  |     |         | 公司id    
  companyName          | VARCHAR(255) | YES  |     |         | 公司名称    
  companyLogo          | VARCHAR(255) | YES  |     |         | 公司logo 地址
@@ -77,14 +79,16 @@ Table: j_someone
 ------------------+--------------+------+-----+---------+---------
 
 Table: user_collection
--------+--------------+------+-----+---------+---------
- Field | Type         | Null | Key | Default | Remarks 
--------+--------------+------+-----+---------+---------
- id    | INT(10)      | NO   | PRI |         |         
- titel | VARCHAR(255) | YES  |     |         | 标题      
- type  | VARCHAR(5)   | YES  |     |         | 类型 1招聘 2找人办事
- jobId | INT(10)      | YES  |     |         | 关联id 关联招聘/找人办事
--------+--------------+------+-----+---------+---------
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ userId   | INT(10)      | YES  |     |         |         
+ userName | VARCHAR(255) | YES  |     |         | 用户名称    
+ titel    | VARCHAR(255) | YES  |     |         | 标题      
+ type     | VARCHAR(5)   | YES  |     |         | 类型 1招聘 2找人办事
+ jobId    | INT(10)      | YES  |     |         | 关联id 关联招聘/找人办事
+----------+--------------+------+-----+---------+---------
 
 Table: user_info
 ------------+--------------+------+-----+---------+---------

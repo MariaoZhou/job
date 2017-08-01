@@ -17,6 +17,22 @@ public abstract class BaseJobInfo<M extends BaseJobInfo<M>> extends Model<M> imp
 		return get("id");
 	}
 
+	public void setUserId(java.lang.Integer userId) {
+		set("userId", userId);
+	}
+
+	public java.lang.Integer getUserId() {
+		return get("userId");
+	}
+
+	public void setUserName(java.lang.String userName) {
+		set("userName", userName);
+	}
+
+	public java.lang.String getUserName() {
+		return get("userName");
+	}
+
 	public void setCompanyId(java.lang.Integer companyId) {
 		set("companyId", companyId);
 	}

@@ -9,4 +9,7 @@ import com.admin.web.model.base.BaseCountries;
 public class Countries extends BaseCountries<Countries> {
 	public static final Countries dao = new Countries().dao();
 	public static final String table = "j_countries";
+
+
+
 }

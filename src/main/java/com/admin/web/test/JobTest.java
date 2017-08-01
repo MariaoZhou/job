@@ -1,5 +1,6 @@
 package com.admin.web.test;
 
+import com.admin.web.model.Countries;
 import com.admin.web.util.DateUtils;
 import com.admin.web.util.excel.JobExcel;
 import org.jeecgframework.poi.excel.ExcelImportUtil;
@@ -35,6 +36,15 @@ public class JobTest {
 
             System.out.println(sql);
         }
+
+    }
+
+    @Test
+    public void  jobIndex(){
+        List<Countries> countries = Countries.dao.find("select * from ? ", Countries.table);
+
+        System.out.println(countries);
+
 
     }
 }
