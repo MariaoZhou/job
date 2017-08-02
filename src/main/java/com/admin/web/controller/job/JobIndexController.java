@@ -20,7 +20,9 @@ public class JobIndexController extends BaseBussinessController {
         List<Countries> countries = Countries.dao.find("select * from " + Countries.table);
 
         for (Countries cc : countries){
-            System.out.println(cc.get("CityList"));
+     /*       List<City> cities = cc.cityList();
+            System.out.println("cities = " + cities);*/
+            System.out.println(cc.get("cityList"));
         }
 
         renderJson(R.ok().put(countries));
