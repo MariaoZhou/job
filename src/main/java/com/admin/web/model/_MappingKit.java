@@ -17,8 +17,8 @@ public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("j_city", "id", City.class);
-		arp.addMapping("j_company_info", "id", CompanyInfo.class);
 		arp.addMapping("j_countries", "id", Countries.class);
+		arp.addMapping("j_company_info", "id", CompanyInfo.class);
 		arp.addMapping("j_job_info", "id", JobInfo.class);
 		arp.addMapping("j_someone", "id", Someone.class);
 		arp.addMapping("user_collection", "id", UserCollection.class);
