@@ -1,49 +1,53 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
+import com.admin.web.model.City;
 import com.admin.web.model.JobData;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- *  招聘 首页 controller
+ *  找人办事 controller
  */
-@ControllerBind(controllerKey = "/job/index")
-public class JobIndexController extends BaseBussinessController {
+@ControllerBind(controllerKey = "/job/someone")
+public class JobSomeoneController extends BaseBussinessController {
 
     private static JobConfigService jobConfigService = JobConfigService.me;
 
     /**
-     * 获取位置
+     * 发布 职位
      */
-    public void getLocation(){
-        renderJson(R.ok().put(jobConfigService.getLocation()));
+    public void publishJob(){
+
+
+
+       // renderJson(R.ok().put());
     }
 
     /**
-     * 获取 搜索 职位 参数
+     * 发布 找人办事 参数
      */
-    public void searchJobConfig(){
+    public void someoneConfig(){
+        Map<String, Object> map = new HashMap<>();
 
         String countries = getPara("countriesId");
-        renderJson(R.ok().put(jobConfigService.searchJobConfig(countries)));
-    }
 
-    /**
-     * 搜索 找人办事 参数
-     */
-    public void searchSomeoneConfig(){
-
-        String countries = getPara("countriesId");
+        // 城市
+        List<City> cityList = City.dao.find("select * from j_city where countriesId = ?" ,countries);
         // 找人办事 类型 值 SOMEONE_TYPE
         List<Map<String, String>> someoneType = JobData.dao.getDateListByType("SOMEONE_TYPE");
 
-        renderJson(R.ok().put("someoneType",someoneType));
+        map.put("cityList", cityList);
+        map.put("someoneType", someoneType);
+
+        renderJson(R.ok(map));
     }
+
 
 
 	@Override
