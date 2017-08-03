@@ -20,7 +20,7 @@ db.localdev.active = true
 db.localdev.url = localhost:3306/job
 db.localdev.dbtype = mysql
 db.localdev.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOxCRVdIy/YGy823SUVTplSCc2cRnYJsuMBizk/wMsJ5OBTMxsFvbJ3yj+MaGQrrGTuJad9Vp9pmAZGxBemuxzkCAwEAAQ==
-db.localdev.user = shop
+db.localdev.user = root
 db.localdev.password = Ai5/E3gskcVdtgsW6CPy/UQEpJA0AOAT4AiJaQfOBWprLbKsyxqjXr4s+TmTHvqfFgExEcfya3iI4ACM/TKTng==
 db.localdev.initsize = 1
 db.localdev.maxactive = 10
