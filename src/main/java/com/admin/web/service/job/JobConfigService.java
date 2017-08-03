@@ -1,10 +1,11 @@
 package com.admin.web.service.job;
 
 import com.admin.web.base.BaseBussinessService;
-import com.admin.web.model.City;
-import com.admin.web.model.Countries;
-import com.admin.web.model.JobData;
+import com.admin.web.model.*;
+import com.jfinal.aop.Before;
+import com.jfinal.plugin.activerecord.tx.Tx;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,29 @@ public class JobConfigService extends BaseBussinessService {
 
     public static final JobConfigService me = new JobConfigService();
 
+    @Before(Tx.class)
+    public boolean saveJobInfo(JobInfo job, String cityId, String userId){
+
+        City city = City.dao.findById(cityId);
+        job.setCityId(city.getId());
+        job.setCityName(city.getName());
+        job.setCountriesId(city.getCountriesId());
+        job.setCountriesName(city.getCountriesName());
+
+        UserInfo userInfo = UserInfo.dao.findById(userId);
+        job.setUserId(userInfo.getId());
+        job.setUserName(userInfo.getName());
+
+        job.setCreateDate(new Date());
+        job.setUpdateDate(new Date());
+
+        return job.save();
+    }
+
     /**
      * 获取位置
      */
+    @Before(Tx.class)
     public List<Countries>  getLocation(){
         List<Countries> countriesList = Countries.dao.find("select * from " + Countries.table);
         for (Countries cc : countriesList){
@@ -30,6 +51,7 @@ public class JobConfigService extends BaseBussinessService {
     /**
      * 获取 搜索 职位 参数
      */
+    @Before(Tx.class)
     public Map<String, Object> searchJobConfig(String countries){
         // 返回值 map
         Map<String, Object> map = new HashMap<>();
@@ -53,6 +75,7 @@ public class JobConfigService extends BaseBussinessService {
      * @param countries
      * @return
      */
+    @Before(Tx.class)
     public Map<String ,Object> jobInfoConfig (String countries){
         // 返回值 map
         Map<String, Object> map = new HashMap<>();

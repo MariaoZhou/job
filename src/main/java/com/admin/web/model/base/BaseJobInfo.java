@@ -33,20 +33,36 @@ public abstract class BaseJobInfo<M extends BaseJobInfo<M>> extends Model<M> imp
 		return get("userName");
 	}
 
-	public void setCompanyId(java.lang.Integer companyId) {
-		set("companyId", companyId);
-	}
-
-	public java.lang.Integer getCompanyId() {
-		return get("companyId");
-	}
-
 	public void setCompanyName(java.lang.String companyName) {
 		set("companyName", companyName);
 	}
 
 	public java.lang.String getCompanyName() {
 		return get("companyName");
+	}
+
+	public void setCompanyPublicity(java.lang.String companyPublicity) {
+		set("companyPublicity", companyPublicity);
+	}
+
+	public java.lang.String getCompanyPublicity() {
+		return get("companyPublicity");
+	}
+
+	public void setCompanyQRCode(java.lang.String companyQRCode) {
+		set("companyQRCode", companyQRCode);
+	}
+
+	public java.lang.String getCompanyQRCode() {
+		return get("companyQRCode");
+	}
+
+	public void setCompanyInfo(java.lang.String companyInfo) {
+		set("companyInfo", companyInfo);
+	}
+
+	public java.lang.String getCompanyInfo() {
+		return get("companyInfo");
 	}
 
 	public void setCompanyLogo(java.lang.String companyLogo) {
@@ -105,84 +121,44 @@ public abstract class BaseJobInfo<M extends BaseJobInfo<M>> extends Model<M> imp
 		return get("cityName");
 	}
 
-	public void setJobTypeName(java.lang.Integer jobTypeName) {
+	public void setJobTypeName(java.lang.String jobTypeName) {
 		set("jobTypeName", jobTypeName);
 	}
 
-	public java.lang.Integer getJobTypeName() {
+	public java.lang.String getJobTypeName() {
 		return get("jobTypeName");
 	}
 
-	public void setJobTypeValue(java.lang.String jobTypeValue) {
-		set("jobTypeValue", jobTypeValue);
-	}
-
-	public java.lang.String getJobTypeValue() {
-		return get("jobTypeValue");
-	}
-
-	public void setJobNatureName(java.lang.Integer jobNatureName) {
+	public void setJobNatureName(java.lang.String jobNatureName) {
 		set("jobNatureName", jobNatureName);
 	}
 
-	public java.lang.Integer getJobNatureName() {
+	public java.lang.String getJobNatureName() {
 		return get("jobNatureName");
 	}
 
-	public void setJobNatureValue(java.lang.String jobNatureValue) {
-		set("jobNatureValue", jobNatureValue);
-	}
-
-	public java.lang.String getJobNatureValue() {
-		return get("jobNatureValue");
-	}
-
-	public void setJobWelfareName(java.lang.Integer jobWelfareName) {
+	public void setJobWelfareName(java.lang.String jobWelfareName) {
 		set("jobWelfareName", jobWelfareName);
 	}
 
-	public java.lang.Integer getJobWelfareName() {
+	public java.lang.String getJobWelfareName() {
 		return get("jobWelfareName");
 	}
 
-	public void setJobWelfareValue(java.lang.String jobWelfareValue) {
-		set("jobWelfareValue", jobWelfareValue);
-	}
-
-	public java.lang.String getJobWelfareValue() {
-		return get("jobWelfareValue");
-	}
-
-	public void setJobSalaryName(java.lang.Integer jobSalaryName) {
+	public void setJobSalaryName(java.lang.String jobSalaryName) {
 		set("jobSalaryName", jobSalaryName);
 	}
 
-	public java.lang.Integer getJobSalaryName() {
+	public java.lang.String getJobSalaryName() {
 		return get("jobSalaryName");
 	}
 
-	public void setJobSalaryValue(java.lang.String jobSalaryValue) {
-		set("jobSalaryValue", jobSalaryValue);
-	}
-
-	public java.lang.String getJobSalaryValue() {
-		return get("jobSalaryValue");
-	}
-
-	public void setJobRequirementsName(java.lang.Integer jobRequirementsName) {
+	public void setJobRequirementsName(java.lang.String jobRequirementsName) {
 		set("jobRequirementsName", jobRequirementsName);
 	}
 
-	public java.lang.Integer getJobRequirementsName() {
+	public java.lang.String getJobRequirementsName() {
 		return get("jobRequirementsName");
-	}
-
-	public void setJobRequirementsValue(java.lang.String jobRequirementsValue) {
-		set("jobRequirementsValue", jobRequirementsValue);
-	}
-
-	public java.lang.String getJobRequirementsValue() {
-		return get("jobRequirementsValue");
 	}
 
 	public void setDetails(java.lang.String details) {

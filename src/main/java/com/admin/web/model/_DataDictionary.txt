@@ -30,35 +30,32 @@ Table: j_countries
 ----------+--------------+------+-----+---------+---------
 
 Table: j_job_info
-----------------------+--------------+------+-----+---------+---------
- Field                | Type         | Null | Key | Default | Remarks 
-----------------------+--------------+------+-----+---------+---------
- id                   | INT(10)      | NO   | PRI |         |         
- userId               | INT(10)      | YES  |     |         | 发布人id   
- userName             | VARCHAR(255) | YES  |     |         | 发布人名称   
- companyId            | INT(10)      | YES  |     |         | 公司id    
- companyName          | VARCHAR(255) | YES  |     |         | 公司名称    
- companyLogo          | VARCHAR(255) | YES  |     |         | 公司logo 地址
- title                | VARCHAR(255) | YES  |     |         | 招聘标题    
- tel                  | VARCHAR(255) | YES  |     |         | 联系电话    
- countriesId          | INT(10)      | YES  |     |         | 国家id    
- countriesName        | VARCHAR(255) | YES  |     |         | 国家名称    
- cityId               | INT(10)      | YES  |     |         | 城市id    
- cityName             | VARCHAR(255) | YES  |     |         | 城市名称    
- jobTypeName          | INT(10)      | YES  |     |         | 工作种类id  
- jobTypeValue         | VARCHAR(255) | YES  |     |         | 工作种类名称  
- jobNatureName        | INT(10)      | YES  |     |         | 工作性质    
- jobNatureValue       | VARCHAR(255) | YES  |     |         | 工作性质名称  
- jobWelfareName       | INT(10)      | YES  |     |         | 工作福利id  
- jobWelfareValue      | VARCHAR(255) | YES  |     |         | 工作福利名称  
- jobSalaryName        | INT(10)      | YES  |     |         | 工作薪资id  
- jobSalaryValue       | VARCHAR(255) | YES  |     |         | 工作薪资名称  
- jobRequirementsName  | INT(10)      | YES  |     |         | 居住要求    
- jobRequirementsValue | VARCHAR(255) | YES  |     |         | 居住要求 名称 
- details              | VARCHAR(255) | YES  |     |         | 居住详情    
- createDate           | DATETIME(19) | YES  |     |         |         
- updateDate           | DATETIME(19) | YES  |     |         |         
-----------------------+--------------+------+-----+---------+---------
+---------------------+--------------+------+-----+---------+---------
+ Field               | Type         | Null | Key | Default | Remarks 
+---------------------+--------------+------+-----+---------+---------
+ id                  | INT(10)      | NO   | PRI |         |         
+ userId              | INT(10)      | YES  |     |         | 发布人id   
+ userName            | VARCHAR(255) | YES  |     |         | 发布人名称   
+ companyName         | VARCHAR(255) | YES  |     |         | 公司名称    
+ companyPublicity    | VARCHAR(255) | YES  |     |         | 公司宣传图   
+ companyQRCode       | VARCHAR(255) | YES  |     |         | 公司二维码   
+ companyInfo         | VARCHAR(255) | YES  |     |         | 公司 广告语  
+ companyLogo         | VARCHAR(255) | YES  |     |         | 公司logo 地址
+ title               | VARCHAR(255) | YES  |     |         | 招聘标题    
+ tel                 | VARCHAR(255) | YES  |     |         | 联系电话    
+ countriesId         | INT(10)      | YES  |     |         | 国家id    
+ countriesName       | VARCHAR(255) | YES  |     |         | 国家名称    
+ cityId              | INT(10)      | YES  |     |         | 城市id    
+ cityName            | VARCHAR(255) | YES  |     |         | 城市名称    
+ jobTypeName         | VARCHAR(11)  | YES  |     |         | 工作种类id  
+ jobNatureName       | VARCHAR(11)  | YES  |     |         | 工作性质    
+ jobWelfareName      | VARCHAR(11)  | YES  |     |         | 工作福利id  
+ jobSalaryName       | VARCHAR(11)  | YES  |     |         | 工作薪资id  
+ jobRequirementsName | VARCHAR(11)  | YES  |     |         | 居住要求    
+ details             | VARCHAR(255) | YES  |     |         | 居住详情    
+ createDate          | DATETIME(19) | YES  |     |         |         
+ updateDate          | DATETIME(19) | YES  |     |         |         
+---------------------+--------------+------+-----+---------+---------
 
 Table: j_someone
 ------------------+--------------+------+-----+---------+---------

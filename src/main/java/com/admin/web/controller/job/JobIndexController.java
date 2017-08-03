@@ -31,7 +31,7 @@ public class JobIndexController extends BaseBussinessController {
     }
 
 
-    @ApiOperation(description = " 获取 职位 搜索 参数" ,url = "/job/index/searchJobConfig", tag = "JobIndexController", httpMethod = "get", response = BaseCountries.class)
+    @ApiOperation(description = "获取 职位 搜索 参数" ,url = "/job/index/searchJobConfig", tag = "JobIndexController", httpMethod = "get", response = BaseCountries.class)
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int")
     })
@@ -41,7 +41,7 @@ public class JobIndexController extends BaseBussinessController {
         renderJson(R.ok().put(jobConfigService.searchJobConfig(countries)));
     }
 
-    @ApiOperation(description = " 获取 找人办事搜素 参数" ,url = "/job/index/searchSomeoneConfig", tag = "JobIndexController", httpMethod = "get")
+    @ApiOperation(description = "获取 找人办事搜素 参数" ,url = "/job/index/searchSomeoneConfig", tag = "JobIndexController", httpMethod = "get")
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int")
     })
