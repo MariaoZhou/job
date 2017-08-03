@@ -5,6 +5,10 @@ import com.admin.web.model.JobInfo;
 import com.admin.web.model.Someone;
 import com.admin.web.model.UserCollection;
 import com.admin.web.model.UserInfo;
+import com.admin.web.swagger.annotation.Api;
+import com.admin.web.swagger.annotation.ApiOperation;
+import com.admin.web.swagger.annotation.Param;
+import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
@@ -16,13 +20,20 @@ import java.util.Map;
 /**
  *  招聘 用户 controller
  */
+@Api(tag = "JobUserController", description = "用户 接口")
 @ControllerBind(controllerKey = "/job/user")
 public class JobUserController extends BaseBussinessController {
 
     /**
-     * 更新user 参数
+     *
      * 不支持图片上传
      */
+    @ApiOperation(description = " 更新user 参数(目前不支持图片上传, 头像修改)" ,url = "/job/user/updateUser", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "用户id 必填", dataType = "int"),
+            @Param(name = "tel", description = "电话号码 选填", dataType = "String"),
+            @Param(name = "userName", description = "用户名 选填", dataType = "String")
+    })
     public void updateUser(){
         Integer userId = getParaToInt("userId",0);
         String tel = getPara("tel");
@@ -49,10 +60,11 @@ public class JobUserController extends BaseBussinessController {
 
     }
 
-    /**
-     * 获取 用户
-     * 参数 openid
-     */
+
+    @ApiOperation(description = " 通过openid 获取 用户" ,url = "/job/user/getUserInfo", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "openId", description = "openId 必填", dataType = "String")
+    })
     public void getUserInfo(){
         Integer openId = getParaToInt("openId");
 
@@ -61,10 +73,10 @@ public class JobUserController extends BaseBussinessController {
         renderJson(R.ok().put("user", userInfo));
     }
 
-    /**
-     * 我的发布
-     *
-     */
+    @ApiOperation(description = "我的发布" ,url = "/job/user/myPublish", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "userId 必填", dataType = "int")
+    })
     public void myPublish(){
         Integer userId = getParaToInt("userId");
 

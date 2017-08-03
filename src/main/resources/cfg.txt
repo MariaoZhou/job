@@ -173,3 +173,5 @@ sms.ms.aliyun.accessKey = yourmsaccessKey
 sms.ms.aliyun.mnsEndpoint = https://1962790071204690.mns.cn-beijing.aliyuncs.com
 sms.ms.aliyun.topic = sms.topic-cn-beijing
 #---------------------------------------------------------------------------------#
+
+swagger.base_package = com.admin.web.controller
