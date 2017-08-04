@@ -1,10 +1,7 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
-import com.admin.web.model.JobInfo;
-import com.admin.web.model.Someone;
-import com.admin.web.model.UserCollection;
-import com.admin.web.model.UserInfo;
+import com.admin.web.model.*;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
 import com.admin.web.swagger.annotation.Param;
@@ -71,7 +68,7 @@ public class JobUserController extends BaseBussinessController {
 
     @ApiOperation(description = "我的发布" ,url = "/job/user/myPublish", tag = "JobUserController", httpMethod = "get")
     @Params({
-            @Param(name = "userId", description = "userId 必填", dataType = "int")
+            @Param(name = "userId", description = "用户id 必填", dataType = "int")
     })
     public void myPublish(){
         Integer userId = getParaToInt("userId");
@@ -88,9 +85,10 @@ public class JobUserController extends BaseBussinessController {
         renderJson(R.ok().put(map));
     }
 
-    /**
-     * 我的收藏
-     */
+    @ApiOperation(description = " 我的收藏" ,url = "/job/user/myCollection", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "用户id 必填", dataType = "int")
+    })
     public void myCollection(){
         Integer userId = getParaToInt("userId");
 
@@ -99,6 +97,27 @@ public class JobUserController extends BaseBussinessController {
 
         renderJson(R.ok().put(collectionList));
 
+    }
+
+    @ApiOperation(description = " 意见反馈 保存" ,url = "/job/user/saveProposal", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "反馈人id(当前人) 必填", dataType = "int"),
+            @Param(name = "userName", description = "反馈人名称 必填", dataType = "String"),
+            @Param(name = "details", description = "反馈详情 必填", dataType = "String")
+    })
+    public void saveProposal(){
+        Integer userId = getParaToInt("userId");
+        String userName = getPara("userName");
+        String details = getPara("details");
+
+        Proposal proposal = new Proposal();
+        proposal.setUserId(userId);
+        proposal.setUserName(userName);
+        proposal.setDetails(details);
+
+        proposal.save();
+
+        renderJson(R.ok());
     }
 
 

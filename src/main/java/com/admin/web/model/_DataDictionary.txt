@@ -58,6 +58,16 @@ Table: j_job_info
  updateDate          | DATETIME(19) | YES  |     |         |         
 ---------------------+--------------+------+-----+---------+---------
 
+Table: j_proposal
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ userId   | INT(10)      | YES  |     |         | 反馈人id   
+ userName | VARCHAR(255) | YES  |     |         | 反馈人名称   
+ details  | VARCHAR(255) | YES  |     |         | 意见详情    
+----------+--------------+------+-----+---------+---------
+
 Table: j_someone
 -----------------+--------------+------+-----+---------+---------
  Field           | Type         | Null | Key | Default | Remarks 
