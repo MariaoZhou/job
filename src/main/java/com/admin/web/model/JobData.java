@@ -35,6 +35,7 @@ public class JobData extends BaseData<Data> {
         for (Data dd : dataList){
             Map<String , String> map = new HashMap<>();
             map.put("code", dd.getCode());
+            map.put("codeDesc", dd.getCodeDesc());
             map.put("type", dd.getType());
             map.put("orderNo", dd.getOrderNo());
 

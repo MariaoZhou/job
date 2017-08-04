@@ -51,6 +51,7 @@ Table: j_job_info
  jobNatureName       | VARCHAR(11)  | YES  |     |         | 工作性质    
  jobWelfareName      | VARCHAR(11)  | YES  |     |         | 工作福利id  
  jobSalaryName       | VARCHAR(11)  | YES  |     |         | 工作薪资id  
+ jobSalaryOrder      | INT(10)      | YES  |     |         | 薪资 排序   
  jobRequirementsName | VARCHAR(11)  | YES  |     |         | 居住要求    
  details             | VARCHAR(255) | YES  |     |         | 居住详情    
  createDate          | DATETIME(19) | YES  |     |         |         
@@ -58,22 +59,23 @@ Table: j_job_info
 ---------------------+--------------+------+-----+---------+---------
 
 Table: j_someone
-------------------+--------------+------+-----+---------+---------
- Field            | Type         | Null | Key | Default | Remarks 
-------------------+--------------+------+-----+---------+---------
- id               | INT(10)      | NO   | PRI |         |         
- countriesId      | INT(10)      | YES  |     |         | 国家id    
- countriesName    | VARCHAR(255) | YES  |     |         | 国家名称    
- cityId           | INT(10)      | YES  |     |         | 城市id    
- cityName         | VARCHAR(255) | YES  |     |         | 城市名称    
- someoneTypeId    | INT(10)      | YES  |     |         | 分类 类型id 
- someoneTypeValue | VARCHAR(255) | YES  |     |         | 分类 类型 名称
- title            | VARCHAR(255) | YES  |     |         | 标题      
- tel              | VARCHAR(255) | YES  |     |         | 联系电话    
- details          | VARCHAR(255) | YES  |     |         | 详细说明    
- createDate       | DATETIME(19) | YES  |     |         |         
- updateDate       | DATETIME(19) | YES  |     |         |         
-------------------+--------------+------+-----+---------+---------
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | INT(10)      | NO   | PRI |         |         
+ countriesId     | INT(10)      | YES  |     |         | 国家id    
+ countriesName   | VARCHAR(255) | YES  |     |         | 国家名称    
+ userId          | INT(10)      | YES  |     |         |         
+ userName        | VARCHAR(255) | YES  |     |         |         
+ cityId          | INT(10)      | YES  |     |         | 城市id    
+ cityName        | VARCHAR(255) | YES  |     |         | 城市名称    
+ someoneTypeName | VARCHAR(255) | YES  |     |         | 分类 类型 名称
+ title           | VARCHAR(255) | YES  |     |         | 标题      
+ tel             | VARCHAR(255) | YES  |     |         | 联系电话    
+ details         | VARCHAR(255) | YES  |     |         | 详细说明    
+ createDate      | DATETIME(19) | YES  |     |         |         
+ updateDate      | DATETIME(19) | YES  |     |         |         
+-----------------+--------------+------+-----+---------+---------
 
 Table: user_collection
 ----------+--------------+------+-----+---------+---------

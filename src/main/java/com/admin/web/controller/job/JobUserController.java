@@ -24,10 +24,6 @@ import java.util.Map;
 @ControllerBind(controllerKey = "/job/user")
 public class JobUserController extends BaseBussinessController {
 
-    /**
-     *
-     * 不支持图片上传
-     */
     @ApiOperation(description = " 更新user 参数(目前不支持图片上传, 头像修改)" ,url = "/job/user/updateUser", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),

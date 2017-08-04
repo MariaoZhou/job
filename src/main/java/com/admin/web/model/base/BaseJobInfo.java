@@ -153,6 +153,14 @@ public abstract class BaseJobInfo<M extends BaseJobInfo<M>> extends Model<M> imp
 		return get("jobSalaryName");
 	}
 
+	public void setJobSalaryOrder(java.lang.Integer jobSalaryOrder) {
+		set("jobSalaryOrder", jobSalaryOrder);
+	}
+
+	public java.lang.Integer getJobSalaryOrder() {
+		return get("jobSalaryOrder");
+	}
+
 	public void setJobRequirementsName(java.lang.String jobRequirementsName) {
 		set("jobRequirementsName", jobRequirementsName);
 	}

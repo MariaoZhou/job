@@ -33,6 +33,22 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 		return get("countriesName");
 	}
 
+	public void setUserId(java.lang.Integer userId) {
+		set("userId", userId);
+	}
+
+	public java.lang.Integer getUserId() {
+		return get("userId");
+	}
+
+	public void setUserName(java.lang.String userName) {
+		set("userName", userName);
+	}
+
+	public java.lang.String getUserName() {
+		return get("userName");
+	}
+
 	public void setCityId(java.lang.Integer cityId) {
 		set("cityId", cityId);
 	}
@@ -49,20 +65,12 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 		return get("cityName");
 	}
 
-	public void setSomeoneTypeId(java.lang.Integer someoneTypeId) {
-		set("someoneTypeId", someoneTypeId);
+	public void setSomeoneTypeName(java.lang.String someoneTypeName) {
+		set("someoneTypeName", someoneTypeName);
 	}
 
-	public java.lang.Integer getSomeoneTypeId() {
-		return get("someoneTypeId");
-	}
-
-	public void setSomeoneTypeValue(java.lang.String someoneTypeValue) {
-		set("someoneTypeValue", someoneTypeValue);
-	}
-
-	public java.lang.String getSomeoneTypeValue() {
-		return get("someoneTypeValue");
+	public java.lang.String getSomeoneTypeName() {
+		return get("someoneTypeName");
 	}
 
 	public void setTitle(java.lang.String title) {

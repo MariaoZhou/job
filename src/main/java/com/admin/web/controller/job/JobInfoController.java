@@ -1,9 +1,7 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
-import com.admin.web.model.City;
 import com.admin.web.model.JobInfo;
-import com.admin.web.model.UserInfo;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
@@ -11,6 +9,7 @@ import com.admin.web.swagger.annotation.Param;
 import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Page;
 
 /**
  *  职位 招聘 controller
@@ -20,6 +19,43 @@ import com.jfinal.ext.route.ControllerBind;
 public class JobInfoController extends BaseBussinessController {
 
     private static JobConfigService jobConfigService = JobConfigService.me;
+
+    @ApiOperation(description = "职位 条件搜索" ,url = "/job/info/searchJobInfo", tag = "JobInfoController", httpMethod = "get")
+    @Params({
+            @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
+            @Param(name = "cityId", description = "城市id", dataType = "int"),
+            @Param(name = "jobType", description = "工作类型", dataType = "String"),
+            @Param(name = "jobNature", description = "工作性质", dataType = "String"),
+            @Param(name = "type", description = "类型 最高工资1 企业查询2 最新发布(默认就会根据时间排序, 无需使用 type, 直接传递国家id 即可)", dataType = "String"),
+            @Param(name = "pageNumber", description = "页码 必填", dataType = "int")
+    })
+    public void searchJobInfo(){
+        JobInfo job = new JobInfo();
+        // 国家id
+        Integer countriesId = getParaToInt("countriesId",0);
+        job.setCountriesId(countriesId);
+        // 城市id
+        Integer cityId = getParaToInt("cityId",0);
+        job.setCityId(cityId);
+        // 工作类型
+        String jobType = getPara("jobType");
+        job.setJobTypeName(jobType);
+        // 工作性质
+        String jobNature = getPara("jobNature");
+        job.setJobNatureName(jobNature);
+        // 最高工资1
+        // 最新发布2
+        // 企业查询3
+        String type = getPara("type");
+
+        // 页码
+        Integer pageNumber = getParaToInt("pageNumber",1);
+
+        Page<JobInfo> map = jobConfigService.searchJobInfo(job, type, pageNumber);
+
+        renderJson(R.ok().put(map));
+
+    }
 
 
     @ApiOperation(description = "发布职位" ,url = "/job/info/publishJob", tag = "JobInfoController", httpMethod = "get")
@@ -101,7 +137,7 @@ public class JobInfoController extends BaseBussinessController {
 
 	@Override
 	public void onExceptionError(Exception e) {
-		// TODO Auto-generated method stub
+        renderJson(R.error("系统异常, 请稍候重试"));
 		
 	}
 
