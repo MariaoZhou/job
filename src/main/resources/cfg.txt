@@ -134,6 +134,17 @@ service.encryptMessage = false
 service.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 #---------------------------------------------------------------------------------#
 
+## 途听 微信服务号 config
+#---------------------------------------------------------------------------------#
+tut.url = http://test.13701918.com
+tut.token = tutlx
+tut.appid = wxc6fffa9280cb63e9
+tut.appSecret = 704ad7d54692efd620535666a353ca3a
+#是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
+tut.encryptMessage = false
+tut.encodingAesKey = 9p5Y8bTcM9CbUQiszHiRro0ITsDlmEU1pyBaguGlNTT
+#---------------------------------------------------------------------------------#
+
 
 
 ##微信小程序
