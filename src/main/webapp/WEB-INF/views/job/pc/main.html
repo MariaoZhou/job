@@ -101,12 +101,8 @@ for(item in page.list){
 
 	<td>
 		<div class="hidden-sm hidden-xs action-buttons">
-		<% if (so.hasPermission("/job/pc/update")) { %>
-			<a title="编辑" class="green" href="${ctxPath}/system/user/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a> 
-		<% } %>	
-		<% if (so.hasPermission("/job/pc/delete")) { %>
+			<a title="编辑" class="green" href="${ctxPath}/system/user/update?id=${item.id}"> <i class="ace-icon fa fa-pencil bigger-130"></i></a>
 			<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
-		<% } %>
 		</div>
 
 	</td>         

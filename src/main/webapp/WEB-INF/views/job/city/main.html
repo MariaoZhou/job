@@ -1,0 +1,70 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+
+function deleteByid(id) {
+	bootbox.confirm("确定删除 ?", function(result) {
+		if(result) {
+			location.href = "${ctxPath}/job/city/delete?id=" + id;
+		}
+	});
+}
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'国家城市', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">国家城市</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/job/city" method="get">
+			<input type="hidden" name="page" />
+			<a type="button" href="${ctxPath}/job/city/add" class="btn btn-info btn-sm">
+				<i class="ace-icon fa fa-key bigger-110"></i>新增
+			</a>
+		</form>
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th data-width="5%">编号</th>
+      <th data-width="40%">城市名称</th>
+      <th data-width="40%">国家名称</th>
+      <th data-width="10%">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in page.list){
+%>
+
+  <tr>
+    <td>${item.id}</td>
+    <td>${item.name}</td>
+    <td>${item.countriesName}</td>
+	<td>
+        <div class="hidden-sm hidden-xs action-buttons">
+            <a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+        </div>
+	</td>         
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+<#page uri="${ctxPath}/job/city" page="${page}" params=""/>
+
+</div>
+<%} %>
