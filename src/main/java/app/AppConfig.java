@@ -87,20 +87,28 @@ public class AppConfig extends AppBaseConfig {
 
 		/** 公众号 订阅号*/
 
-/*		ApiConfig ac = new ApiConfig();
+		ApiConfig ac = new ApiConfig();
 		// 配置微信 API 相关参数
 		ac.setToken(PropKit.get("weixin.token"));
 		ac.setAppId(PropKit.get("weixin.appid"));
-		ac.setAppSecret(PropKit.get("weixin.appSecret"));*/
+		ac.setAppSecret(PropKit.get("weixin.appSecret"));
 
-        /** 公众号 服务号*/
+        /** 华人老板公众号 服务号*/
         ApiConfig serviceAC = new ApiConfig();
         serviceAC.setToken(PropKit.get("service.token"));
         serviceAC.setAppId(PropKit.get("service.appid"));
         serviceAC.setAppSecret(PropKit.get("service.appSecret"));
 
-//		ApiConfigKit.putApiConfig(ac);
+
+        /** 途听公众号 服务号*/
+        ApiConfig serviceTT = new ApiConfig();
+        serviceTT.setToken(PropKit.get("service.token"));
+        serviceTT.setAppId(PropKit.get("service.appid"));
+        serviceTT.setAppSecret(PropKit.get("service.appSecret"));
+
+		ApiConfigKit.putApiConfig(ac);
 		ApiConfigKit.putApiConfig(serviceAC);
+		ApiConfigKit.putApiConfig(serviceTT);
 
 	    //CacheExtKit.use(CacheExtKit.REDIS_TYPE);
 	}
