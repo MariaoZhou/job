@@ -42,6 +42,8 @@ public class JobSomeoneController extends BaseBussinessController {
         // 城市id
         String cityId = getPara("cityId");
 
+        someone.setSomeoneTypeName(getPara("someoneType"));
+
         String title = getPara("title");
         someone.setTitle(title);
         String tel = getPara("tel");
