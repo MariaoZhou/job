@@ -1,21 +1,32 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
+import com.admin.web.model.JobInfo;
+import com.admin.web.util.R;
+import com.admin.web.util.excel.JobExcel;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
+import com.rlax.framework.common.Consts;
+import org.jeecgframework.poi.excel.ExcelImportUtil;
+import org.jeecgframework.poi.excel.entity.ImportParams;
+
+import java.io.File;
+import java.util.List;
 
 /**
- * 招聘管理
+ * 职位 管理
  */
-@ControllerBind(controllerKey = "/job/setting")
+@ControllerBind(controllerKey = "/job/pc")
 public class JobSettingController extends BaseBussinessController {
-/*
+
 	public void index() {
 		int page = getParaToInt("_page", 1);
-		JobUnitPosition info = new JobUnitPosition();
-        info.setJob(getPara("job"));
-        info.setCountry(getPara("country"));
+        JobInfo info = new JobInfo();
+        info.setTitle(getPara("title"));
+        info.setCityId(getParaToInt("cityId"));
 
-		Page<JobUnitPosition> list = JobUnitPosition.dao.findPage(info, page, Consts.PAGE_DEFAULT_SIZE);
+		Page<JobInfo> list = JobInfo.dao.findPage(info, page, Consts.PAGE_DEFAULT_SIZE);
 		keepPara();
 		setAttr("page", list);
 		render("main.html");
@@ -26,11 +37,11 @@ public class JobSettingController extends BaseBussinessController {
         if (id.contains(",")){
             String[] ids = id.split(",");
             for (String ii :ids){
-                JobUnitPosition info = JobUnitPosition.dao.findById(ii);
+                JobInfo info = JobInfo.dao.findById(ii);
                 info.delete();
             }
         }else {
-            JobUnitPosition info = JobUnitPosition.dao.findById(id);
+            JobInfo info = JobInfo.dao.findById(id);
             info.delete();
         }
 
@@ -38,19 +49,19 @@ public class JobSettingController extends BaseBussinessController {
         redirect("/job/pc");
     }
 
-	*//**
-	 * excel 导出导入 跳转
-	 *//*
+    /**
+     * 跳转
+     */
 	public void excel(){
         render("excel.html");
 	}
 
-    *//**
-     * excel 下载
-     *//*
+    /**
+     * 下载
+     */
 	public void excelDownload(){
-
-	    List<JobUnitPosition> lists = JobUnitPosition.dao.find("select * from job_unit_position") ;
+/*
+	    List<JobInfo> lists = JobUnitPosition.dao.find("select * from job_unit_position") ;
 
 	    List<JobExcel> jobExcels = new ArrayList<>();
 
@@ -86,13 +97,13 @@ public class JobSettingController extends BaseBussinessController {
 
         if (execlFile.exists()){
             renderFile(execlFile);
-        }
+        }*/
 
     }
 
-    *//**
-     * excel 导入
-     *//*
+    /**
+     * 导入
+     */
 	public void excelImport(){
 
         UploadFile uploadFile = getFile();
@@ -104,7 +115,7 @@ public class JobSettingController extends BaseBussinessController {
             ImportParams params = new ImportParams();
             List<JobExcel> list = ExcelImportUtil.importExcel(file, JobExcel.class, params);
 
-            for (JobExcel job : list){
+           /* for (JobExcel job : list){
 
                 JobUnitPosition position = new JobUnitPosition();
                 position.setJob(job.getName());
@@ -121,13 +132,13 @@ public class JobSettingController extends BaseBussinessController {
                 position.setCreateDate(new Date());
 
                 position.save();
-            }
+            }*/
             renderJson(R.ok("导入成功"));
         }else {
             renderJson(R.ok("上传失败, 请检测文件类型是否正确, 请使用 xlsx 格式的Excel文件!"));
         }
 
-    }*/
+    }
 
 	@Override
 	public void onExceptionError(Exception e) {

@@ -87,6 +87,17 @@ Table: j_someone
  updateDate      | DATETIME(19) | YES  |     |         |         
 -----------------+--------------+------+-----+---------+---------
 
+Table: j_upload_file
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         |         
+ name       | VARCHAR(255) | YES  |     |         | 文件名称    
+ uploadPath | VARCHAR(255) | YES  |     |         | 文件 存储地址 
+ urlPath    | VARCHAR(255) | YES  |     |         | url 访问地址
+ type       | VARCHAR(255) | YES  |     |         | 文件类型    
+------------+--------------+------+-----+---------+---------
+
 Table: user_collection
 ----------+--------------+------+-----+---------+---------
  Field    | Type         | Null | Key | Default | Remarks 
