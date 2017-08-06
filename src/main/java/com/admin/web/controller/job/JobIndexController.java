@@ -45,12 +45,11 @@ public class JobIndexController extends BaseBussinessController {
     @ApiOperation(description = "图片上传 接口" ,url = "/job/index/uploadImage", tag = "JobIndexController", httpMethod = "get", response = BaseCountries.class)
     public void uploadImage(){
         String time = DateUtils.formatDate(new Date(), "yyMMdd") + "/";
-        String imageUrl = PropKit.get("app.url") + "/image/"+time ;
-        String imagePath = "/home/www/job_file/"+time;
+        String imagePath = "/home/www/job_file/"+time;      //图片实际存储位置
         UploadFile uploadFile = getFile();
         
         if (uploadFile!=null){
-            String fileName = uploadFile.getOriginalFileName();
+
             com.admin.web.model.UploadFile image = new com.admin.web.model.UploadFile();
             image.setName(uploadFile.getFileName());
             image.setUploadPath(imagePath+uploadFile.getFileName());
@@ -58,7 +57,7 @@ public class JobIndexController extends BaseBussinessController {
 
             if (FileUtils.copyFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName(), imagePath+uploadFile.getFileName())){
                 FileUtils.deleteFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName());
-                image.setUrlPath(imageUrl + uploadFile.getFileName());
+                image.setUrlPath(PropKit.get("app.url") + "/job_file/"+time + uploadFile.getFileName());
                 image.save();
                 renderJson(R.ok().put("urlPath", image.getUrlPath()));
             }else {
