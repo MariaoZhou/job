@@ -46,7 +46,7 @@ public class JobIndexController extends BaseBussinessController {
     public void uploadImage(){
         String time = DateUtils.formatDate(new Date(), "yyMMdd") + "/";
         String imageUrl = PropKit.get("app.url") + "/image/"+time ;
-        String imagePath = "/home/www/image/"+time;
+        String imagePath = "/home/www/job_file/"+time;
         UploadFile uploadFile = getFile();
         
         if (uploadFile!=null){
@@ -60,7 +60,7 @@ public class JobIndexController extends BaseBussinessController {
                 FileUtils.deleteFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName());
                 image.setUrlPath(imageUrl + uploadFile.getFileName());
                 image.save();
-                renderJson(R.ok().put("fileName", image+fileName));
+                renderJson(R.ok().put("urlPath", image.getUrlPath()));
             }else {
                 renderJson(R.error("文件复制失败"));
             }
