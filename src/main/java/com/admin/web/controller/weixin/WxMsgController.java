@@ -2,9 +2,7 @@ package com.admin.web.controller.weixin;
 
 import com.admin.web.model.WxMsg;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
 import com.jfinal.weixin.sdk.msg.in.*;
 import com.jfinal.weixin.sdk.msg.in.event.*;
@@ -22,7 +20,7 @@ public class WxMsgController extends MsgControllerAdapter {
 
     static Log logger = Log.getLog(WxMsgController.class);
     //private final String appUrl = "http://hboss.htmlk.cn/#!/?id=";
-    private final String appUrl = "http://hboss.htmlk.cn";
+    private final String appUrl = "http://test.13701918.com:8080";
 
     /**
      * 文字消息 / 关键字
@@ -81,7 +79,7 @@ public class WxMsgController extends MsgControllerAdapter {
 
             newMsg.addNews("招聘，找工作？点我呢！！",
                     "点击开启",
-                    "http://hboss.htmlk.cn/images/icons/zhaopin.jpg",
+                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502034011790&di=d1e15a890ec2b3d2292d42e7c0381464&imgtype=0&src=http%3A%2F%2Fimg161.poco.cn%2Fmypoco%2Fmyphoto%2F20100424%2F19%2F53310080201004241856521800459127582_005.jpg",
                     appUrl);
             render(newMsg);
         }
