@@ -102,6 +102,17 @@ public class JobSomeoneController extends BaseBussinessController {
         renderJson(R.ok(map));
     }
 
+    @ApiOperation(description = " 找人办事 详情信息" ,url = "/job/someone/someoneInfo", tag = "JobSomeoneController", httpMethod = "get")
+    @Params({
+            @Param(name = "someoneId", description = "办事id 必填", dataType = "int")
+    })
+    public void someoneInfo(){
+
+        String someoneId = getPara("someoneId");
+
+        Someone someone = Someone.dao.findById(someoneId);
+        renderJson(R.ok().put(someone));
+    }
 
 
 	@Override
