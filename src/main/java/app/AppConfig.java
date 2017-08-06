@@ -102,9 +102,9 @@ public class AppConfig extends AppBaseConfig {
 
         /** 途听公众号 服务号*/
         ApiConfig serviceTT = new ApiConfig();
-        serviceTT.setToken(PropKit.get("service.token"));
-        serviceTT.setAppId(PropKit.get("service.appid"));
-        serviceTT.setAppSecret(PropKit.get("service.appSecret"));
+        serviceTT.setToken(PropKit.get("tut.token"));
+        serviceTT.setAppId(PropKit.get("tut.appid"));
+        serviceTT.setAppSecret(PropKit.get("tut.appSecret"));
 
 		ApiConfigKit.putApiConfig(ac);
 		ApiConfigKit.putApiConfig(serviceAC);
