@@ -74,13 +74,13 @@ public class WxMsgController extends MsgControllerAdapter {
                     render(imageMsg);
                 }
             }
-        }else {
+        }else if (appid.equals("wxc6fffa9280cb63e9")){
             OutNewsMsg newMsg = new OutNewsMsg(inTextMsg);      //图文消息
 
             newMsg.addNews("招聘，找工作？点我呢！！",
                     "点击开启",
                     "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502034011790&di=d1e15a890ec2b3d2292d42e7c0381464&imgtype=0&src=http%3A%2F%2Fimg161.poco.cn%2Fmypoco%2Fmyphoto%2F20100424%2F19%2F53310080201004241856521800459127582_005.jpg",
-                    appUrl);
+                    "http://tianye.work");
             render(newMsg);
         }
 
