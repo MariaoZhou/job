@@ -88,21 +88,25 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public boolean saveSomeone(Someone someone, String cityId, String userId){
+        try {
+            City city = City.dao.findById(cityId);
+            someone.setCityId(city.getId());
+            someone.setCityName(city.getName());
+            someone.setCountriesId(city.getCountriesId());
+            someone.setCountriesName(city.getCountriesName());
 
-        City city = City.dao.findById(cityId);
-        someone.setCityId(city.getId());
-        someone.setCityName(city.getName());
-        someone.setCountriesId(city.getCountriesId());
-        someone.setCountriesName(city.getCountriesName());
+            UserInfo userInfo = UserInfo.dao.findById(userId);
+            someone.setUserName(userInfo.getName());
+            someone.setUserId(userInfo.getId());
 
-        UserInfo userInfo = UserInfo.dao.findById(userId);
-        someone.setUserName(userInfo.getName());
-        someone.setUserId(userInfo.getId());
+            someone.setCreateDate(new Date());
+            someone.setUpdateDate(new Date());
+            return someone.save();
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
 
-        someone.setCreateDate(new Date());
-        someone.setUpdateDate(new Date());
-
-        return someone.save();
     }
 
     /**
@@ -114,25 +118,29 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public boolean saveJobInfo(JobInfo job, String cityId, String userId){
+        try {
+            City city = City.dao.findById(cityId);
+            job.setCityId(city.getId());
+            job.setCityName(city.getName());
+            job.setCountriesId(city.getCountriesId());
+            job.setCountriesName(city.getCountriesName());
 
-        City city = City.dao.findById(cityId);
-        job.setCityId(city.getId());
-        job.setCityName(city.getName());
-        job.setCountriesId(city.getCountriesId());
-        job.setCountriesName(city.getCountriesName());
+            UserInfo userInfo = UserInfo.dao.findById(userId);
+            job.setUserId(userInfo.getId());
+            job.setUserName(userInfo.getName());
 
-        UserInfo userInfo = UserInfo.dao.findById(userId);
-        job.setUserId(userInfo.getId());
-        job.setUserName(userInfo.getName());
+            // 薪资排序
+            String salaryOrder = Data.dao.getCodeDescByCodeAndType(job.getJobSalaryName(),"JOB_SALARY");
+            job.setJobSalaryOrder(Integer.parseInt(salaryOrder));
 
-        // 薪资排序
-        String salaryOrder = Data.dao.getCodeDescByCodeAndType(job.getJobWelfareName(),"JOB_SALARY");
-        job.setJobSalaryOrder(Integer.parseInt(salaryOrder));
+            job.setCreateDate(new Date());
+            job.setUpdateDate(new Date());
 
-        job.setCreateDate(new Date());
-        job.setUpdateDate(new Date());
-
-        return job.save();
+            return job.save();
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
