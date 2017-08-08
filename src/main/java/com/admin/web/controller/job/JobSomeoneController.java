@@ -116,7 +116,7 @@ public class JobSomeoneController extends BaseBussinessController {
         map.put("cityList", cityList);
         map.put("someoneType", someoneType);
 
-        renderJson(R.ok(map));
+        renderJson(R.ok().put(map));
     }
 
     @ApiOperation(description = " 找人办事 详情信息" ,url = "/job/someone/someoneInfo", tag = "JobSomeoneController", httpMethod = "get")
