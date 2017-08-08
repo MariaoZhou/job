@@ -25,6 +25,7 @@ public class JobInfoController extends BaseBussinessController {
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
             @Param(name = "cityId", description = "城市id", dataType = "int"),
             @Param(name = "jobType", description = "工作类型", dataType = "String"),
+            @Param(name = "title", description = "标题", dataType = "String"),
             @Param(name = "jobNature", description = "工作性质", dataType = "String"),
             @Param(name = "type", description = "类型 =1（最高工资）=2 （企业查询） 最新发布(默认就会根据时间排序, 无需使用 type, 直接传递国家id 即可)", dataType = "String"),
             @Param(name = "pageNumber", description = "页码 必填", dataType = "int")
@@ -47,6 +48,9 @@ public class JobInfoController extends BaseBussinessController {
         // 最新发布2
         // 企业查询3
         String type = getPara("type");
+        // 标题
+        String title = getPara("title");
+        job.setTitle(title);
 
         // 页码
         Integer pageNumber = getParaToInt("pageNumber",1);

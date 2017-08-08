@@ -35,6 +35,10 @@ public class JobConfigService extends BaseBussinessService {
             from += " and instr(cityId, ?) > 0 ";
             params.add(job.getCityId().toString());
         }
+        if (StrKit.notBlank(job.getTitle())) {
+            from += " and instr(title, ?) > 0 ";
+            params.add(job.getTitle());
+        }
         if (StrKit.notBlank(job.getJobTypeName())) {
             from += " and instr(jobType, ?) > 0 ";
             params.add(job.getJobTypeName());
@@ -72,6 +76,10 @@ public class JobConfigService extends BaseBussinessService {
         if (StrKit.notBlank(someone.getSomeoneTypeName())){
             from += " and instr(someoneTypeName, ?) > 0 ";
         }
+        if (StrKit.notBlank(someone.getTitle())){
+            from += " and instr(title, ?) > 0 ";
+        }
+
 
         from += " order by createDate asc";
         Page<Someone> someonePage = Someone.dao.paginate(pageNumber, Consts.PAGE_DEFAULT_SIZE, "select * ", from, params.toArray());

@@ -80,6 +80,7 @@ public class JobSomeoneController extends BaseBussinessController {
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
             @Param(name = "someoneType", description = "分类", dataType = "String"),
+            @Param(name = "title", description = "标题", dataType = "String"),
             @Param(name = "pageNumber", description = "页码 必填", dataType = "int")
     })
     public void searchSomeone(){
@@ -92,6 +93,9 @@ public class JobSomeoneController extends BaseBussinessController {
         someone.setSomeoneTypeName(someoneTypeName);
         // 页码
         Integer pageNumber = getParaToInt("pageNumber",1);
+        // 标题
+        String title = getPara("title");
+        someone.setTitle(title);
 
         Page<Someone> map = jobConfigService.searchSomeone(someone, pageNumber);
 
