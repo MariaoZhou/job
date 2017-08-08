@@ -134,11 +134,11 @@ public class JobInfoController extends BaseBussinessController {
         renderJson(R.ok().put(jobConfigService.jobInfoConfig(countries)));
     }
 
-    @ApiOperation(description = " 职位 查看详情信息" ,url = "/job/info/jobInfo", tag = "JobInfoController", httpMethod = "get")
+    @ApiOperation(description = " 职位 查看详情信息" ,url = "/job/info/jobInfoDetails", tag = "JobInfoController", httpMethod = "get")
     @Params({
             @Param(name = "jobId", description = "职位id 必填", dataType = "int")
     })
-    public void someoneInfo(){
+    public void jobInfoDetails(){
 
         String jobId = getPara("jobId");
 
