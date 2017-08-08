@@ -70,7 +70,7 @@ public class JobSomeoneController extends BaseBussinessController {
 
         boolean status = jobConfigService.saveSomeone(someone, cityId, userId);
         if (status){
-            renderJson(R.ok());
+            renderJson(R.ok().put("someoneId", someone.getId()));
         }else {
             renderJson(R.error());
         }
