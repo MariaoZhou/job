@@ -50,7 +50,7 @@ public class JobConfigService extends BaseBussinessService {
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
             order = " order by jobSalaryOrder asc";
-        }else if ("1".equals(type)){
+        }else if ("2".equals(type)){
             from += " and companyName != '' ";
         }
 
