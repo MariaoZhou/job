@@ -25,12 +25,14 @@ public class JobUserController extends BaseBussinessController {
     @Params({
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
             @Param(name = "tel", description = "电话号码 选填", dataType = "String"),
+            @Param(name = "head", description = "头像地址 选填", dataType = "String"),
             @Param(name = "userName", description = "用户名 选填", dataType = "String")
     })
     public void updateUser(){
         Integer userId = getParaToInt("userId",0);
         String tel = getPara("tel");
         String userName = getPara("userName");
+        String head = getPara("head");
 
         if (userId == 0 ){
             renderJson(R.error("参数错误"));
@@ -45,6 +47,10 @@ public class JobUserController extends BaseBussinessController {
 
             if (StrKit.notBlank(userName)){
                 userInfo.setName(userName);
+            }
+
+            if (StrKit.notBlank(head)){
+                userInfo.setHead(head);
             }
 
             userInfo.update();
