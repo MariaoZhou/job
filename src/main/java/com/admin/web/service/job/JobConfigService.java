@@ -40,16 +40,16 @@ public class JobConfigService extends BaseBussinessService {
             params.add(job.getTitle());
         }
         if (StrKit.notBlank(job.getJobTypeName())) {
-            from += " and instr(jobType, ?) > 0 ";
+            from += " and instr(jobTypeName, ?) > 0 ";
             params.add(job.getJobTypeName());
         }
         if (StrKit.notBlank(job.getJobNatureName())) {
-            from += " and instr(jobNature, ?) > 0 ";
+            from += " and instr(jobNatureName, ?) > 0 ";
             params.add(job.getJobNatureName());
         }
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
-            order = " order by salaryOrder asc";
+            order = " order by jobSalaryOrder asc";
         }else if ("1".equals(type)){
             from += " and companyName != '' ";
         }
