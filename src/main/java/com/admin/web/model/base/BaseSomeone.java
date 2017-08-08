@@ -33,6 +33,46 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 		return get("countriesName");
 	}
 
+	public void setCompanyName(java.lang.String companyName) {
+		set("companyName", companyName);
+	}
+
+	public java.lang.String getCompanyName() {
+		return get("companyName");
+	}
+
+	public void setCompanyPublicity(java.lang.String companyPublicity) {
+		set("companyPublicity", companyPublicity);
+	}
+
+	public java.lang.String getCompanyPublicity() {
+		return get("companyPublicity");
+	}
+
+	public void setCompanyQRCode(java.lang.String companyQRCode) {
+		set("companyQRCode", companyQRCode);
+	}
+
+	public java.lang.String getCompanyQRCode() {
+		return get("companyQRCode");
+	}
+
+	public void setCompanyInfo(java.lang.String companyInfo) {
+		set("companyInfo", companyInfo);
+	}
+
+	public java.lang.String getCompanyInfo() {
+		return get("companyInfo");
+	}
+
+	public void setCompanyLogo(java.lang.String companyLogo) {
+		set("companyLogo", companyLogo);
+	}
+
+	public java.lang.String getCompanyLogo() {
+		return get("companyLogo");
+	}
+
 	public void setUserId(java.lang.Integer userId) {
 		set("userId", userId);
 	}

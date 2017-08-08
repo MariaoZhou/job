@@ -8,108 +8,48 @@ import org.jeecgframework.poi.excel.annotation.Excel;
  */
 public class JobExcel {
 
-    @Excel(name = "职位名称")
-    private String name ;
+    @Excel(name = "用户id")
+    private String userId ;
 
-    @Excel(name = "薪资")
-    private String salary;
-
-    @Excel(name = "公司名称")
-    private String unit;
+    @Excel(name = "标题")
+    private String title;
 
     @Excel(name = "联系电话")
     private String tel;
 
     @Excel(name = "工作地点(国家)")
-    private String country;
+    private String countriesName;
 
     @Excel(name = "工作地点(城市)")
-    private String city;
+    private String cityName;
 
-    @Excel(name = "工作地点(街道)")
-    private String street;
+    @Excel(name = "工作种类")
+    private String jobTypeName;
 
-    @Excel(name = "学历")
-    private String qualification;
+    @Excel(name = "工作性质")
+    private String jobNatureName;
 
-    @Excel(name = "职位详情")
-    private String jobDetail;
+    @Excel(name = "工作福利")
+    private String jobWelfareName;
 
-    @Excel(name = "技能要求(以 ,分割)")
-    private String skill;
+    @Excel(name = "薪资待遇")
+    private String jobSalaryName;
 
-    @Excel(name = "职位吸引力")
-    private String strength;
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"name\":\"")
-                .append(name).append('\"');
-        sb.append(",\"salary\":\"")
-                .append(salary).append('\"');
-        sb.append(",\"unit\":\"")
-                .append(unit).append('\"');
-        sb.append(",\"tel\":\"")
-                .append(tel).append('\"');
-        sb.append(",\"country\":\"")
-                .append(country).append('\"');
-        sb.append(",\"city\":\"")
-                .append(city).append('\"');
-        sb.append(",\"street\":\"")
-                .append(street).append('\"');
-        sb.append(",\"qualification\":\"")
-                .append(qualification).append('\"');
-        sb.append(",\"jobDetail\":\"")
-                .append(jobDetail).append('\"');
-        sb.append(",\"skill\":\"")
-                .append(skill).append('\"');
-        sb.append(",\"strength\":\"")
-                .append(strength).append('\"');
-        sb.append('}');
-        return sb.toString();
+    public String getUserId() {
+        return userId;
     }
 
-    public JobExcel() {
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public JobExcel(String name, String salary, String unit, String tel, String country, String city, String street, String qualification, String jobDetail, String skill, String strength) {
-
-        this.name = name;
-        this.salary = salary;
-        this.unit = unit;
-        this.tel = tel;
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.qualification = qualification;
-        this.jobDetail = jobDetail;
-        this.skill = skill;
-        this.strength = strength;
+    public String getTitle() {
+        return title;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getTel() {
@@ -120,59 +60,51 @@ public class JobExcel {
         this.tel = tel;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCountriesName() {
+        return countriesName;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountriesName(String countriesName) {
+        this.countriesName = countriesName;
     }
 
-    public String getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
-    public String getStreet() {
-        return street;
+    public String getJobTypeName() {
+        return jobTypeName;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setJobTypeName(String jobTypeName) {
+        this.jobTypeName = jobTypeName;
     }
 
-    public String getQualification() {
-        return qualification;
+    public String getJobNatureName() {
+        return jobNatureName;
     }
 
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
+    public void setJobNatureName(String jobNatureName) {
+        this.jobNatureName = jobNatureName;
     }
 
-    public String getJobDetail() {
-        return jobDetail;
+    public String getJobWelfareName() {
+        return jobWelfareName;
     }
 
-    public void setJobDetail(String jobDetail) {
-        this.jobDetail = jobDetail;
+    public void setJobWelfareName(String jobWelfareName) {
+        this.jobWelfareName = jobWelfareName;
     }
 
-    public String getSkill() {
-        return skill;
+    public String getJobSalaryName() {
+        return jobSalaryName;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
-    }
-
-    public String getStrength() {
-        return strength;
-    }
-
-    public void setStrength(String strength) {
-        this.strength = strength;
+    public void setJobSalaryName(String jobSalaryName) {
+        this.jobSalaryName = jobSalaryName;
     }
 }

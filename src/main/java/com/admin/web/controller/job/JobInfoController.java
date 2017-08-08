@@ -66,6 +66,7 @@ public class JobInfoController extends BaseBussinessController {
             @Param(name = "companyLogo", description = "公司Logo地址", dataType = "String"),
             @Param(name = "companyPublicity", description = "公司宣传图地址", dataType = "String"),
             @Param(name = "companyQRCode", description = "公司二维码地址", dataType = "String"),
+            @Param(name = "companyInfo", description = "公司宣传语", dataType = "String"),
             @Param(name = "jobType", description = "工作种类 必填", dataType = "String"),
             @Param(name = "jobNature", description = "工作性质 必填", dataType = "String"),
             @Param(name = "jobWelfare", description = "福利待遇 必填", dataType = "String"),

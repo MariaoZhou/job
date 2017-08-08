@@ -25,16 +25,16 @@ public class JobTest {
         for (JobExcel job : list){
             //System.out.println(job.toString());
 
-            String sql = String.format(
+          /*  String sql = String.format(
                     "INSERT INTO `job`.`job_unit_position` " +
                             "(`job`, `salary`, `unit`, `country`, `city`, `skill`, `street`, `jobDetail`, `tel`, `qualification`, `strength`, `createDate`) VALUES " +
                             "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+*/
+//                             job.getName(), job.getSalary(), job.getUnit(), job.getCountry(), job.getCity(),
+//                            job.getSkill(), job.getStreet(), job.getJobDetail(), job.getTel(), job.getQualification(), job.getStrength() , DateUtils.getDateTime());
 
-                             job.getName(), job.getSalary(), job.getUnit(), job.getCountry(), job.getCity(),
-                            job.getSkill(), job.getStreet(), job.getJobDetail(), job.getTel(), job.getQualification(), job.getStrength() , DateUtils.getDateTime());
 
-
-            System.out.println(sql);
+            //System.out.println(sql);
         }
 
     }
