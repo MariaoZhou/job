@@ -26,7 +26,7 @@ public class JobSomeoneController extends BaseBussinessController {
 
     private static JobConfigService jobConfigService = JobConfigService.me;
 
-    @ApiOperation(description = " 发布找人办事" ,url = "/job/someone/publishSomeone", tag = "JobSomeoneController", httpMethod = "get")
+    @ApiOperation(description = " 发布找人办事（找活挣钱）" ,url = "/job/someone/publishSomeone", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
             @Param(name = "cityId", description = "城市id 必填", dataType = "int"),
@@ -82,7 +82,7 @@ public class JobSomeoneController extends BaseBussinessController {
     }
 
 
-    @ApiOperation(description = " 获取 找人办事参数 + 找人办事搜索" ,url = "/job/someone/someoneConfig", tag = "JobSomeoneController", httpMethod = "get")
+    @ApiOperation(description = " 获取 找人办事参数 + 找人办事搜索参数" ,url = "/job/someone/someoneConfig", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int")
     })

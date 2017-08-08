@@ -26,7 +26,7 @@ public class JobInfoController extends BaseBussinessController {
             @Param(name = "cityId", description = "城市id", dataType = "int"),
             @Param(name = "jobType", description = "工作类型", dataType = "String"),
             @Param(name = "jobNature", description = "工作性质", dataType = "String"),
-            @Param(name = "type", description = "类型 最高工资1 企业查询2 最新发布(默认就会根据时间排序, 无需使用 type, 直接传递国家id 即可)", dataType = "String"),
+            @Param(name = "type", description = "类型 =1（最高工资）=2 （企业查询） 最新发布(默认就会根据时间排序, 无需使用 type, 直接传递国家id 即可)", dataType = "String"),
             @Param(name = "pageNumber", description = "页码 必填", dataType = "int")
     })
     public void searchJobInfo(){
@@ -133,7 +133,7 @@ public class JobInfoController extends BaseBussinessController {
         renderJson(R.ok().put(jobConfigService.jobInfoConfig(countries)));
     }
 
-    @ApiOperation(description = " 职位 详情信息" ,url = "/job/info/jobInfo", tag = "JobInfoController", httpMethod = "get")
+    @ApiOperation(description = " 职位 查看详情信息" ,url = "/job/info/jobInfo", tag = "JobInfoController", httpMethod = "get")
     @Params({
             @Param(name = "jobId", description = "职位id 必填", dataType = "int")
     })
