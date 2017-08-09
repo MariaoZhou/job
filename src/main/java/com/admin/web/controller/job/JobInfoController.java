@@ -10,6 +10,7 @@ import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
+import com.rlax.framework.common.Consts;
 
 /**
  *  职位 招聘 controller
@@ -28,7 +29,8 @@ public class JobInfoController extends BaseBussinessController {
             @Param(name = "title", description = "标题", dataType = "String"),
             @Param(name = "jobNature", description = "工作性质", dataType = "String"),
             @Param(name = "type", description = "类型 =1（最高工资）=2 （企业查询） 最新发布(默认就会根据时间排序, 无需使用 type, 直接传递国家id 即可)", dataType = "String"),
-            @Param(name = "pageNumber", description = "页码 必填", dataType = "int")
+            @Param(name = "pageNumber", description = "页码 必填", dataType = "int"),
+            @Param(name = "pageSize", description = "每页长度", dataType = "int")
     })
     public void searchJobInfo(){
         JobInfo job = new JobInfo();
@@ -54,8 +56,10 @@ public class JobInfoController extends BaseBussinessController {
 
         // 页码
         Integer pageNumber = getParaToInt("pageNumber",1);
+        Integer pageSize = getParaToInt("pageSize", Consts.PAGE_DEFAULT_SIZE);
 
-        Page<JobInfo> map = jobConfigService.searchJobInfo(job, type, pageNumber);
+
+        Page<JobInfo> map = jobConfigService.searchJobInfo(job, type, pageNumber,pageSize);
 
         renderJson(R.ok().put(map));
 

@@ -12,6 +12,7 @@ import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
+import com.rlax.framework.common.Consts;
 
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +82,8 @@ public class JobSomeoneController extends BaseBussinessController {
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
             @Param(name = "someoneType", description = "分类", dataType = "String"),
             @Param(name = "title", description = "标题", dataType = "String"),
-            @Param(name = "pageNumber", description = "页码 必填", dataType = "int")
+            @Param(name = "pageNumber", description = "页码 必填", dataType = "int"),
+            @Param(name = "pageSize", description = "每页长度", dataType = "int")
     })
     public void searchSomeone(){
         Someone someone = new Someone();
@@ -93,11 +95,13 @@ public class JobSomeoneController extends BaseBussinessController {
         someone.setSomeoneTypeName(someoneTypeName);
         // 页码
         Integer pageNumber = getParaToInt("pageNumber",1);
+        Integer pageSize = getParaToInt("pageSize", Consts.PAGE_DEFAULT_SIZE);
         // 标题
         String title = getPara("title");
         someone.setTitle(title);
 
-        Page<Someone> map = jobConfigService.searchSomeone(someone, pageNumber);
+
+        Page<Someone> map = jobConfigService.searchSomeone(someone, pageNumber,pageSize);
 
         renderJson(R.ok().put(map));
     }
