@@ -31,6 +31,11 @@ public class WxConfigController extends Controller {
         try {
             System.out.println("oauth state = " + state);
             redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+            if (StrKit.notBlank(state)){
+                state = URLEncoder.encode(state, "UTF-8");
+
+                System.out.println("oauth state URLEncoder = " + state);
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
