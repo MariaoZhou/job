@@ -114,7 +114,7 @@ public class JobInfoController extends BaseBussinessController {
 
         // 职位信息
         String title = getPara("title");
-        job.setTel(title);
+        job.setTitle(title);
         String tel = getPara("tel");
         job.setTel(tel);
         String details = getPara("details");
