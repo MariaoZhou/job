@@ -57,7 +57,7 @@ public class JobIndexController extends BaseBussinessController {
 
             if (FileUtils.copyFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName(), imagePath+uploadFile.getFileName())){
                 FileUtils.deleteFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName());
-                image.setUrlPath(PropKit.get("service.url") + "/job_file/"+time + uploadFile.getFileName());
+                image.setUrlPath(PropKit.get("app.url") + "/job_file/"+time + uploadFile.getFileName());
                 image.save();
                 renderJson(R.ok().put("urlPath", image.getUrlPath()));
             }else {
