@@ -27,14 +27,19 @@ public class WxConfigController extends Controller {
     public void oauth() {
         String appId = PropKit.get("service.appid");
         String redirectUri = null;
+        String state = getPara("state","");
         try {
+            System.out.println("oauth state = " + state);
             redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+            if (StrKit.notBlank(state)){
+                state = URLEncoder.encode(state, "UTF-8");
+
+                System.out.println("oauth state URLEncoder = " + state);
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        String state = getPara("state","");
-        System.out.println("oauth state = " + state);
         //String state = "http://www.baidu.com/openid=okid";
 
         String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
