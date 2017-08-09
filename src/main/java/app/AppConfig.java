@@ -15,7 +15,6 @@ import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
 import com.rlax.framework.config.AppBaseConfig;
-import com.rlax.framework.interceptor.Log4sInterceptor;
 import com.rlax.framework.interceptor.SessionMessageInterceptor;
 import com.rlax.framework.plugin.beetl.function.*;
 import com.rlax.framework.plugin.reids.activerecord.ActiveRecordCache;
@@ -155,7 +154,7 @@ public class AppConfig extends AppBaseConfig {
 	@Override
 	public void configMoreInterceptors(Interceptors me) {
 		me.add(new SessionMessageInterceptor());
-		me.add(new Log4sInterceptor());
+		//me.add(new Log4sInterceptor());
 		me.add(new ShiroInterceptor4s());
 		me.add(new CORSInterceptor());
 	}
