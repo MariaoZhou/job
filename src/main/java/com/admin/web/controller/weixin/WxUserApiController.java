@@ -1,7 +1,10 @@
 package com.admin.web.controller.weixin;
 
 import com.admin.web.base.BaseBussinessController;
+import com.admin.web.model.UserInfo;
+import com.admin.web.model.weixin.WxUserInfo;
 import com.admin.web.util.R;
+import com.admin.web.util.WxUtils;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
@@ -9,6 +12,8 @@ import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.SnsAccessToken;
 import com.jfinal.weixin.sdk.api.SnsAccessTokenApi;
 import com.jfinal.weixin.sdk.api.SnsApi;
+
+import java.util.Date;
 
 /**
  *  微信公众 用户 接口Controller
@@ -45,8 +50,18 @@ public class WxUserApiController extends BaseBussinessController {
         try {
             System.out.println("登录的用户 openid" + openId);
             System.out.println("登录的用户 apiResult" + apiResult);
-            //WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
+            WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
 
+            UserInfo user = new UserInfo();
+            user.setHead(wxUserInfo.getHeadimgurl());
+            user.setName(wxUserInfo.getNickname());
+            user.setOpenId(wxUserInfo.getOpenid());
+
+            user.setCreateDate(new Date());
+            user.setUpdateDate(new Date());
+
+
+            user.save();
 
             /*JobMember member = new JobMember();
             member.setOpenId(wxUserInfo.getOpenid());
@@ -64,9 +79,9 @@ public class WxUserApiController extends BaseBussinessController {
             System.out.println("jobmember =======" + member.toString());
             jobService.saveAndUpdateMember(member);*/
 
-            // 重定向 前端url 替换okid 关键字为 openid
+            // 重定向 前端url 替换okid 关键字为 userId
             if (StrKit.notBlank(state)){
-                state = state.replace("okid",openId);
+                state = state.replace("okid",user.getId().toString());
                 redirect(state);
             }else {
                 // TODO 重定向 默认错误页
