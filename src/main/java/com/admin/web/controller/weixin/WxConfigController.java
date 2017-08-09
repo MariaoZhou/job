@@ -34,6 +34,7 @@ public class WxConfigController extends Controller {
         }
 
         String state = getPara("state","");
+        System.out.println("oauth state = " + state);
         //String state = "http://www.baidu.com/openid=okid";
 
         String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);

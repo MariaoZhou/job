@@ -49,6 +49,7 @@ public class WxUserApiController extends BaseBussinessController {
 
         try {
             System.out.println("登录的用户 openid" + openId);
+            System.out.println("登录的用户 state" + state);
             System.out.println("登录的用户 apiResult" + apiResult);
             WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
 
