@@ -54,7 +54,7 @@ public class WxUserApiController extends BaseBussinessController {
 
             UserInfo user = UserInfo.dao.findFirst("select * from user_info where openid = ?", openId);
 
-            if (user != null && user.getId() == null){
+            if (user == null ){
                 user = new UserInfo();
                 user.setHead(wxUserInfo.getHeadimgurl());
                 user.setName(wxUserInfo.getNickname());
