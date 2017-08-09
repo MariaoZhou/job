@@ -52,16 +52,18 @@ public class WxUserApiController extends BaseBussinessController {
             System.out.println("登录的用户 apiResult" + apiResult);
             WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
 
-            UserInfo user = new UserInfo();
-            user.setHead(wxUserInfo.getHeadimgurl());
-            user.setName(wxUserInfo.getNickname());
-            user.setOpenId(wxUserInfo.getOpenid());
+            UserInfo user = UserInfo.dao.findFirst("select * from user_info where openid = ?", openId);
 
-            user.setCreateDate(new Date());
-            user.setUpdateDate(new Date());
+            if (user.getId() == null){
+                user = new UserInfo();
+                user.setHead(wxUserInfo.getHeadimgurl());
+                user.setName(wxUserInfo.getNickname());
+                user.setOpenId(wxUserInfo.getOpenid());
 
-
-            user.save();
+                user.setCreateDate(new Date());
+                user.setUpdateDate(new Date());
+                user.save();
+            }
 
             /*JobMember member = new JobMember();
             member.setOpenId(wxUserInfo.getOpenid());
