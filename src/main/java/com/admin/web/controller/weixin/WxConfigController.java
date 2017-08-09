@@ -36,7 +36,7 @@ public class WxConfigController extends Controller {
         String state = getPara("state","");
 
         String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
-        redirect(url);
+        renderJson(R.ok().put(url));
     }
 
 
