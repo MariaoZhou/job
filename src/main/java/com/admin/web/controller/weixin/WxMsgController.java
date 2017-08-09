@@ -73,7 +73,7 @@ public class WxMsgController extends MsgControllerAdapter {
                         render(imageMsg);
                     }
                 }else {
-                    render(outMsg);
+                    renderText("success");
                 }
             }
         }else if (appid.equals("wxc6fffa9280cb63e9")){
