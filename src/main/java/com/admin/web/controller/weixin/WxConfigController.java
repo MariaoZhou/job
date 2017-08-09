@@ -33,7 +33,8 @@ public class WxConfigController extends Controller {
             e.printStackTrace();
         }
 
-        String state = getPara("state","");
+        //String state = getPara("state","http://www.baidu.com");
+        String state = "http://www.baidu.com/openid=okid";
 
         String url = SnsAccessTokenApi.getAuthorizeURL(appId, redirectUri, state, false);
         renderJson(R.ok().put(url));
