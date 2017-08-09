@@ -25,10 +25,10 @@ public class WxConfigController extends Controller {
      *  服务号授权跳转
      */
     public void oauth() {
-        String appId = PropKit.get("tut.appid");
+        String appId = PropKit.get("service.appid");
         String redirectUri = null;
         try {
-            redirectUri = URLEncoder.encode(PropKit.get("tut.url") + "/wx/user/login", "UTF-8");
+            redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
