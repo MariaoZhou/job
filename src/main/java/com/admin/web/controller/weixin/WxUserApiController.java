@@ -32,8 +32,8 @@ public class WxUserApiController extends BaseBussinessController {
             renderJson(R.error("未获取到 weixin code 信息"));
             return;
         }
-        String appId  = PropKit.get("tut.appid");
-        String secret = PropKit.get("tut.appSecret");
+        String appId  = PropKit.get("service.appid");
+        String secret = PropKit.get("service.appSecret");
         SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
 
         String openId = snsAccessToken.getOpenid();
