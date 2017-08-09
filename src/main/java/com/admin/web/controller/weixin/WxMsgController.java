@@ -19,8 +19,7 @@ import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 public class WxMsgController extends MsgControllerAdapter {
 
     static Log logger = Log.getLog(WxMsgController.class);
-    //private final String appUrl = "http://hboss.htmlk.cn/#!/?id=";
-    private final String appUrl = "http://test.13701918.com:8080";
+    private final String appUrl = "http://hboss.htmlk.cn/#!/?id=";
 
     /**
      * 文字消息 / 关键字
