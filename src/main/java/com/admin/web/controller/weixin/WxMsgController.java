@@ -55,22 +55,23 @@ public class WxMsgController extends MsgControllerAdapter {
                 render(imageMsg);
             } else {       //关键字 消息返回
                 WxMsg wxMsg = this.keyWord(msgContent);
+                if (wxMsg != null){
+                    System.out.println("wxmsg " + wxMsg.toString());
 
-                System.out.println("wxmsg " + wxMsg.toString());
+                    if (wxMsg.getMsgType().equals("0")){        //文字消息
+                        outMsg.setContent(wxMsg.getText());
+                        render(outMsg);
+                    }else if (wxMsg.getMsgType().equals("1")){  //图文消息
+                        OutNewsMsg imgMsg = new OutNewsMsg(inTextMsg);
 
-                if (wxMsg.getMsgType().equals("0")){        //文字消息
-                    outMsg.setContent(wxMsg.getText());
-                    render(outMsg);
-                }else if (wxMsg.getMsgType().equals("1")){  //图文消息
-                    OutNewsMsg imgMsg = new OutNewsMsg(inTextMsg);
+                        imgMsg.addNews(wxMsg.getNewTitle(), wxMsg.getNewDescription(), wxMsg.getNewPicUrl(), wxMsg.getNewUrl());
+                        render(imgMsg);
+                    }else if (wxMsg.getMsgType().equals("2")){  //图片消息
+                        OutImageMsg imageMsg = new OutImageMsg(inTextMsg);
+                        imageMsg.setMediaId(wxMsg.getText());
 
-                    imgMsg.addNews(wxMsg.getNewTitle(), wxMsg.getNewDescription(), wxMsg.getNewPicUrl(), wxMsg.getNewUrl());
-                    render(imgMsg);
-                }else if (wxMsg.getMsgType().equals("2")){  //图片消息
-                    OutImageMsg imageMsg = new OutImageMsg(inTextMsg);
-                    imageMsg.setMediaId(wxMsg.getText());
-
-                    render(imageMsg);
+                        render(imageMsg);
+                    }
                 }
             }
         }else if (appid.equals("wxc6fffa9280cb63e9")){
@@ -98,11 +99,7 @@ public class WxMsgController extends MsgControllerAdapter {
      * @return
      */
     private WxMsg keyWord(String key){
-        WxMsg wxMsg = WxMsg.dao.findByKeyWord(key);
-        if (wxMsg ==null){
-            wxMsg = WxMsg.dao.findByType("1");
-        }
-        return wxMsg;
+        return WxMsg.dao.findByKeyWord(key);
     }
 
 
