@@ -74,13 +74,15 @@ public class JobConfigService extends BaseBussinessService {
 
         if (StrKit.notBlank(someone.getSomeoneTypeName())){
             from += " and instr(someoneTypeName, ?) > 0 ";
+            params.add(someone.getSomeoneTypeName());
         }
         if (StrKit.notBlank(someone.getTitle())){
             from += " and instr(title, ?) > 0 ";
+            params.add(someone.getTitle());
         }
 
 
-        from += " order by createDate asc";
+        from += " order by createDate DESC";
         Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select * ", from, params.toArray());
         return someonePage;
     }
