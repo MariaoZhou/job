@@ -94,7 +94,7 @@ public class JobInfoController extends BaseBussinessController {
 
         // 公司信息
         String companyName = getPara("companyName");
-        job.setCountriesName(companyName);
+        job.setCompanyName(companyName);
         String companyLogo = getPara("companyLogo");
         job.setCompanyLogo(companyLogo);
         String companyPublicity = getPara("companyPublicity");

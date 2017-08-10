@@ -26,7 +26,7 @@ public class JobConfigService extends BaseBussinessService {
     @Before(Tx.class)
     public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer pageNumber,Integer pageSize){
         String from = "from " + JobInfo.table + " where countriesId = ?";
-        String order = " order by createDate asc";
+        String order = " order by createDate DESC";
         List<String> params = new ArrayList<>();
         params.add(job.getCountriesId().toString());
 
@@ -48,7 +48,7 @@ public class JobConfigService extends BaseBussinessService {
         }
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
-            order = " order by jobSalaryOrder asc";
+            order = " order by jobSalaryOrder DESC";
         }else if ("2".equals(type)){
             from += " and companyName != '' ";
         }
