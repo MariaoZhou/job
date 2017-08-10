@@ -14,6 +14,9 @@ public class JobExcel {
     @Excel(name = "标题")
     private String title;
 
+    @Excel(name = "公司名称")
+    private String companyName;
+
     @Excel(name = "联系电话")
     private String tel;
 
@@ -35,6 +38,50 @@ public class JobExcel {
     @Excel(name = "薪资待遇")
     private String jobSalaryName;
 
+    @Excel(name = "居住要求")
+    private String jobRequirementsName;
+
+    @Excel(name = "职位详情")
+    private String details;
+
+    public JobExcel(String userId, String title, String companyName, String tel, String countriesName, String cityName, String jobTypeName, String jobNatureName, String jobWelfareName, String jobSalaryName, String jobRequirementsName, String details) {
+        this.userId = userId;
+        this.title = title;
+        this.companyName = companyName;
+        this.tel = tel;
+        this.countriesName = countriesName;
+        this.cityName = cityName;
+        this.jobTypeName = jobTypeName;
+        this.jobNatureName = jobNatureName;
+        this.jobWelfareName = jobWelfareName;
+        this.jobSalaryName = jobSalaryName;
+        this.jobRequirementsName = jobRequirementsName;
+        this.details = details;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getJobRequirementsName() {
+        return jobRequirementsName;
+    }
+
+    public void setJobRequirementsName(String jobRequirementsName) {
+        this.jobRequirementsName = jobRequirementsName;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
 
     public String getUserId() {
         return userId;
