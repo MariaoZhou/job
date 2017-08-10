@@ -108,6 +108,7 @@ public class JobConfigService extends BaseBussinessService {
             someone.setUserName(userInfo.getName());
             someone.setUserId(userInfo.getId());
 
+            someone.setStatus("0");
             someone.setCreateDate(new Date());
             someone.setUpdateDate(new Date());
             return someone.save();
@@ -142,6 +143,7 @@ public class JobConfigService extends BaseBussinessService {
             String salaryOrder = Data.dao.getCodeDescByCodeAndType(job.getJobSalaryName(),"JOB_SALARY");
             job.setJobSalaryOrder(Integer.parseInt(salaryOrder));
 
+            job.setStatus("0");
             job.setCreateDate(new Date());
             job.setUpdateDate(new Date());
 
