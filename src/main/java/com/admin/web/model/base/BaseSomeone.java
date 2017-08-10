@@ -113,6 +113,14 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 		return get("someoneTypeName");
 	}
 
+	public void setStatus(java.lang.String status) {
+		set("status", status);
+	}
+
+	public java.lang.String getStatus() {
+		return get("status");
+	}
+
 	public void setTitle(java.lang.String title) {
 		set("title", title);
 	}

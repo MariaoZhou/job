@@ -89,6 +89,14 @@ public abstract class BaseJobInfo<M extends BaseJobInfo<M>> extends Model<M> imp
 		return get("tel");
 	}
 
+	public void setStatus(java.lang.String status) {
+		set("status", status);
+	}
+
+	public java.lang.String getStatus() {
+		return get("status");
+	}
+
 	public void setCountriesId(java.lang.Integer countriesId) {
 		set("countriesId", countriesId);
 	}

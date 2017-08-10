@@ -14,6 +14,7 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.rlax.framework.common.Consts;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,8 +140,25 @@ public class JobSomeoneController extends BaseBussinessController {
         renderJson(R.ok().put(someone));
     }
 
+    @ApiOperation(description = " 刷新找人办事" ,url = "/job/someone/someoneRefresh", tag = "JobSomeoneController", httpMethod = "get")
+    @Params({
+            @Param(name = "someoneId", description = "职位id 必填", dataType = "int")
+    })
+    public void someoneRefresh(){
 
-	@Override
+        Integer someoneId = getParaToInt("someoneId");
+
+        Someone someone = new Someone();
+        someone.setId(someoneId);
+        someone.setUpdateDate(new Date());
+        someone.update();
+
+        renderJson(R.ok());
+    }
+
+
+
+    @Override
 	public void onExceptionError(Exception e) {
         renderJson(R.error("系统异常, 请稍候重试"));
 		

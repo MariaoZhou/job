@@ -105,6 +105,29 @@ public class JobUserController extends BaseBussinessController {
 
     }
 
+    @ApiOperation(description = " 已招到人" ,url = "/job/user/jobInfoOver", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "type", description = "type 必填 =job 职位, =someone 找人办事", dataType = "String"),
+            @Param(name = "id", description = "id", dataType = "int")
+    })
+    public void jobInfoOver(){
+        Integer id = getParaToInt("userId");
+        String type = getPara("type");
+
+        if (type.equals("someone")){
+            JobInfo jobInfo = new JobInfo();
+            jobInfo.setId(id);
+            jobInfo.setStatus("1");
+            jobInfo.update();
+        }else if (type.equals("job")){
+            Someone someone = new Someone();
+            someone.setId(id);
+            someone.setStatus("1");
+            someone.update();
+        }
+        renderJson(R.ok());
+    }
+
     @ApiOperation(description = " 意见反馈 保存" ,url = "/job/user/saveProposal", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "userId", description = "反馈人id(当前人) 必填", dataType = "int"),

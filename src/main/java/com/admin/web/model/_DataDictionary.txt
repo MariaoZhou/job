@@ -43,6 +43,7 @@ Table: j_job_info
  companyLogo         | VARCHAR(255) | YES  |     |         | 公司logo 地址
  title               | VARCHAR(255) | YES  |     |         | 招聘标题    
  tel                 | VARCHAR(255) | YES  |     |         | 联系电话    
+ status              | VARCHAR(255) | YES  |     |         | 状态 0招聘中 1结束招聘
  countriesId         | INT(10)      | YES  |     |         | 国家id    
  countriesName       | VARCHAR(255) | YES  |     |         | 国家名称    
  cityId              | INT(10)      | YES  |     |         | 城市id    
@@ -69,23 +70,29 @@ Table: j_proposal
 ----------+--------------+------+-----+---------+---------
 
 Table: j_someone
------------------+--------------+------+-----+---------+---------
- Field           | Type         | Null | Key | Default | Remarks 
------------------+--------------+------+-----+---------+---------
- id              | INT(10)      | NO   | PRI |         |         
- countriesId     | INT(10)      | YES  |     |         | 国家id    
- countriesName   | VARCHAR(255) | YES  |     |         | 国家名称    
- userId          | INT(10)      | YES  |     |         |         
- userName        | VARCHAR(255) | YES  |     |         |         
- cityId          | INT(10)      | YES  |     |         | 城市id    
- cityName        | VARCHAR(255) | YES  |     |         | 城市名称    
- someoneTypeName | VARCHAR(255) | YES  |     |         | 分类 类型 名称
- title           | VARCHAR(255) | YES  |     |         | 标题      
- tel             | VARCHAR(255) | YES  |     |         | 联系电话    
- details         | VARCHAR(255) | YES  |     |         | 详细说明    
- createDate      | DATETIME(19) | YES  |     |         |         
- updateDate      | DATETIME(19) | YES  |     |         |         
------------------+--------------+------+-----+---------+---------
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | INT(10)      | NO   | PRI |         |         
+ countriesId      | INT(10)      | YES  |     |         | 国家id    
+ countriesName    | VARCHAR(255) | YES  |     |         | 国家名称    
+ companyName      | VARCHAR(255) | YES  |     |         |         
+ companyPublicity | VARCHAR(255) | YES  |     |         |         
+ companyQRCode    | VARCHAR(255) | YES  |     |         |         
+ companyInfo      | VARCHAR(255) | YES  |     |         |         
+ companyLogo      | VARCHAR(255) | YES  |     |         |         
+ userId           | INT(10)      | YES  |     |         |         
+ userName         | VARCHAR(255) | YES  |     |         |         
+ cityId           | INT(10)      | YES  |     |         | 城市id    
+ cityName         | VARCHAR(255) | YES  |     |         | 城市名称    
+ someoneTypeName  | VARCHAR(255) | YES  |     |         | 分类 类型 名称
+ status           | VARCHAR(255) | YES  |     |         | 状态 0招聘中 1结束招聘
+ title            | VARCHAR(255) | YES  |     |         | 标题      
+ tel              | VARCHAR(255) | YES  |     |         | 联系电话    
+ details          | VARCHAR(255) | YES  |     |         | 详细说明    
+ createDate       | DATETIME(19) | YES  |     |         |         
+ updateDate       | DATETIME(19) | YES  |     |         |         
+------------------+--------------+------+-----+---------+---------
 
 Table: j_upload_file
 ------------+--------------+------+-----+---------+---------

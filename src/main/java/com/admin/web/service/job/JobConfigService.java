@@ -26,7 +26,7 @@ public class JobConfigService extends BaseBussinessService {
     @Before(Tx.class)
     public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer pageNumber,Integer pageSize){
         String from = "from " + JobInfo.table + " where countriesId = ?";
-        String order = " order by createDate DESC";
+        String order = " order by updateDate DESC";
         List<String> params = new ArrayList<>();
         params.add(job.getCountriesId().toString());
 
@@ -82,7 +82,7 @@ public class JobConfigService extends BaseBussinessService {
         }
 
 
-        from += " order by createDate DESC";
+        from += " order by updateDate DESC";
         Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select * ", from, params.toArray());
         return someonePage;
     }
