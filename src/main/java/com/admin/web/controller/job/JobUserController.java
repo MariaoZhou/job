@@ -10,6 +10,7 @@ import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,13 +106,13 @@ public class JobUserController extends BaseBussinessController {
 
     }
 
-    @ApiOperation(description = " 已招到人" ,url = "/job/user/jobInfoOver", tag = "JobUserController", httpMethod = "get")
+    @ApiOperation(description = " 已招到人" ,url = "/job/user/infoOver", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "type", description = "type 必填 =job 职位, =someone 找人办事", dataType = "String"),
-            @Param(name = "id", description = "id", dataType = "int")
+            @Param(name = "id", description = "id 职位id或找人办事id", dataType = "int")
     })
-    public void jobInfoOver(){
-        Integer id = getParaToInt("userId");
+    public void infoOver(){
+        Integer id = getParaToInt("id");
         String type = getPara("type");
 
         if (type.equals("someone")){
@@ -127,6 +128,32 @@ public class JobUserController extends BaseBussinessController {
         }
         renderJson(R.ok());
     }
+
+    @ApiOperation(description = " 刷新 发布信息" ,url = "/job/user/infoRefresh", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "type", description = "type 必填 =job 职位, =someone 找人办事", dataType = "String"),
+            @Param(name = "id", description = "id 职位id或找人办事id", dataType = "int")
+    })
+    public void infoRefresh(){
+
+        Integer id = getParaToInt("id");
+        String type = getPara("type");
+
+        if (type.equals("someone")){
+            JobInfo jobInfo = new JobInfo();
+            jobInfo.setId(id);
+            jobInfo.setUpdateDate(new Date());
+            jobInfo.update();
+        }else if (type.equals("job")){
+            Someone someone = new Someone();
+            someone.setId(id);
+            someone.setUpdateDate(new Date());
+            someone.update();
+        }
+
+        renderJson(R.ok());
+    }
+
 
     @ApiOperation(description = " 意见反馈 保存" ,url = "/job/user/saveProposal", tag = "JobUserController", httpMethod = "get")
     @Params({

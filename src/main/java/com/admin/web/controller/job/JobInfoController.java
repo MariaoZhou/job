@@ -12,8 +12,6 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.rlax.framework.common.Consts;
 
-import java.util.Date;
-
 /**
  *  职位 招聘 controller
  */
@@ -154,22 +152,6 @@ public class JobInfoController extends BaseBussinessController {
 
         JobInfo jobInfo = JobInfo.dao.findById(jobId);
         renderJson(R.ok().put(jobInfo));
-    }
-
-    @ApiOperation(description = " 刷新职位" ,url = "/job/info/jobInfoRefresh", tag = "JobInfoController", httpMethod = "get")
-    @Params({
-            @Param(name = "jobId", description = "职位id 必填", dataType = "int")
-    })
-    public void jobInfoRefresh(){
-
-        Integer jobId = getParaToInt("jobId");
-
-        JobInfo jobInfo = new JobInfo();
-        jobInfo.setId(jobId);
-        jobInfo.setUpdateDate(new Date());
-        jobInfo.update();
-
-        renderJson(R.ok());
     }
 
 	@Override
