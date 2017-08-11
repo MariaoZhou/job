@@ -52,7 +52,7 @@ public class JobSomeoneController extends BaseBussinessController {
 
         // 公司信息
         String companyName = getPara("companyName");
-        someone.setCountriesName(companyName);
+        someone.setCompanyName(companyName);
         String companyLogo = getPara("companyLogo");
         someone.setCompanyLogo(companyLogo);
         String companyPublicity = getPara("companyPublicity");
