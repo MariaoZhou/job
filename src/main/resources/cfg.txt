@@ -100,7 +100,7 @@ app.uploads.basedir = /var/uploads
 app.downloads.basedir = /var/downloads
 app.post = false
 app.name = 华人老板
-app.url = http://hboss.htmlk.cn
+app.url = http://test.13701918.com
 #---------------------------------------------------------------------------------#
 
 ## APP更新使用
