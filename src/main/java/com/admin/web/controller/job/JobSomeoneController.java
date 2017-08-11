@@ -80,7 +80,7 @@ public class JobSomeoneController extends BaseBussinessController {
     @ApiOperation(description = " 找人办事 条件搜索" ,url = "/job/someone/searchSomeone", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
-            @Param(name = "someoneType", description = "分类", dataType = "String"),
+            @Param(name = "someoneType", description = "分类 多选 逗号分隔", dataType = "String"),
             @Param(name = "title", description = "标题", dataType = "String"),
             @Param(name = "pageNumber", description = "页码 必填", dataType = "int"),
             @Param(name = "pageSize", description = "每页长度", dataType = "int")

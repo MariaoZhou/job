@@ -25,37 +25,55 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer pageNumber,Integer pageSize){
-        String from = "from " + JobInfo.table + " where countriesId = ?";
+        StringBuilder from = new StringBuilder("from " + JobInfo.table + " where countriesId = ?");
         String order = " order by updateDate DESC";
         List<String> params = new ArrayList<>();
         params.add(job.getCountriesId().toString());
 
-        if (job.getCityId()!=0) {
-            from += " and instr(cityId, ?) > 0 ";
-            params.add(job.getCityId().toString());
+        if (StrKit.notBlank(job.getCityName())) {
+            String[] param = job.getCityName().split(",");
+            from.append(" and ( instr(cityName, ?) > 0 ");
+            params.add(param[0]);
+            for (int i=1 ; i<param.length; i++){
+                from.append("OR instr(cityName, ?) > 0 ");
+                params.add(param[i]);
+            }
+            from.append(" )");
         }
         if (StrKit.notBlank(job.getTitle())) {
-            from += " and instr(title, ?) > 0 ";
+            from.append(" and instr(title, ?) > 0 ");
             params.add(job.getTitle());
         }
         if (StrKit.notBlank(job.getJobTypeName())) {
-            from += " and instr(jobTypeName, ?) > 0 ";
-            params.add(job.getJobTypeName());
+            String[] typeArr = job.getJobTypeName().split(",");
+            from.append(" and ( instr(jobTypeName, ?) > 0 ");
+            params.add(typeArr[0]);
+            for (int i=1 ; i<typeArr.length; i++){
+                from.append("OR instr(jobTypeName, ?) > 0 ");
+                params.add(typeArr[i]);
+            }
+            from.append(" )");
         }
         if (StrKit.notBlank(job.getJobNatureName())) {
-            from += " and instr(jobNatureName, ?) > 0 ";
-            params.add(job.getJobNatureName());
+            String[] param = job.getJobNatureName().split(",");
+            from.append(" and ( instr(jobNatureName, ?) > 0 ");
+            params.add(param[0]);
+            for (int i=1 ; i<param.length; i++){
+                from.append("OR instr(jobNatureName, ?) > 0 ");
+                params.add(param[i]);
+            }
+            from.append(" )");
         }
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
             order = " order by jobSalaryOrder DESC";
         }else if ("2".equals(type)){
-            from += " and companyName != '' ";
+            from.append(" and companyName != '' ");
         }
 
-        from += order;
+        from.append(order);
 
-        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize, "select * ", from, params.toArray());
+        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize, "select * ", from.toString(), params.toArray());
 
         return jobInfoList;
     }
@@ -68,22 +86,30 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public Page<Someone> searchSomeone(Someone someone ,Integer pageNumber, Integer pageSize){
-        String from = "from " + Someone.table + " where countriesId = ?";
+        StringBuilder from = new StringBuilder("from " + Someone.table + " where countriesId = ?");
+
         List<String> params = new ArrayList<>();
         params.add(someone.getCountriesId().toString());
 
         if (StrKit.notBlank(someone.getSomeoneTypeName())){
-            from += " and instr(someoneTypeName, ?) > 0 ";
-            params.add(someone.getSomeoneTypeName());
+            String[] param = someone.getSomeoneTypeName().split(",");
+            from.append(" and ( instr(someoneTypeName, ?) > 0 ");
+            params.add(param[0]);
+            for (int i=1 ; i<param.length; i++){
+                from.append("OR instr(someoneTypeName, ?) > 0 ");
+                params.add(param[i]);
+            }
+            from.append(" )");
+
         }
         if (StrKit.notBlank(someone.getTitle())){
-            from += " and instr(title, ?) > 0 ";
+            from.append( " and instr(title, ?) > 0 ");
             params.add(someone.getTitle());
         }
 
 
-        from += " order by updateDate DESC";
-        Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select * ", from, params.toArray());
+        from.append(" order by updateDate DESC");
+        Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select * ", from.toString(), params.toArray());
         return someonePage;
     }
 

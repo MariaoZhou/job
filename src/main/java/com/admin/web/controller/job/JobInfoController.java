@@ -24,10 +24,10 @@ public class JobInfoController extends BaseBussinessController {
     @ApiOperation(description = "职位 条件搜索" ,url = "/job/info/searchJobInfo", tag = "JobInfoController", httpMethod = "get")
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
-            @Param(name = "cityId", description = "城市id", dataType = "int"),
-            @Param(name = "jobType", description = "工作类型", dataType = "String"),
+            @Param(name = "cityName", description = "城市名称 多选 逗号分隔", dataType = "int"),
+            @Param(name = "jobType", description = "工作类型 多选 逗号分隔", dataType = "String"),
             @Param(name = "title", description = "标题", dataType = "String"),
-            @Param(name = "jobNature", description = "工作性质", dataType = "String"),
+            @Param(name = "jobNature", description = "工作性质 多选 逗号分隔", dataType = "String"),
             @Param(name = "type", description = "类型 =1（最高工资）=2 （企业查询） 最新发布(默认就会根据时间排序, 无需使用 type, 直接传递国家id 即可)", dataType = "String"),
             @Param(name = "pageNumber", description = "页码 必填", dataType = "int"),
             @Param(name = "pageSize", description = "每页长度", dataType = "int")
@@ -37,9 +37,9 @@ public class JobInfoController extends BaseBussinessController {
         // 国家id
         Integer countriesId = getParaToInt("countriesId",0);
         job.setCountriesId(countriesId);
-        // 城市id
-        Integer cityId = getParaToInt("cityId",0);
-        job.setCityId(cityId);
+        // 城市名称
+        String cityName = getPara("cityName");
+        job.setCityName(cityName);
         // 工作类型
         String jobType = getPara("jobType");
         job.setJobTypeName(jobType);
