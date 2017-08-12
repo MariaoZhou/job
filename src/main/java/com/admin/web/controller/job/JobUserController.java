@@ -68,7 +68,7 @@ public class JobUserController extends BaseBussinessController {
     public void getUserInfoByOpenId(){
         Integer openId = getParaToInt("openId");
 
-        UserInfo userInfo = UserInfo.dao.findFirst("select * from userInfo where openId = ?",openId);
+        UserInfo userInfo = UserInfo.dao.findFirst("select * from user_info where openId = ?",openId);
 
         renderJson(R.ok().put("user", userInfo));
     }
@@ -80,7 +80,7 @@ public class JobUserController extends BaseBussinessController {
     public void getUserInfoByUserId(){
         Integer userId = getParaToInt("userId");
 
-        UserInfo userInfo = UserInfo.dao.findFirst("select * from userInfo where id = ?",userId);
+        UserInfo userInfo = UserInfo.dao.findFirst("select * from user_info where id = ?",userId);
 
         renderJson(R.ok().put("user", userInfo));
     }
