@@ -8,6 +8,14 @@ import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.rlax.web.model.Data;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -16,7 +24,7 @@ import java.util.*;
 public class JobConfigService extends BaseBussinessService {
 
     public static final JobConfigService me = new JobConfigService();
-
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");   //2017-08-09 12:04:07.0
     /**
      * 职位条件查询
      * @param job
@@ -66,7 +74,7 @@ public class JobConfigService extends BaseBussinessService {
         }
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
-            order = " order by jobSalaryOrder DESC";
+            order += " ,jobSalaryOrder DESC";
         }else if ("2".equals(type)){
             from.append(" and companyName != '' ");
         }
@@ -111,6 +119,55 @@ public class JobConfigService extends BaseBussinessService {
         from.append(" order by updateDate DESC");
         Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select * ", from.toString(), params.toArray());
         return someonePage;
+    }
+
+    /**
+     * 获取默认列表 职位and找人办事
+     */
+    @Before(Tx.class)
+    public List<Map> searchJobIndex(String countries){
+
+        Integer pageNumber = 1;
+        Integer pageSize = 9999;
+        // 职位 集合
+        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select * ", "from j_job_info");
+        // 找人办事 集合
+        Page<Someone> someoneList = Someone.dao.paginate(pageNumber, pageSize, "select * ", "from j_someone");
+
+        List<Map> mapList = new ArrayList<>();
+
+        for (JobInfo jobInfo : jobInfoList.getList()){
+            mapList.add(toMap(jobInfo));
+        }
+        for (Someone someone : someoneList.getList()){
+            mapList.add(toMap(someone));
+        }
+
+        Collections.sort(mapList, new Comparator<Map>() {
+            @Override
+            public int compare(Map o1, Map o2) {
+                if (o1.get("updateDate") == null && o2.get("updateDate") == null)
+                    return 0;
+                if (o1.get("updateDate") == null)
+                    return -1;
+                if (o2.get("updateDate") == null)
+                    return 1;
+                try {
+                    Date o22 = formatter.parse(o2.get("updateDate").toString());
+                    Long o222 = o22.getTime();
+
+                    Date o11 = formatter.parse(o1.get("updateDate").toString());
+                    Long o111 = o11.getTime();
+
+                    return o222.compareTo(o111);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+        return mapList;
     }
 
 
@@ -247,5 +304,50 @@ public class JobConfigService extends BaseBussinessService {
 
         return map;
 
+    }
+
+
+    /**
+     * 将一个 JavaBean 对象转化为一个 Map
+     * @param bean 要转化的JavaBean 对象
+     * @return 转化出来的 Map 对象
+     * @throws IntrospectionException 如果分析类属性失败
+     * @throws IllegalAccessException 如果实例化 JavaBean 失败
+     * @throws InvocationTargetException 如果调用属性的 setter 方法失败
+     */
+    @SuppressWarnings("rawtypes")
+    private Map toMap(Object bean) {
+        Class<? extends Object> clazz = bean.getClass();
+        Map<Object, Object> returnMap = new HashMap<Object, Object>();
+        BeanInfo beanInfo = null;
+        try {
+            beanInfo = Introspector.getBeanInfo(clazz);
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (int i = 0; i < propertyDescriptors.length; i++) {
+                PropertyDescriptor descriptor = propertyDescriptors[i];
+                String propertyName = descriptor.getName();
+                if (!propertyName.equals("class")) {
+                    Method readMethod = descriptor.getReadMethod();
+                    Object result = null;
+                    result = readMethod.invoke(bean, new Object[0]);
+                    if (null != propertyName) {
+                        propertyName = propertyName.toString();
+                    }
+                    if (null != result) {
+                        result = result.toString();
+                    }
+                    returnMap.put(propertyName, result);
+                }
+            }
+        } catch (IntrospectionException e) {
+            System.out.println("分析类属性失败");
+        } catch (IllegalAccessException e) {
+            System.out.println("实例化 JavaBean 失败");
+        } catch (IllegalArgumentException e) {
+            System.out.println("映射错误");
+        } catch (InvocationTargetException e) {
+            System.out.println("调用属性的 setter 方法失败");
+        }
+        return returnMap;
     }
 }
