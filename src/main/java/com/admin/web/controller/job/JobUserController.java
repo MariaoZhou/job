@@ -115,14 +115,20 @@ public class JobUserController extends BaseBussinessController {
             @Param(name = "info.jobId", description = "信息id 必填 职位/找人办事 id", dataType = "int")
     })
     public void saveCollection(){
-       /* Integer userId = getParaToInt("userId");
+        Integer userId = getParaToInt("userId");
         String userName = getPara("userName");
-        String titel = getPara("titel");
+        String title = getPara("title");
         String type = getPara("type");
         Integer jobId = getParaToInt("jobId");
-*/
 
-        UserCollection collection = getModel(UserCollection.class, "info");
+        UserCollection collection = new UserCollection();
+        collection.setUserId(userId);
+        collection.setUserName(userName);
+        collection.setTitel(title);
+        collection.setType(type);
+        collection.setJobId(jobId);
+
+        //UserCollection collection = getModel(UserCollection.class, "info");
 
         collection.save();
 
