@@ -61,14 +61,26 @@ public class JobUserController extends BaseBussinessController {
     }
 
 
-    @ApiOperation(description = " 通过openid 获取 用户" ,url = "/job/user/getUserInfo", tag = "JobUserController", httpMethod = "get")
+    @ApiOperation(description = " 通过openid 获取 用户" ,url = "/job/user/getUserInfoByOpenId", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "openId", description = "openId 必填", dataType = "String")
     })
-    public void getUserInfo(){
+    public void getUserInfoByOpenId(){
         Integer openId = getParaToInt("openId");
 
         UserInfo userInfo = UserInfo.dao.findFirst("select * from userInfo where openId = ?",openId);
+
+        renderJson(R.ok().put("user", userInfo));
+    }
+
+    @ApiOperation(description = " 通过userId 获取 用户" ,url = "/job/user/getUserInfoByUserId", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "userId 必填", dataType = "String")
+    })
+    public void getUserInfoByUserId(){
+        Integer userId = getParaToInt("userId");
+
+        UserInfo userInfo = UserInfo.dao.findFirst("select * from userInfo where id = ?",userId);
 
         renderJson(R.ok().put("user", userInfo));
     }
@@ -108,11 +120,11 @@ public class JobUserController extends BaseBussinessController {
 
     @ApiOperation(description = " 我的收藏 添加" ,url = "/job/user/saveCollection", tag = "JobUserController", httpMethod = "get")
     @Params({
-            @Param(name = "info.userId", description = "用户id 必填", dataType = "int"),
-            @Param(name = "info.userName", description = "用户名称 必填", dataType = "String"),
-            @Param(name = "info.title", description = "标题 必填 职位/找人办事 标题", dataType = "String"),
-            @Param(name = "info.type", description = "类型 必填 1=职位 2=找人办事", dataType = "String"),
-            @Param(name = "info.jobId", description = "信息id 必填 职位/找人办事 id", dataType = "int")
+            @Param(name = "userId", description = "用户id 必填", dataType = "int"),
+            @Param(name = "userName", description = "用户名称 必填", dataType = "String"),
+            @Param(name = "title", description = "标题 必填 职位/找人办事 标题", dataType = "String"),
+            @Param(name = "type", description = "类型 必填 1=职位 2=找人办事", dataType = "String"),
+            @Param(name = "jobId", description = "信息id 必填 职位/找人办事 id", dataType = "int")
     })
     public void saveCollection(){
         Integer userId = getParaToInt("userId");
