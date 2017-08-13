@@ -283,7 +283,7 @@ public class JobConfigService extends BaseBussinessService {
      * @return
      */
     @Before(Tx.class)
-    public Integer saveJobInfo(JobInfo job, String cityId, String userId){
+    public boolean saveJobInfo(JobInfo job, String cityId, String userId){
         try {
             City city = City.dao.findById(cityId);
             job.setCityId(city.getId());
@@ -301,18 +301,17 @@ public class JobConfigService extends BaseBussinessService {
 
             job.setStatus("0");
 
-            if (job.getId()!=null){
+            if (job.getId()==null){
                 job.setUpdateDate(new Date());
-                job.update();
+                return job.update();
             }else {
                 job.setUpdateDate(new Date());
                 job.setCreateDate(new Date());
-                job.save();
+                return job.save();
             }
-            return job.getId();
         }catch (Exception e){
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
