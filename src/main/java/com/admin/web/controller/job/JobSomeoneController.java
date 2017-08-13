@@ -75,6 +75,7 @@ public class JobSomeoneController extends BaseBussinessController {
         someone.setDetails(details);
 
         Integer sId = jobConfigService.saveSomeone(someone, cityId, userId);
+        System.out.println("sId ;;;" + sId);
         if (sId>0){
             renderJson(R.ok().put("someoneId", sId));
         }else {
