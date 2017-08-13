@@ -136,7 +136,7 @@ public class JobIndexController extends BaseBussinessController {
         boolean stu = jobConfigService.saveSomeone(someone, cityId, userId);
         System.out.println("sId ;;;" +someone.getId() );
         if (stu){
-            renderJson(R.ok().put("someone", someone.getId()));
+            renderJson(R.ok().put("someoneId", someone.getId()));
         }else {
             renderJson(R.error());
         }
