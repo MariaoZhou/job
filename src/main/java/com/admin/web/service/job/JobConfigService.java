@@ -74,7 +74,7 @@ public class JobConfigService extends BaseBussinessService {
         }
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
-            order += " ,jobSalaryOrder DESC";
+            order = " order by jobSalaryOrder DESC, updateDate DESC";
         }else if ("2".equals(type)){
             from.append(" and companyName != '' ");
         }
