@@ -263,9 +263,11 @@ public class JobConfigService extends BaseBussinessService {
                 someone.setUpdateDate(new Date());
                 someone.update();
             }else {
+                someone.setUpdateDate(new Date());
                 someone.setCreateDate(new Date());
                 someone.save();
             }
+            System.out.println("id "+someone.getId());
             return someone.getId();
         }catch (Exception e){
             e.printStackTrace();
@@ -303,6 +305,7 @@ public class JobConfigService extends BaseBussinessService {
                 job.setUpdateDate(new Date());
                 job.update();
             }else {
+                job.setUpdateDate(new Date());
                 job.setCreateDate(new Date());
                 job.save();
             }
