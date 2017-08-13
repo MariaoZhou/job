@@ -84,7 +84,7 @@ public class JobIndexController extends BaseBussinessController {
 
     }
 
-    @ApiOperation(description = "发布职位" ,url = "/job/index/publishSom", tag = "JobIndexController", httpMethod = "get")
+    @ApiOperation(description = "发布找人办事" ,url = "/job/index/publishSom", tag = "JobIndexController", httpMethod = "get")
     @Params({
             @Param(name = "id", description = "id =null 添加, !=null 修改", dataType = "int"),
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
@@ -105,7 +105,7 @@ public class JobIndexController extends BaseBussinessController {
         Integer id = getParaToInt("id",null);
         //someone.setId(id);
 
-        // 用户id
+  /*      // 用户id
         String userId = getPara("userId");
         // 城市id
         String cityId = getPara("cityId");
@@ -122,7 +122,7 @@ public class JobIndexController extends BaseBussinessController {
         String companyQRCode = getPara("companyQRCode");
         someone.setCompanyQRCode(companyQRCode);
         String companyInfo = getPara("companyInfo");
-        someone.setCompanyInfo(companyInfo);
+        someone.setCompanyInfo(companyInfo);*/
 
         String title = getPara("title");
         someone.setTitle(title);
