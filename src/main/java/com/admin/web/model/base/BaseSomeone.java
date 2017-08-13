@@ -161,4 +161,21 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 		return get("updateDate");
 	}
 
+    public java.lang.Integer getCJobId() { return get("cJobId");}
+    public void setCJobId(java.lang.Integer jobId) {
+        set("cJobId", jobId);
+    }
+
+
+    public void setCId(java.lang.Integer jobId) {
+        set("cId", jobId);
+    }
+    public java.lang.Integer getCId() { return get("cId");}
+
+
+    public java.lang.Integer getCUserId() { return get("cUserId");}
+    public void setCUserId(java.lang.Integer jobId) {
+        set("cUserId", jobId);
+    }
+
 }
