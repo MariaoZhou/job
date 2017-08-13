@@ -92,7 +92,7 @@ public class JobInfoController extends BaseBussinessController {
 
         JobInfo job = new JobInfo();
 
-        Integer id = getParaToInt("id",0);
+        Integer id = getParaToInt("id",null);
         job.setId(id);
         // 用户id
         String userId = getPara("userId");

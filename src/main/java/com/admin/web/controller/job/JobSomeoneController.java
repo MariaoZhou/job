@@ -45,7 +45,7 @@ public class JobSomeoneController extends BaseBussinessController {
     public void publishSomeone(){
         Someone someone = new Someone();
 
-        Integer id = getParaToInt("id",0);
+        Integer id = getParaToInt("id",null);
         someone.setId(id);
 
         // 用户id
