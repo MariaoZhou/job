@@ -147,7 +147,7 @@ public class JobConfigService extends BaseBussinessService {
         params.add(countries);
 
         // 职位 集合
-        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' " + sql +"where o.countriesId = ?";
+        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' " + sql +" where o.countriesId = ?";
         Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId ", jFrom, params.toArray());
         // 找人办事 集合
         String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' "+ sql +" where o.countriesId = ? ";
