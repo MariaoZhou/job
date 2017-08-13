@@ -246,7 +246,7 @@ public class JobConfigService extends BaseBussinessService {
      * @return
      */
     @Before(Tx.class)
-    public boolean saveSomeone(Someone someone, String cityId, String userId){
+    public Integer saveSomeone(Someone someone, String cityId, String userId){
         try {
             City city = City.dao.findById(cityId);
             someone.setCityId(city.getId());
@@ -261,16 +261,16 @@ public class JobConfigService extends BaseBussinessService {
             someone.setStatus("0");
             if (someone.getId()!=0){
                 someone.setUpdateDate(new Date());
-                return someone.update();
+                someone.update();
             }else {
                 someone.setCreateDate(new Date());
-                return someone.save();
+                someone.save();
             }
+            return someone.getId();
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return 0;
         }
-
     }
 
     /**
@@ -281,7 +281,7 @@ public class JobConfigService extends BaseBussinessService {
      * @return
      */
     @Before(Tx.class)
-    public boolean saveJobInfo(JobInfo job, String cityId, String userId){
+    public Integer saveJobInfo(JobInfo job, String cityId, String userId){
         try {
             City city = City.dao.findById(cityId);
             job.setCityId(city.getId());
@@ -301,14 +301,15 @@ public class JobConfigService extends BaseBussinessService {
 
             if (job.getId()!=0){
                 job.setUpdateDate(new Date());
-                return job.update();
+                job.update();
             }else {
                 job.setCreateDate(new Date());
-                return job.save();
+                job.save();
             }
+            return job.getId();
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 

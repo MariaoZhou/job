@@ -74,9 +74,9 @@ public class JobSomeoneController extends BaseBussinessController {
         String details = getPara("details");
         someone.setDetails(details);
 
-        boolean status = jobConfigService.saveSomeone(someone, cityId, userId);
-        if (status){
-            renderJson(R.ok().put("someoneId", someone.getId()));
+        Integer sId = jobConfigService.saveSomeone(someone, cityId, userId);
+        if (sId>0){
+            renderJson(R.ok().put("someoneId", sId));
         }else {
             renderJson(R.error());
         }

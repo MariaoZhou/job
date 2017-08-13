@@ -131,9 +131,9 @@ public class JobInfoController extends BaseBussinessController {
         String details = getPara("details");
         job.setDetails(details);
 
-        boolean status = jobConfigService.saveJobInfo(job, cityId, userId);
-        if (status){
-            renderJson(R.ok().put("jobId", job.getId()));
+        Integer jId = jobConfigService.saveJobInfo(job, cityId, userId);
+        if (jId>0){
+            renderJson(R.ok().put("jobId", jId));
         }else {
             renderJson(R.error());
         }
