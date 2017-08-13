@@ -95,7 +95,7 @@ public class JobUserController extends BaseBussinessController {
         // 职位 集合
         List<JobInfo> jobInfoList = JobInfo.dao.find("select * from j_job_info where userId = ?", userId);
         // 找人办事 集合
-        List<Someone> someoneList = Someone.dao.find("select * from j_job_info where userId = ?", userId);
+        List<Someone> someoneList = Someone.dao.find("select * from j_someone where userId = ?", userId);
 
         Map<String , Object> map = new HashMap<>();
         map.put("jobList", jobInfoList);
@@ -113,6 +113,8 @@ public class JobUserController extends BaseBussinessController {
 
         List<UserCollection> collectionList = UserCollection.dao.find("select * from user_collection where userId = ?",
                                                  userId);
+
+
 
         renderJson(R.ok().put(collectionList));
 

@@ -29,6 +29,7 @@ public class JobSomeoneController extends BaseBussinessController {
 
     @ApiOperation(description = " 发布找人办事（找活挣钱）" ,url = "/job/someone/publishSomeone", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
+            @Param(name = "id", description = "id =null 添加, !=null 修改", dataType = "int"),
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
             @Param(name = "cityId", description = "城市id 必填", dataType = "int"),
             @Param(name = "companyName", description = "公司名称", dataType = "String"),
@@ -43,6 +44,10 @@ public class JobSomeoneController extends BaseBussinessController {
     })
     public void publishSomeone(){
         Someone someone = new Someone();
+
+        Integer id = getParaToInt("id",0);
+        someone.setId(id);
+
         // 用户id
         String userId = getPara("userId");
         // 城市id

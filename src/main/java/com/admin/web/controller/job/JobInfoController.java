@@ -68,6 +68,7 @@ public class JobInfoController extends BaseBussinessController {
 
     @ApiOperation(description = "发布职位" ,url = "/job/info/publishJob", tag = "JobInfoController", httpMethod = "get")
     @Params({
+            @Param(name = "id", description = "id =null 添加, !=null 修改", dataType = "int"),
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
             @Param(name = "cityId", description = "城市id 必填", dataType = "int"),
             @Param(name = "companyName", description = "公司名称", dataType = "String"),
@@ -87,6 +88,9 @@ public class JobInfoController extends BaseBussinessController {
     public void publishJob(){
 
         JobInfo job = new JobInfo();
+
+        Integer id = getParaToInt("id",0);
+        job.setId(id);
         // 用户id
         String userId = getPara("userId");
         // 城市id

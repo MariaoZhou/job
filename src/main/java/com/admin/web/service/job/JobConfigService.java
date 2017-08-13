@@ -33,55 +33,60 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer pageNumber,Integer pageSize){
-        StringBuilder from = new StringBuilder("from " + JobInfo.table + " where countriesId = ?");
-        String order = " order by updateDate DESC";
+
+        StringBuilder from = new StringBuilder("from " + JobInfo.table +
+                                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1'" +
+                                                " where countriesId = ?");
+        String order = " order by o.updateDate DESC";
         List<String> params = new ArrayList<>();
         params.add(job.getCountriesId().toString());
 
         if (StrKit.notBlank(job.getCityName())) {
             String[] param = job.getCityName().split(",");
-            from.append(" and ( instr(cityName, ?) > 0 ");
+            from.append(" and ( instr(o.cityName, ?) > 0 ");
             params.add(param[0]);
             for (int i=1 ; i<param.length; i++){
-                from.append("OR instr(cityName, ?) > 0 ");
+                from.append("OR instr(o.cityName, ?) > 0 ");
                 params.add(param[i]);
             }
             from.append(" )");
         }
         if (StrKit.notBlank(job.getTitle())) {
-            from.append(" and instr(title, ?) > 0 ");
+            from.append(" and instr(o.title, ?) > 0 ");
             params.add(job.getTitle());
         }
         if (StrKit.notBlank(job.getJobTypeName())) {
             String[] typeArr = job.getJobTypeName().split(",");
-            from.append(" and ( instr(jobTypeName, ?) > 0 ");
+            from.append(" and ( instr(o.jobTypeName, ?) > 0 ");
             params.add(typeArr[0]);
             for (int i=1 ; i<typeArr.length; i++){
-                from.append("OR instr(jobTypeName, ?) > 0 ");
+                from.append("OR instr(o.jobTypeName, ?) > 0 ");
                 params.add(typeArr[i]);
             }
             from.append(" )");
         }
         if (StrKit.notBlank(job.getJobNatureName())) {
             String[] param = job.getJobNatureName().split(",");
-            from.append(" and ( instr(jobNatureName, ?) > 0 ");
+            from.append(" and ( instr(o.jobNatureName, ?) > 0 ");
             params.add(param[0]);
             for (int i=1 ; i<param.length; i++){
-                from.append("OR instr(jobNatureName, ?) > 0 ");
+                from.append("OR instr(o.jobNatureName, ?) > 0 ");
                 params.add(param[i]);
             }
             from.append(" )");
         }
         // 类型 最高工资1 企业查询2
         if ("1".equals(type)){
-            order = " order by jobSalaryOrder DESC, updateDate DESC";
+            order = " order by o.jobSalaryOrder DESC";
         }else if ("2".equals(type)){
-            from.append(" and companyName != '' ");
+            from.append(" and o.companyName != '' ");
         }
 
         from.append(order);
 
-        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize, "select * ", from.toString(), params.toArray());
+        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,
+                                 "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId",
+                                    from.toString(), params.toArray());
 
         return jobInfoList;
     }
@@ -130,10 +135,10 @@ public class JobConfigService extends BaseBussinessService {
         Integer pageNumber = 1;
         Integer pageSize = 9999;
         // 职位 集合
-        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' where countriesId = ?";
+        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' where o.countriesId = ?";
         Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", jFrom, countries);
         // 找人办事 集合
-        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' where countriesId = ?";
+        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' where o.countriesId = ?";
         Page<Someone> someoneList = Someone.dao.paginate(pageNumber, pageSize, "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", sFrom, countries);
 
         List<Map> mapList = new ArrayList<>();
@@ -174,6 +179,57 @@ public class JobConfigService extends BaseBussinessService {
 
 
     /**
+     * 组合查询 我的收藏
+     */
+    @Before(Tx.class)
+    public List<Map> searchCollection(Integer userId){
+
+        Integer pageNumber = 1;
+        Integer pageSize = 9999;
+        // 职位 集合
+        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' where c.userId = ?";
+        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", jFrom, userId);
+        // 找人办事 集合
+        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' where c.userId = ?";
+        Page<Someone> someoneList = Someone.dao.paginate(pageNumber, pageSize, "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", sFrom, userId);
+
+        List<Map> mapList = new ArrayList<>();
+
+        for (JobInfo jobInfo : jobInfoList.getList()){
+            mapList.add(toMap(jobInfo));
+        }
+        for (Someone someone : someoneList.getList()){
+            mapList.add(toMap(someone));
+        }
+
+        Collections.sort(mapList, new Comparator<Map>() {
+            @Override
+            public int compare(Map o1, Map o2) {
+                if (o1.get("updateDate") == null && o2.get("updateDate") == null)
+                    return 0;
+                if (o1.get("updateDate") == null)
+                    return -1;
+                if (o2.get("updateDate") == null)
+                    return 1;
+                try {
+                    Date o22 = formatter.parse(o2.get("updateDate").toString());
+                    Long o222 = o22.getTime();
+
+                    Date o11 = formatter.parse(o1.get("updateDate").toString());
+                    Long o111 = o11.getTime();
+
+                    return o222.compareTo(o111);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+        return mapList;
+    }
+
+    /**
      * 找人办事 保存
      * @param someone
      * @param cityId
@@ -194,9 +250,13 @@ public class JobConfigService extends BaseBussinessService {
             someone.setUserId(userInfo.getId());
 
             someone.setStatus("0");
-            someone.setCreateDate(new Date());
-            someone.setUpdateDate(new Date());
-            return someone.save();
+            if (someone.getId()!=0){
+                someone.setUpdateDate(new Date());
+                return someone.update();
+            }else {
+                someone.setCreateDate(new Date());
+                return someone.save();
+            }
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -229,10 +289,14 @@ public class JobConfigService extends BaseBussinessService {
             job.setJobSalaryOrder(Integer.parseInt(salaryOrder));
 
             job.setStatus("0");
-            job.setCreateDate(new Date());
-            job.setUpdateDate(new Date());
 
-            return job.save();
+            if (job.getId()!=0){
+                job.setUpdateDate(new Date());
+                return job.update();
+            }else {
+                job.setCreateDate(new Date());
+                return job.save();
+            }
         }catch (Exception e){
             e.printStackTrace();
             return false;
