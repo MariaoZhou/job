@@ -17,7 +17,7 @@
 #---------------------------------------------------------------------------------#
 db.ds = localdev,test,prod
 db.localdev.active = true
-db.localdev.url = localhost:3306/job
+db.localdev.url = localhost:3306/job_new
 db.localdev.dbtype = mysql
 db.localdev.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOxCRVdIy/YGy823SUVTplSCc2cRnYJsuMBizk/wMsJ5OBTMxsFvbJ3yj+MaGQrrGTuJad9Vp9pmAZGxBemuxzkCAwEAAQ==
 db.localdev.user = root
