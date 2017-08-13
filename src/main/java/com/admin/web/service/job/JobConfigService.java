@@ -246,7 +246,7 @@ public class JobConfigService extends BaseBussinessService {
      * @return
      */
     @Before(Tx.class)
-    public Integer saveSomeone(Someone someone, String cityId, String userId){
+    public boolean saveSomeone(Someone someone, String cityId, String userId){
         try {
             City city = City.dao.findById(cityId);
             someone.setCityId(city.getId());
@@ -261,17 +261,15 @@ public class JobConfigService extends BaseBussinessService {
             someone.setStatus("0");
             if (someone.getId()!=null){
                 someone.setUpdateDate(new Date());
-                someone.update();
+                return someone.update();
             }else {
                 someone.setUpdateDate(new Date());
                 someone.setCreateDate(new Date());
-                someone.save();
+                return someone.save();
             }
-            System.out.println("id "+someone.getId());
-            return someone.getId();
         }catch (Exception e){
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 

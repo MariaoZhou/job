@@ -103,9 +103,9 @@ public class JobIndexController extends BaseBussinessController {
         Someone someone = new Someone();
 
         Integer id = getParaToInt("id",null);
-        //someone.setId(id);
+        someone.setId(id);
 
-  /*      // 用户id
+        // 用户id
         String userId = getPara("userId");
         // 城市id
         String cityId = getPara("cityId");
@@ -122,7 +122,7 @@ public class JobIndexController extends BaseBussinessController {
         String companyQRCode = getPara("companyQRCode");
         someone.setCompanyQRCode(companyQRCode);
         String companyInfo = getPara("companyInfo");
-        someone.setCompanyInfo(companyInfo);*/
+        someone.setCompanyInfo(companyInfo);
 
         String title = getPara("title");
         someone.setTitle(title);
@@ -133,13 +133,13 @@ public class JobIndexController extends BaseBussinessController {
 
         someone.save();
         renderJson(R.ok());
-//        Integer sId = jobConfigService.saveSomeone(someone, cityId, userId);
-//        System.out.println("sId ;;;" + sId);
-//        if (sId>0){
-//            renderJson(R.ok());
-//        }else {
-//            renderJson(R.error());
-//        }
+        boolean stu = jobConfigService.saveSomeone(someone, cityId, userId);
+        System.out.println("sId ;;;" +someone.getId() );
+        if (stu){
+            renderJson(R.ok().put("someone", someone.getId()));
+        }else {
+            renderJson(R.error());
+        }
     }
 	@Override
 	public void onExceptionError(Exception e) {
