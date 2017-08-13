@@ -147,7 +147,7 @@ public class JobConfigService extends BaseBussinessService {
         String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ? where o.countriesId = ?";
         Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", jFrom, params.toArray());
         // 找人办事 集合
-        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2'  and c.userId = ? where o.countriesId = ? and c.userId = ?";
+        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2'  and c.userId = ? where o.countriesId = ? ";
         Page<Someone> someoneList = Someone.dao.paginate(pageNumber, pageSize, "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", sFrom, params.toArray());
 
         List<Map> mapList = new ArrayList<>();
