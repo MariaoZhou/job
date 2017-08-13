@@ -33,13 +33,15 @@ public class JobIndexController extends BaseBussinessController {
 
     @ApiOperation(description = "获取默认列表 职位and找人办事" ,url = "/job/index/searchJobIndex", tag = "JobIndexController", httpMethod = "get", response = BaseCountries.class)
     @Params({
-            @Param(name = "countriesId", description = "国家id 必填", dataType = "int")
+            @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
+            @Param(name = "userId", description = "当前用户id 必填", dataType = "int")
     })
     public void searchJobIndex(){
 
         String countries = getPara("countriesId");
+        Integer userId = getParaToInt("userId");
 
-        renderJson(R.ok().put(jobConfigService.searchJobIndex(countries)));
+        renderJson(R.ok().put(jobConfigService.searchJobIndex(countries,userId)));
     }
 
 

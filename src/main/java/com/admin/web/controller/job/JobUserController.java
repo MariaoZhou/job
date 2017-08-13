@@ -2,6 +2,7 @@ package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.*;
+import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
 import com.admin.web.swagger.annotation.Param;
@@ -21,6 +22,8 @@ import java.util.Map;
 @Api(tag = "JobUserController", description = "用户 接口")
 @ControllerBind(controllerKey = "/job/user")
 public class JobUserController extends BaseBussinessController {
+
+    private static JobConfigService jobConfigService = JobConfigService.me;
 
     @ApiOperation(description = " 更新user 参数" ,url = "/job/user/updateUser", tag = "JobUserController", httpMethod = "get")
     @Params({
@@ -111,13 +114,7 @@ public class JobUserController extends BaseBussinessController {
     public void myCollection(){
         Integer userId = getParaToInt("userId");
 
-        List<UserCollection> collectionList = UserCollection.dao.find("select * from user_collection where userId = ?",
-                                                 userId);
-
-
-
-        renderJson(R.ok().put(collectionList));
-
+        renderJson(R.ok().put(jobConfigService.searchCollection(userId)));
     }
 
     @ApiOperation(description = " 我的收藏 添加" ,url = "/job/user/saveCollection", tag = "JobUserController", httpMethod = "get")

@@ -82,9 +82,10 @@ public class JobSomeoneController extends BaseBussinessController {
         }
     }
 
-    @ApiOperation(description = " 找人办事 条件搜索" ,url = "/job/someone/searchSomeone", tag = "JobSomeoneController", httpMethod = "get")
+    @ApiOperation(description = " 找人办事 条件搜索 列表页" ,url = "/job/someone/searchSomeone", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
+            @Param(name = "userId", description = "当前用户id 必填", dataType = "int"),
             @Param(name = "someoneType", description = "分类 多选 逗号分隔", dataType = "String"),
             @Param(name = "title", description = "标题", dataType = "String"),
             @Param(name = "pageNumber", description = "页码 必填", dataType = "int"),
@@ -105,8 +106,9 @@ public class JobSomeoneController extends BaseBussinessController {
         String title = getPara("title");
         someone.setTitle(title);
 
+        Integer userId = getParaToInt("userId");
 
-        Page<Someone> map = jobConfigService.searchSomeone(someone, pageNumber,pageSize);
+        Page<Someone> map = jobConfigService.searchSomeone(someone, userId,pageNumber, pageSize);
 
         renderJson(R.ok().put(map));
     }

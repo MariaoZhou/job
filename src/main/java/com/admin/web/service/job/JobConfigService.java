@@ -32,14 +32,16 @@ public class JobConfigService extends BaseBussinessService {
      * @return
      */
     @Before(Tx.class)
-    public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer pageNumber,Integer pageSize){
+    public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer userId, Integer pageNumber,Integer pageSize){
 
         StringBuilder from = new StringBuilder("from " + JobInfo.table +
-                                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1'" +
-                                                " where countriesId = ?");
+                                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ?" +
+                                                " where o.countriesId = ?");
         String order = " order by o.updateDate DESC";
         List<String> params = new ArrayList<>();
+        params.add(userId.toString());
         params.add(job.getCountriesId().toString());
+
 
         if (StrKit.notBlank(job.getCityName())) {
             String[] param = job.getCityName().split(",");
@@ -98,10 +100,13 @@ public class JobConfigService extends BaseBussinessService {
      * @return
      */
     @Before(Tx.class)
-    public Page<Someone> searchSomeone(Someone someone ,Integer pageNumber, Integer pageSize){
-        StringBuilder from = new StringBuilder("from " + Someone.table + " where countriesId = ?");
+    public Page<Someone> searchSomeone(Someone someone, Integer userId ,Integer pageNumber , Integer pageSize){
+        StringBuilder from = new StringBuilder("from " + Someone.table +
+                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ?" +
+                                " where o.countriesId = ?");
 
         List<String> params = new ArrayList<>();
+        params.add(userId.toString());
         params.add(someone.getCountriesId().toString());
 
         if (StrKit.notBlank(someone.getSomeoneTypeName())){
@@ -122,7 +127,7 @@ public class JobConfigService extends BaseBussinessService {
 
 
         from.append(" order by updateDate DESC");
-        Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select * ", from.toString(), params.toArray());
+        Page<Someone> someonePage = Someone.dao.paginate(pageNumber, pageSize, "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId ", from.toString(), params.toArray());
         return someonePage;
     }
 
@@ -130,16 +135,20 @@ public class JobConfigService extends BaseBussinessService {
      * 获取默认列表 职位and找人办事
      */
     @Before(Tx.class)
-    public List<Map> searchJobIndex(String countries){
+    public List<Map> searchJobIndex(String countries, Integer userId){
 
         Integer pageNumber = 1;
         Integer pageSize = 9999;
+        List<String> params = new ArrayList<>();
+        params.add(userId.toString());
+        params.add(countries);
+
         // 职位 集合
-        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' where o.countriesId = ?";
-        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", jFrom, countries);
+        String jFrom = "from j_job_info o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ? where o.countriesId = ?";
+        Page<JobInfo> jobInfoList = JobInfo.dao.paginate(pageNumber, pageSize,"select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", jFrom, params.toArray());
         // 找人办事 集合
-        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' where o.countriesId = ?";
-        Page<Someone> someoneList = Someone.dao.paginate(pageNumber, pageSize, "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", sFrom, countries);
+        String sFrom = "from j_someone o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2'  and c.userId = ? where o.countriesId = ? and c.userId = ?";
+        Page<Someone> someoneList = Someone.dao.paginate(pageNumber, pageSize, "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId", sFrom, params.toArray());
 
         List<Map> mapList = new ArrayList<>();
 

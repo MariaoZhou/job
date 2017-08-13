@@ -21,9 +21,10 @@ public class JobInfoController extends BaseBussinessController {
 
     private static JobConfigService jobConfigService = JobConfigService.me;
 
-    @ApiOperation(description = "职位 条件搜索" ,url = "/job/info/searchJobInfo", tag = "JobInfoController", httpMethod = "get")
+    @ApiOperation(description = "职位 条件搜索 列表页" ,url = "/job/info/searchJobInfo", tag = "JobInfoController", httpMethod = "get")
     @Params({
             @Param(name = "countriesId", description = "国家id 必填", dataType = "int"),
+            @Param(name = "userId", description = "当前用户Id 必填", dataType = "int"),
             @Param(name = "cityName", description = "城市名称 多选 逗号分隔", dataType = "int"),
             @Param(name = "jobType", description = "工作类型 多选 逗号分隔", dataType = "String"),
             @Param(name = "title", description = "标题", dataType = "String"),
@@ -54,12 +55,14 @@ public class JobInfoController extends BaseBussinessController {
         String title = getPara("title");
         job.setTitle(title);
 
+        Integer userId = getParaToInt("userId");
+
         // 页码
         Integer pageNumber = getParaToInt("pageNumber",1);
         Integer pageSize = getParaToInt("pageSize", Consts.PAGE_DEFAULT_SIZE);
 
 
-        Page<JobInfo> map = jobConfigService.searchJobInfo(job, type, pageNumber,pageSize);
+        Page<JobInfo> map = jobConfigService.searchJobInfo(job, type, userId, pageNumber,pageSize);
 
         renderJson(R.ok().put(map));
 
