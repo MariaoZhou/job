@@ -74,13 +74,15 @@ public class JobSomeoneController extends BaseBussinessController {
         String details = getPara("details");
         someone.setDetails(details);
 
-        Integer sId = jobConfigService.saveSomeone(someone, cityId, userId);
-        System.out.println("sId ;;;" + sId);
-        if (sId>0){
-            renderJson(R.ok());
-        }else {
-            renderJson(R.error());
-        }
+        someone.save();
+        renderJson(R.ok());
+//        Integer sId = jobConfigService.saveSomeone(someone, cityId, userId);
+//        System.out.println("sId ;;;" + sId);
+//        if (sId>0){
+//            renderJson(R.ok());
+//        }else {
+//            renderJson(R.error());
+//        }
     }
 
     @ApiOperation(description = " 找人办事 条件搜索 列表页" ,url = "/job/someone/searchSomeone", tag = "JobSomeoneController", httpMethod = "get")
