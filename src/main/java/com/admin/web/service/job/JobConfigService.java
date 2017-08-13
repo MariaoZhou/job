@@ -299,7 +299,7 @@ public class JobConfigService extends BaseBussinessService {
 
             job.setStatus("0");
 
-            if (job.getId()==null){
+            if (job.getId()!=null){
                 job.setUpdateDate(new Date());
                 return job.update();
             }else {
