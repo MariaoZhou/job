@@ -156,12 +156,12 @@ public class JobUserController extends BaseBussinessController {
         Integer id = getParaToInt("id");
         String type = getPara("type");
 
-        if (type.equals("someone")){
+        if (type.equals("job")){
             JobInfo jobInfo = new JobInfo();
             jobInfo.setId(id);
             jobInfo.setStatus("1");
             jobInfo.update();
-        }else if (type.equals("job")){
+        }else if (type.equals("someone")){
             Someone someone = new Someone();
             someone.setId(id);
             someone.setStatus("1");
