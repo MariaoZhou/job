@@ -46,7 +46,7 @@ public class JobSomeoneController extends BaseBussinessController {
         Someone someone = new Someone();
 
         Integer id = getParaToInt("id",null);
-        someone.setId(id);
+        //someone.setId(id);
 
         // 用户id
         String userId = getPara("userId");
