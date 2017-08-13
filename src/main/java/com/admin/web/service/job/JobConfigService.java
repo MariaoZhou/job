@@ -259,7 +259,7 @@ public class JobConfigService extends BaseBussinessService {
             someone.setUserId(userInfo.getId());
 
             someone.setStatus("0");
-            if (someone.getId()!=0){
+            if (someone.getId()!=null){
                 someone.setUpdateDate(new Date());
                 someone.update();
             }else {
@@ -301,7 +301,7 @@ public class JobConfigService extends BaseBussinessService {
 
             job.setStatus("0");
 
-            if (job.getId()!=0){
+            if (job.getId()!=null){
                 job.setUpdateDate(new Date());
                 job.update();
             }else {
