@@ -84,61 +84,6 @@ public class JobIndexController extends BaseBussinessController {
 
     }
 
-    @ApiOperation(description = "发布找人办事" ,url = "/job/index/publishSom", tag = "JobIndexController", httpMethod = "get")
-    @Params({
-            @Param(name = "id", description = "id =null 添加, !=null 修改", dataType = "int"),
-            @Param(name = "userId", description = "用户id 必填", dataType = "int"),
-            @Param(name = "cityId", description = "城市id 必填", dataType = "int"),
-            @Param(name = "companyName", description = "公司名称", dataType = "String"),
-            @Param(name = "companyLogo", description = "公司Logo地址", dataType = "String"),
-            @Param(name = "companyPublicity", description = "公司宣传图地址", dataType = "String"),
-            @Param(name = "companyQRCode", description = "公司二维码地址", dataType = "String"),
-            @Param(name = "companyInfo", description = "公司宣传语", dataType = "String"),
-            @Param(name = "someoneType", description = "分类 必填", dataType = "String"),
-            @Param(name = "title", description = "标题 必填", dataType = "String"),
-            @Param(name = "tel", description = "联系电话 必填", dataType = "String"),
-            @Param(name = "details", description = "详情说明", dataType = "String")
-    })
-    public void publishSom(){
-        Someone someone = new Someone();
-
-        Integer id = getParaToInt("id",null);
-        someone.setId(id);
-
-        // 用户id
-        String userId = getPara("userId");
-        // 城市id
-        String cityId = getPara("cityId");
-
-        someone.setSomeoneTypeName(getPara("someoneType"));
-
-        // 公司信息
-        String companyName = getPara("companyName");
-        someone.setCompanyName(companyName);
-        String companyLogo = getPara("companyLogo");
-        someone.setCompanyLogo(companyLogo);
-        String companyPublicity = getPara("companyPublicity");
-        someone.setCompanyPublicity(companyPublicity);
-        String companyQRCode = getPara("companyQRCode");
-        someone.setCompanyQRCode(companyQRCode);
-        String companyInfo = getPara("companyInfo");
-        someone.setCompanyInfo(companyInfo);
-
-        String title = getPara("title");
-        someone.setTitle(title);
-        String tel = getPara("tel");
-        someone.setTel(tel);
-        String details = getPara("details");
-        someone.setDetails(details);
-
-        boolean stu = jobConfigService.saveSomeone(someone, cityId, userId);
-        System.out.println("sId ;;;" +someone.getId() );
-        if (stu){
-            renderJson(R.ok().put("someoneId", someone.getId()));
-        }else {
-            renderJson(R.error());
-        }
-    }
 	@Override
 	public void onExceptionError(Exception e) {
         renderJson(R.error("系统异常, 请稍候重试"));

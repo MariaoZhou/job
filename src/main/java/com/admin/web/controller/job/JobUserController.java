@@ -117,54 +117,58 @@ public class JobUserController extends BaseBussinessController {
         renderJson(R.ok().put(jobConfigService.searchCollection(userId)));
     }
 
-    @ApiOperation(description = " 我的收藏 添加" ,url = "/job/user/saveCollection", tag = "JobUserController", httpMethod = "get")
+    @ApiOperation(description = " 我的收藏 添加|取消" ,url = "/job/user/saveCollection", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
-            @Param(name = "userName", description = "用户名称 必填", dataType = "String"),
+            @Param(name = "status", description = "状态 1添加 0取消 必填", dataType = "int"),
             @Param(name = "title", description = "标题 必填 职位/找人办事 标题", dataType = "String"),
             @Param(name = "type", description = "类型 必填 1=职位 2=找人办事", dataType = "String"),
+            @Param(name = "cId", description = "cId status=0 取消时 传递", dataType = "String"),
             @Param(name = "jobId", description = "信息id 必填 职位/找人办事 id", dataType = "int")
     })
     public void saveCollection(){
         Integer userId = getParaToInt("userId");
-        String userName = getPara("userName");
+        String status = getPara("status");
         String title = getPara("title");
         String type = getPara("type");
         Integer jobId = getParaToInt("jobId");
+        Integer cId = getParaToInt("cId");
 
         UserCollection collection = new UserCollection();
-        collection.setUserId(userId);
-        collection.setUserName(userName);
-        collection.setTitel(title);
-        collection.setType(type);
-        collection.setJobId(jobId);
-
-        //UserCollection collection = getModel(UserCollection.class, "info");
-
-        collection.save();
+        // 添加
+        if ("1".equals(status)){
+            collection.setUserId(userId);
+            collection.setTitel(title);
+            collection.setType(type);
+            collection.setJobId(jobId);
+            collection.save();
+        }else if ("0".equals(status)){      //删除
+            collection.deleteById(cId);
+        }
 
         renderJson(R.ok());
-
     }
 
-    @ApiOperation(description = " 已招到人" ,url = "/job/user/infoOver", tag = "JobUserController", httpMethod = "get")
+    @ApiOperation(description = " 已招到人 | 取消招人" ,url = "/job/user/infoOver", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "type", description = "type 必填 =job 职位, =someone 找人办事", dataType = "String"),
+            @Param(name = "status", description = "status 1=已招到人, 0=取消招人 必填 ", dataType = "String"),
             @Param(name = "id", description = "id 职位id或找人办事id", dataType = "int")
     })
     public void infoOver(){
         Integer id = getParaToInt("id");
         String type = getPara("type");
+        String status = getPara("status");
 
         if (type.equals("job")){
             JobInfo jobInfo = new JobInfo();
             jobInfo.setId(id);
-            jobInfo.setStatus("1");
+            jobInfo.setStatus(status);
             jobInfo.update();
         }else if (type.equals("someone")){
             Someone someone = new Someone();
             someone.setId(id);
-            someone.setStatus("1");
+            someone.setStatus(status);
             someone.update();
         }
         renderJson(R.ok());

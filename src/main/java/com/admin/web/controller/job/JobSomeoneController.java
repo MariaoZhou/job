@@ -42,11 +42,12 @@ public class JobSomeoneController extends BaseBussinessController {
             @Param(name = "tel", description = "联系电话 必填", dataType = "String"),
             @Param(name = "details", description = "详情说明", dataType = "String")
     })
+
     public void publishSom(){
         Someone someone = new Someone();
 
         Integer id = getParaToInt("id",null);
-        //someone.setId(id);
+        someone.setId(id);
 
         // 用户id
         String userId = getPara("userId");
@@ -74,16 +75,15 @@ public class JobSomeoneController extends BaseBussinessController {
         String details = getPara("details");
         someone.setDetails(details);
 
-        someone.save();
-        renderJson(R.ok());
-//        Integer sId = jobConfigService.saveSomeone(someone, cityId, userId);
-//        System.out.println("sId ;;;" + sId);
-//        if (sId>0){
-//            renderJson(R.ok());
-//        }else {
-//            renderJson(R.error());
-//        }
+        boolean stu = jobConfigService.saveSomeone(someone, cityId, userId);
+        System.out.println("sId ;;;" +someone.getId() );
+        if (stu){
+            renderJson(R.ok().put("someoneId", someone.getId()));
+        }else {
+            renderJson(R.error());
+        }
     }
+
 
     @ApiOperation(description = " 找人办事 条件搜索 列表页" ,url = "/job/someone/searchSomeone", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
