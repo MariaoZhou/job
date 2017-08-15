@@ -118,7 +118,7 @@ public class JobConfigService extends BaseBussinessService {
         params.add(someone.getCountriesId().toString());
 
         StringBuilder from = new StringBuilder("from " + Someone.table +
-                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' " + userSq +
+                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' " + userSql +
                                 " where o.countriesId = ?");
 
 
