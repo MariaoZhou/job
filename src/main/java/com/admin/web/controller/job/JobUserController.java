@@ -96,9 +96,9 @@ public class JobUserController extends BaseBussinessController {
         Integer userId = getParaToInt("userId");
 
         // 职位 集合
-        List<JobInfo> jobInfoList = JobInfo.dao.find("select * from j_job_info where userId = ?", userId);
+        List<JobInfo> jobInfoList = JobInfo.dao.find("select * from j_job_info where userId = ? order by updateDate DESC", userId);
         // 找人办事 集合
-        List<Someone> someoneList = Someone.dao.find("select * from j_someone where userId = ?", userId);
+        List<Someone> someoneList = Someone.dao.find("select * from j_someone where userId = ? order by updateDate DESC", userId);
 
         Map<String , Object> map = new HashMap<>();
         map.put("jobList", jobInfoList);
