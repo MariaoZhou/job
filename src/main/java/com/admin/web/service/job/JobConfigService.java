@@ -155,7 +155,7 @@ public class JobConfigService extends BaseBussinessService {
         List<String> params = new ArrayList<>();
         String sql = " ";
         if (userId !=null){
-            sql = "and c.userId = " + userId;
+            sql = "and c.userId = ?";
             params.add(userId.toString());
         }
         params.add(countries);
