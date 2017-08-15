@@ -33,14 +33,20 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public Page<JobInfo> searchJobInfo(JobInfo job, String type, Integer userId, Integer pageNumber,Integer pageSize){
+        String userSql = "";
+        List<String> params = new ArrayList<>();
+
+        if (userId !=null){
+            userSql = "and c.userId = ? ";
+            params.add(userId.toString());
+        }
+        params.add(job.getCountriesId().toString());
 
         StringBuilder from = new StringBuilder("from " + JobInfo.table +
-                                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ?" +
+                                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' " +userSql +
                                                 " where o.countriesId = ?");
         String order = " order by o.updateDate DESC";
-        List<String> params = new ArrayList<>();
-        params.add(userId.toString());
-        params.add(job.getCountriesId().toString());
+
 
 
         if (StrKit.notBlank(job.getCityName())) {
@@ -101,13 +107,20 @@ public class JobConfigService extends BaseBussinessService {
      */
     @Before(Tx.class)
     public Page<Someone> searchSomeone(Someone someone, Integer userId ,Integer pageNumber , Integer pageSize){
+
+        String userSql = "";
+        List<String> params = new ArrayList<>();
+
+        if (userId !=null){
+            userSql = " and c.userId = ? ";
+            params.add(userId.toString());
+        }
+        params.add(someone.getCountriesId().toString());
+
         StringBuilder from = new StringBuilder("from " + Someone.table +
-                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ?" +
+                                " o LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' " + userSq +
                                 " where o.countriesId = ?");
 
-        List<String> params = new ArrayList<>();
-        params.add(userId.toString());
-        params.add(someone.getCountriesId().toString());
 
         if (StrKit.notBlank(someone.getSomeoneTypeName())){
             String[] param = someone.getSomeoneTypeName().split(",");
@@ -143,6 +156,7 @@ public class JobConfigService extends BaseBussinessService {
         String sql = " ";
         if (userId !=null){
             sql = "and c.userId = " + userId;
+            params.add(userId.toString());
         }
         params.add(countries);
 
