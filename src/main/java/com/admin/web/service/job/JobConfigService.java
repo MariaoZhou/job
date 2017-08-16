@@ -424,7 +424,7 @@ public class JobConfigService extends BaseBussinessService {
                     Object result = null;
                     result = readMethod.invoke(bean, new Object[0]);
                     if (null != propertyName) {
-                        propertyName = propertyName.toString();
+                        propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
                     }
                     if (null != result) {
                         result = result.toString();
