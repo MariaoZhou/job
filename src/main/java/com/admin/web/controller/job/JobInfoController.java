@@ -2,6 +2,7 @@ package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.JobInfo;
+import com.admin.web.model.Someone;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
@@ -9,8 +10,12 @@ import com.admin.web.swagger.annotation.Param;
 import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.rlax.framework.common.Consts;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  职位 招聘 controller
@@ -151,14 +156,27 @@ public class JobInfoController extends BaseBussinessController {
 
     @ApiOperation(description = " 职位 查看详情信息" ,url = "/job/info/jobInfoDetails", tag = "JobInfoController", httpMethod = "get")
     @Params({
-            @Param(name = "jobId", description = "职位id 必填", dataType = "int")
+            @Param(name = "jobId", description = "职位id 必填", dataType = "int"),
+            @Param(name = "userId", description = "用户id 选填", dataType = "int")
     })
     public void jobInfoDetails(){
 
+        String userId = getPara("userId");
         String jobId = getPara("jobId");
 
-        JobInfo jobInfo = JobInfo.dao.findById(jobId);
-        renderJson(R.ok().put(jobInfo));
+        if (StrKit.notBlank(userId)){
+            JobInfo jobInfo = JobInfo.dao.findById(jobId);
+            renderJson(R.ok().put(jobInfo));
+        }else {
+            List<String> params = new ArrayList<>();
+            params.add(jobId);
+            params.add(userId);
+            String sql = "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId from j_job_info o " +
+                    "LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' where o.id = ? and c.userId = ?";
+
+            JobInfo jobInfo = JobInfo.dao.findFirst(sql,params.toArray());
+            renderJson(R.ok().put(jobInfo));
+        }
     }
 
 	@Override

@@ -117,7 +117,6 @@ public class JobUserController extends BaseBussinessController {
     @ApiOperation(description = " 我的收藏 添加|取消" ,url = "/job/user/saveCollection", tag = "JobUserController", httpMethod = "get")
     @Params({
             @Param(name = "userId", description = "用户id 必填", dataType = "int"),
-            @Param(name = "status", description = "状态 1添加 0取消 必填", dataType = "int"),
             @Param(name = "title", description = "标题 必填 职位/找人办事 标题", dataType = "String"),
             @Param(name = "type", description = "类型 必填 1=职位 2=找人办事", dataType = "String"),
             @Param(name = "jobId", description = "信息id 必填 职位/找人办事 id", dataType = "int")

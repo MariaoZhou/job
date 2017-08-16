@@ -11,9 +11,11 @@ import com.admin.web.swagger.annotation.Param;
 import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.rlax.framework.common.Consts;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,20 +141,32 @@ public class JobSomeoneController extends BaseBussinessController {
 
     @ApiOperation(description = " 找人办事 详情信息" ,url = "/job/someone/someoneInfo", tag = "JobSomeoneController", httpMethod = "get")
     @Params({
-            @Param(name = "someoneId", description = "办事id 必填", dataType = "int")
+            @Param(name = "someoneId", description = "办事id 必填", dataType = "int"),
+            @Param(name = "userId", description = "用户id 选填", dataType = "int")
     })
     public void someoneInfo(){
-
+        String userId = getPara("userId");
         String someoneId = getPara("someoneId");
 
-        Someone someone = Someone.dao.findById(someoneId);
-        renderJson(R.ok().put(someone));
+        if (StrKit.notBlank(userId)){
+            Someone someone = Someone.dao.findById(someoneId);
+            renderJson(R.ok().put(someone));
+        }else {
+            List<String> params = new ArrayList<>();
+            params.add(someoneId);
+            params.add(userId);
+            String sql = "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId from j_someone o " +
+                        "LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' where o.id = ? and c.userId = ?";
+
+            Someone someone = Someone.dao.findFirst(sql,params.toArray());
+            renderJson(R.ok().put(someone));
+        }
     }
 
     @Override
 	public void onExceptionError(Exception e) {
         renderJson(R.error("系统异常, 请稍候重试"));
-		
+
 	}
 
 }
