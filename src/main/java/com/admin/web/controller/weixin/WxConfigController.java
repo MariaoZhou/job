@@ -65,9 +65,7 @@ public class WxConfigController extends Controller {
                 + getRequest().getServletPath();// 请求页面或其他地址*/
         String url = getPara("url");
         if (StrKit.notBlank(url)){
-            System.out.println("url>>>>" + url);
             url = url.replace("&amp;", "&");
-            System.out.println("url<<<<<" + url);
             String timestamp = Long.toString(System.currentTimeMillis() / 1000);
             // 这里参数的顺序要按照 key 值 ASCII 码升序排序
             //注意这里参数名必须全部小写，且必须有序
