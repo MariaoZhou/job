@@ -20,6 +20,7 @@ public class _MappingKit {
 		arp.addMapping("j_company_info", "id", CompanyInfo.class);
 		arp.addMapping("j_countries", "id", Countries.class);
 		arp.addMapping("j_job_info", "id", JobInfo.class);
+		arp.addMapping("user_company", "id", UserCompany.class);
 		arp.addMapping("j_proposal", "id", Proposal.class);
 		arp.addMapping("j_someone", "id", Someone.class);
 		arp.addMapping("j_upload_file", "id", UploadFile.class);
