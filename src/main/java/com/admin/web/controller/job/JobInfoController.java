@@ -166,10 +166,11 @@ public class JobInfoController extends BaseBussinessController {
 
         if (StrKit.notBlank(userId)){
             List<String> params = new ArrayList<>();
-            params.add(jobId);
             params.add(userId);
+            params.add(jobId);
+
             String sql = "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId from j_job_info o " +
-                    "LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' where o.id = ? and c.userId = ?";
+                    "LEFT JOIN user_collection c on o.id = c.jobId and c.type = '1' and c.userId = ? where o.id = ? ";
 
             JobInfo jobInfo = JobInfo.dao.findFirst(sql,params.toArray());
             renderJson(R.ok().put(jobInfo));

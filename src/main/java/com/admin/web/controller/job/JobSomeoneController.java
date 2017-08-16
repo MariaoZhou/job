@@ -150,10 +150,10 @@ public class JobSomeoneController extends BaseBussinessController {
 
         if (StrKit.notBlank(userId)){
             List<String> params = new ArrayList<>();
-            params.add(someoneId);
             params.add(userId);
+            params.add(someoneId);
             String sql = "select o.*, c.jobId as cJobId, c.id as cId, c.userId as cUserId from j_someone o " +
-                    "LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' where o.id = ? and c.userId = ?";
+                    "LEFT JOIN user_collection c on o.id = c.jobId and c.type = '2' and c.userId = ? where o.id = ? ";
 
             Someone someone = Someone.dao.findFirst(sql,params.toArray());
             renderJson(R.ok().put(someone));
