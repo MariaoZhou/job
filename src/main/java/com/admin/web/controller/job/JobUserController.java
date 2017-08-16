@@ -11,10 +11,7 @@ import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *  招聘 用户 controller
@@ -123,7 +120,6 @@ public class JobUserController extends BaseBussinessController {
             @Param(name = "status", description = "状态 1添加 0取消 必填", dataType = "int"),
             @Param(name = "title", description = "标题 必填 职位/找人办事 标题", dataType = "String"),
             @Param(name = "type", description = "类型 必填 1=职位 2=找人办事", dataType = "String"),
-            @Param(name = "cId", description = "cId status=0 取消时 传递", dataType = "String"),
             @Param(name = "jobId", description = "信息id 必填 职位/找人办事 id", dataType = "int")
     })
     public void saveCollection(){
@@ -132,7 +128,6 @@ public class JobUserController extends BaseBussinessController {
         String title = getPara("title");
         String type = getPara("type");
         Integer jobId = getParaToInt("jobId");
-        Integer cId = getParaToInt("cId");
 
         UserCollection collection = new UserCollection();
         // 添加
@@ -143,7 +138,18 @@ public class JobUserController extends BaseBussinessController {
             collection.setJobId(jobId);
             collection.save();
         }else if ("0".equals(status)){      //删除
-            collection.deleteById(cId);
+            List<String> params = new ArrayList<>();
+            params.add(userId.toString());
+            params.add(jobId.toString());
+            params.add(type);
+
+            collection = UserCollection.dao.findFirst("select * from " + UserCollection.table + " where userId = ? and jobId = ? and type = ?" , params.toArray());
+            if (collection!=null){
+                collection.delete();
+            }else {
+                renderJson(R.error("关闭失败"));
+                return;
+            }
         }
 
         renderJson(R.ok());
