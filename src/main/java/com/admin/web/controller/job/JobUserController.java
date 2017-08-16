@@ -226,6 +226,59 @@ public class JobUserController extends BaseBussinessController {
         renderJson(R.ok());
     }
 
+    @ApiOperation(description = " 公司信息 保存" ,url = "/job/user/saveCompany", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "用户id 必填", dataType = "int"),
+            @Param(name = "userName", description = "用户名称 必填", dataType = "String"),
+            @Param(name = "id", description = "id ==null 添加 !=null更新", dataType = "String"),
+            @Param(name = "name", description = "公司名称 必填", dataType = "String"),
+            @Param(name = "publicity", description = "宣传图地址 ", dataType = "String"),
+            @Param(name = "QRCode", description = "二维码地址", dataType = "String"),
+            @Param(name = "info", description = "宣传语 ", dataType = "String"),
+            @Param(name = "logo", description = "logo地址 ", dataType = "String")
+    })
+    public void saveCompany(){
+        Integer userId = getParaToInt("userId");
+        String userName = getPara("userName");
+        Integer id = getParaToInt("id",null);
+        String name = getPara("name");
+        String publicity = getPara("publicity");
+        String QRCode = getPara("QRCode");
+        String info = getPara("info");
+        String logo = getPara("logo");
+
+        UserCompany company = new UserCompany();
+
+        company.setUserId(userId);
+        company.setUserName(userName);
+        company.setName(name);
+        company.setPublicity(publicity);
+        company.setQRCode(QRCode);
+        company.setInfo(info);
+        company.setLogo(logo);
+
+        if (id == null){
+            company.save();
+        }else {
+            company.setId(id);
+            company.update();
+        }
+
+        renderJson(R.ok());
+    }
+
+    @ApiOperation(description = " 通过userId 获取公司信息" ,url = "/job/user/findCompanyByUserId", tag = "JobUserController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "用户id 必填", dataType = "int")
+    })
+    public void findCompanyByUserId(){
+        Integer userId = getParaToInt("userId");
+
+        UserCompany company = UserCompany.dao.findFirst("select * from " + UserCompany.table + " where userId = ?", userId);
+
+        renderJson(R.ok().put(company));
+    }
+
 
 
 	@Override
