@@ -148,7 +148,7 @@ public class JobSomeoneController extends BaseBussinessController {
         String userId = getPara("userId");
         String someoneId = getPara("someoneId");
 
-        if (StrKit.notBlank(userId)){
+        if (StrKit.isBlank(userId)){
             Someone someone = Someone.dao.findById(someoneId);
             renderJson(R.ok().put(someone));
         }else {

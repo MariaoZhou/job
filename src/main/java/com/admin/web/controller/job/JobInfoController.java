@@ -164,7 +164,7 @@ public class JobInfoController extends BaseBussinessController {
         String userId = getPara("userId");
         String jobId = getPara("jobId");
 
-        if (StrKit.notBlank(userId)){
+        if (StrKit.isBlank(userId)){
             JobInfo jobInfo = JobInfo.dao.findById(jobId);
             renderJson(R.ok().put(jobInfo));
         }else {
