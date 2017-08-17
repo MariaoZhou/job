@@ -17,7 +17,7 @@
 #---------------------------------------------------------------------------------#
 db.ds = localdev,test,prod
 db.localdev.active = true
-db.localdev.url = localhost:3306/job
+db.localdev.url = localhost:3306/job_new
 db.localdev.dbtype = mysql
 db.localdev.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOxCRVdIy/YGy823SUVTplSCc2cRnYJsuMBizk/wMsJ5OBTMxsFvbJ3yj+MaGQrrGTuJad9Vp9pmAZGxBemuxzkCAwEAAQ==
 db.localdev.user = root
@@ -100,8 +100,8 @@ app.uploads.basedir = /var/uploads
 app.downloads.basedir = /var/downloads
 app.post = false
 app.name = 华人老板
-app.url = http://hboss.htmlk.cn
-#app.url = http://test.13701918.com
+#app.url = http://hboss.htmlk.cn
+app.url = http://test.13701918.com
 #---------------------------------------------------------------------------------#
 
 ## APP更新使用
