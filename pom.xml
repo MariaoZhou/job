@@ -51,6 +51,19 @@
             <version>26Dec2008</version>
         </dependency>
 
+		<dependency>
+			<groupId>rt</groupId>
+			<artifactId>rt</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>jce</groupId>
+			<artifactId>jce</artifactId>
+			<version>1.7</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
