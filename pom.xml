@@ -51,19 +51,6 @@
             <version>26Dec2008</version>
         </dependency>
 
-		<dependency>
-			<groupId>rt</groupId>
-			<artifactId>rt</artifactId>
-			<version>1.7</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>jce</groupId>
-			<artifactId>jce</artifactId>
-			<version>1.7</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -71,8 +58,14 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArguments>
+
+					<verbose/>
+					<bootclasspath>${java.home}\jre\lib\rt.jar;${java.home}\jre\lib\jce.jar</bootclasspath>
+					<!--<bootclasspath>${JAVA_HOME}\jre\lib\rt.jar;${JAVA_HOME}\jre\lib\jce.jar</bootclasspath>-->
+					</compilerArguments>
 				</configuration>
 			</plugin>
 
