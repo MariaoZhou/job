@@ -1,7 +1,6 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
-import com.admin.web.model.Someone;
 import com.admin.web.model.base.BaseCountries;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
@@ -10,7 +9,6 @@ import com.admin.web.swagger.annotation.Param;
 import com.admin.web.swagger.annotation.Params;
 import com.admin.web.util.DateUtils;
 import com.admin.web.util.FileUtils;
-import com.admin.web.util.ImageUtils;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.PropKit;
@@ -62,33 +60,26 @@ public class JobIndexController extends BaseBussinessController {
         String time = DateUtils.formatDate(new Date(), "yyMMdd") + "/";
         String imagePath = "/home/www/job_file/"+time;      //图片实际存储位置
         UploadFile uploadFile = getFile();
-        
+
         if (uploadFile!=null){
 
             com.admin.web.model.UploadFile image = new com.admin.web.model.UploadFile();
             image.setName(uploadFile.getFileName());
             image.setUploadPath(imagePath+uploadFile.getFileName());
             image.setType(uploadFile.getContentType());
-            image.setUrlPath(PropKit.get("app.url") + "/job_file/"+time + uploadFile.getFileName());
-            // 图片压缩
-            try {
-                ImageUtils.saveMinPhoto(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName(),
-                            imagePath+uploadFile.getFileName(), 2000, 1d);
-                            //"d:/"+uploadFile.getFileName(), 2000, 1d);
-            } catch (Exception e) {
-                System.out.println("图片压缩失败");
-                renderJson(R.error().put("图片压缩失败"));
-                e.printStackTrace();
-            }
-            FileUtils.deleteFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName());
 
-            image.save();
-            renderJson(R.ok().put("urlPath", image.getUrlPath()));
+            if (FileUtils.copyFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName(), imagePath+uploadFile.getFileName())){
+                FileUtils.deleteFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName());
+                image.setUrlPath(PropKit.get("app.url") + "/job_file/"+time + uploadFile.getFileName());
+                image.save();
+                renderJson(R.ok().put("urlPath", image.getUrlPath()));
+            }else {
+                renderJson(R.error("文件复制失败"));
+            }
 
         }else {
             renderJson(R.error("上传失败"));
         }
-
     }
 
 	@Override
