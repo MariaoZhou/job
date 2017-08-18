@@ -59,6 +59,27 @@ public class JobExcel {
         this.details = details;
     }
 
+    public JobExcel(){
+
+    }
+    @Override
+    public String toString() {
+        return "JobExcel{" +
+                "userId='" + userId + '\'' +
+                ", title='" + title + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", tel='" + tel + '\'' +
+                ", countriesName='" + countriesName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", jobTypeName='" + jobTypeName + '\'' +
+                ", jobNatureName='" + jobNatureName + '\'' +
+                ", jobWelfareName='" + jobWelfareName + '\'' +
+                ", jobSalaryName='" + jobSalaryName + '\'' +
+                ", jobRequirementsName='" + jobRequirementsName + '\'' +
+                ", details='" + details + '\'' +
+                '}';
+    }
+
     public String getCompanyName() {
         return companyName;
     }
