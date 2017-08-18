@@ -134,14 +134,27 @@ public class JobSettingController extends BaseBussinessController {
             List<JobExcel> list = ExcelImportUtil.importExcel(file, JobExcel.class, params);
 
             for (JobExcel job : list){
+                UserInfo user = null;
+                City city = null;
+                try {
+                    user = UserInfo.dao.findById(job.getUserId());
+                    city = City.dao.findFirst("select * from j_city where name = ?" , job.getCityName());
+                }catch (Exception e){
+                    continue;
+                }
 
                 JobInfo info = new JobInfo();
 
-                UserInfo user = UserInfo.dao.findById(job.getUserId());
+                if (user ==null){
+                    continue;
+                }
+                if (city == null){
+                    continue;
+                }
+
                 info.setUserId(user.getId());
                 info.setUserName(user.getName());
 
-                City city = City.dao.findFirst("select * from j_city where name = ?" , job.getCityName());
                 info.setCountriesId(city.getCountriesId());
                 info.setCountriesName(city.getCountriesName());
                 info.setCityId(city.getId());
@@ -162,6 +175,7 @@ public class JobSettingController extends BaseBussinessController {
 
 
                 info.save();
+
             }
             renderJson(R.ok("导入成功"));
         }else {
