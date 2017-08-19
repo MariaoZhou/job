@@ -2,13 +2,13 @@ package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.City;
-import com.admin.web.model.JobData;
 import com.admin.web.model.JobInfo;
 import com.admin.web.model.UserInfo;
 import com.admin.web.util.R;
 import com.admin.web.util.excel.JobExcel;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.PropKit;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
 import com.rlax.framework.common.Consts;
@@ -19,7 +19,6 @@ import org.jeecgframework.poi.excel.ExcelImportUtil;
 import org.jeecgframework.poi.excel.entity.ExportParams;
 import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.jeecgframework.poi.excel.entity.enmus.ExcelType;
-import sun.tools.jinfo.JInfo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +27,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 职位 管理
@@ -171,9 +169,13 @@ public class JobSettingController extends BaseBussinessController {
 
                 info.setJobSalaryName(job.getJobSalaryName());
                 String salaryOrder = Data.dao.getCodeDescByCodeAndType(job.getJobSalaryName(),"JOB_SALARY");
+                if (StrKit.isBlank(salaryOrder)){
+                    continue;
+                }
                 info.setJobSalaryOrder(Integer.parseInt(salaryOrder));
 
-
+                info.setUpdateDate(new Date());
+                info.setCreateDate(new Date());
                 info.save();
 
             }
