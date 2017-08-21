@@ -25,12 +25,19 @@ public class WxConfigController extends Controller {
      *  服务号授权跳转
      */
     public void oauth() {
-        String appId = PropKit.get("service.appid");
+        // 华人老板
+        // String appId = PropKit.get("service.appid");
+        // 途听
+        String appId = PropKit.get("tut.appid");
+
         String redirectUri = null;
         String state = getPara("state","");
         try {
             System.out.println("oauth state = " + state);
-            redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+            // 华人老板
+            //redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+            // 途听
+            redirectUri = URLEncoder.encode(PropKit.get("tut.url") + "/wx/user/login", "UTF-8");
             if (StrKit.notBlank(state)){
                 state = URLEncoder.encode(state, "UTF-8");
 
@@ -77,8 +84,10 @@ public class WxConfigController extends Controller {
             String signature = HashKit.sha1(str);
 
             Map<String, String> map = new HashMap<>();
-
-            map.put("appId", ApiConfigKit.getApiConfig().getAppId());
+            // 华人老板
+           // map.put("appId", ApiConfigKit.getApiConfig().getAppId());
+            // 途听
+            map.put("appId", PropKit.get("tut.appid"));
             map.put("nonceStr", nonce_str);
             map.put("timestamp", timestamp);
             map.put("url", url);
