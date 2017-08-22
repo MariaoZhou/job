@@ -101,7 +101,11 @@ public class WxMsgController extends MsgControllerAdapter {
      * @return
      */
     private WxMsg keyWord(String key){
-        return WxMsg.dao.findByKeyWord(key);
+        WxMsg wxMsg = WxMsg.dao.findByKeyWord(key);
+        if (wxMsg ==null){
+            wxMsg = WxMsg.dao.findByType("1");
+        }
+        return wxMsg;
     }
 
 
