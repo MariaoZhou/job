@@ -139,7 +139,7 @@ service.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 tut.url = http://test.13701918.com
 tut.token = tutlx
 tut.appid = wxdc8f34c4b9962370
-tut.appSecret = 704ad7d54692efd620535666a353ca3a
+tut.appSecret = d855dce6ac617f9891b527364d1df662
 #是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
 tut.encryptMessage = false
 tut.encodingAesKey = 9p5Y8bTcM9CbUQiszHiRro0ITsDlmEU1pyBaguGlNTT
