@@ -179,5 +179,26 @@ public class WxConfigController extends Controller {
             renderText(apiResult.getErrorMsg());
     }
 
+    /**
+     * 发送模板消息
+     */
+    public void sendMsg() {
+
+        ApiResult apiResult = TemplateMsgApi.send(TemplateData.New()
+                // 消息接收者
+                .setTouser("ookNixFNwthBIscSkKGUOirEmYXQ")
+                // 模板id
+                .setTemplate_id("s7JZCn1Sop2dFum_dyDRr5ppStW6AxqBXJ0dOd0shHQ")
+                .setUrl("http://test.13701918.com")
+
+                // 模板参数
+                .add("first", "模板消息-会员注册！\n", "#999")
+                .add("keyword1", "老哥", "#999")
+                .add("keyword2", "13888888888", "#999")
+                .add("keyword3", "99999021123", "#999")
+                .add("remark", "\n模板消息测试gogo。", "#999")
+                .build());
+        renderText(apiResult.getJson());
+    }
 
 }
