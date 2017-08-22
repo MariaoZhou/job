@@ -189,8 +189,6 @@ public class WxConfigController extends Controller {
                 .setTouser("ookNixFNwthBIscSkKGUOirEmYXQ")
                 // 模板id
                 .setTemplate_id("s7JZCn1Sop2dFum_dyDRr5ppStW6AxqBXJ0dOd0shHQ")
-                .setUrl("http://test.13701918.com")
-
                 // 模板参数
                 .add("first", "模板消息-会员注册！\n", "#999")
                 .add("keyword1", "老哥", "#999")
