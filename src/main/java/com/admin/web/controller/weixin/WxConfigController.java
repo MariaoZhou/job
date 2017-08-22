@@ -186,9 +186,10 @@ public class WxConfigController extends Controller {
 
         ApiResult apiResult = TemplateMsgApi.send(TemplateData.New()
                 // 消息接收者
-                .setTouser("ookNixFNwthBIscSkKGUOirEmYXQ")
+                .setTouser("o7KsO0p3batUuqhMD30SwqUwuoBY")
                 // 模板id
                 .setTemplate_id("s7JZCn1Sop2dFum_dyDRr5ppStW6AxqBXJ0dOd0shHQ")
+                .setUrl("http://www.baidu.com")
                 // 模板参数
                 .add("first", "模板消息-会员注册！\n", "#999")
                 .add("keyword1", "老哥", "#999")
@@ -196,6 +197,22 @@ public class WxConfigController extends Controller {
                 .add("keyword3", "99999021123", "#999")
                 .add("remark", "\n模板消息测试gogo。", "#999")
                 .build());
+        renderText(apiResult.getJson());
+    }
+
+    /**
+     * 获取用户信息
+     */
+    public void findUserByOpenId(){
+        ApiResult apiResult = UserApi.getUserInfo("o7KsO0p3batUuqhMD30SwqUwuoBY");
+        System.out.println("apiResult = " + apiResult);
+        apiResult = UserApi.getUserInfo("o7KsO0vXvKfMKrR0s9_Zp20xVyGY");
+        System.out.println("apiResult2 = " + apiResult);
+        apiResult = UserApi.getUserInfo("7KsO0rp_HpXXCO-4FeNis2lGk7M");
+        System.out.println("apiResult3 = " + apiResult);
+
+
+        System.out.println(UserApi.getFollowers(null).getJson());
         renderText(apiResult.getJson());
     }
 

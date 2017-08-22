@@ -12,8 +12,6 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
-import com.jfinal.wxaapp.WxaConfig;
-import com.jfinal.wxaapp.WxaConfigKit;
 import com.rlax.framework.config.AppBaseConfig;
 import com.rlax.framework.interceptor.SessionMessageInterceptor;
 import com.rlax.framework.plugin.beetl.function.*;
@@ -78,11 +76,13 @@ public class AppConfig extends AppBaseConfig {
 
 	    /** 小程序 */
 
+/*
 		WxaConfig wc = new WxaConfig();
 		wc.setAppId(PropKit.get("wxaapp.appid"));
 		wc.setAppSecret(PropKit.get("wxaapp.appSecret"));
 
 		WxaConfigKit.setWxaConfig(wc);
+*/
 
 		/** 公众号 订阅号*/
 
