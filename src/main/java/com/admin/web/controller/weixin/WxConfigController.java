@@ -26,9 +26,9 @@ public class WxConfigController extends Controller {
      */
     public void oauth() {
         // 华人老板
-        // String appId = PropKit.get("service.appid");
+        String appId = PropKit.get("service.appid");
         // 途听
-        String appId = PropKit.get("tut.appid");
+        //String appId = PropKit.get("tut.appid");
 
         String redirectUri = null;
         String state = getPara("state","");
@@ -85,9 +85,9 @@ public class WxConfigController extends Controller {
 
             Map<String, String> map = new HashMap<>();
             // 华人老板
-           // map.put("appId", ApiConfigKit.getApiConfig().getAppId());
+            map.put("appId", ApiConfigKit.getApiConfig().getAppId());
             // 途听
-            map.put("appId", PropKit.get("tut.appid"));
+           // map.put("appId", PropKit.get("tut.appid"));
             map.put("nonceStr", nonce_str);
             map.put("timestamp", timestamp);
             map.put("url", url);

@@ -106,8 +106,8 @@ public class AppConfig extends AppBaseConfig {
         serviceTT.setAppSecret(PropKit.get("tut.appSecret"));
 
 		//ApiConfigKit.putApiConfig(ac);
-		//ApiConfigKit.putApiConfig(serviceAC);
-		ApiConfigKit.putApiConfig(serviceTT);
+		ApiConfigKit.putApiConfig(serviceAC);
+		//ApiConfigKit.putApiConfig(serviceTT);
 
 	    //CacheExtKit.use(CacheExtKit.REDIS_TYPE);
 	}
