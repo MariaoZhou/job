@@ -35,9 +35,9 @@ public class WxConfigController extends Controller {
         try {
             System.out.println("oauth state = " + state);
             // 华人老板
-            //redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+            redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
             // 途听
-            redirectUri = URLEncoder.encode(PropKit.get("tut.url") + "/wx/user/login", "UTF-8");
+            //redirectUri = URLEncoder.encode(PropKit.get("tut.url") + "/wx/user/login", "UTF-8");
             if (StrKit.notBlank(state)){
                 state = URLEncoder.encode(state, "UTF-8");
 
