@@ -1,5 +1,6 @@
 package com.admin.web.controller.job;
 
+import app.App;
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.base.BaseCountries;
 import com.admin.web.service.job.JobConfigService;
@@ -11,7 +12,6 @@ import com.admin.web.util.DateUtils;
 import com.admin.web.util.FileUtils;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.kit.PropKit;
 import com.jfinal.upload.UploadFile;
 
 import java.io.File;
@@ -70,7 +70,7 @@ public class JobIndexController extends BaseBussinessController {
 
             if (FileUtils.copyFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName(), imagePath+uploadFile.getFileName())){
                 FileUtils.deleteFile(uploadFile.getUploadPath()+File.separator+uploadFile.getFileName());
-                image.setUrlPath(PropKit.get("app.url") + "/job_file/"+time + uploadFile.getFileName());
+                image.setUrlPath(App.APP_URL + "/job_file/"+time + uploadFile.getFileName());
                 image.save();
                 renderJson(R.ok().put("urlPath", image.getUrlPath()));
             }else {
