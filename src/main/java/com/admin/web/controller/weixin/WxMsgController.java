@@ -1,5 +1,6 @@
 package com.admin.web.controller.weixin;
 
+import app.App;
 import com.admin.web.model.WxMsg;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.log.Log;
@@ -76,6 +77,7 @@ public class WxMsgController extends MsgControllerAdapter {
                     renderText("success");
                 }
             }
+            //华人老板服务号
         }else if (appid.equals("wxc6fffa9280cb63e9")){
             OutNewsMsg newMsg = new OutNewsMsg(inTextMsg);      //图文消息
 
@@ -84,13 +86,13 @@ public class WxMsgController extends MsgControllerAdapter {
                     "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502034011790&di=d1e15a890ec2b3d2292d42e7c0381464&imgtype=0&src=http%3A%2F%2Fimg161.poco.cn%2Fmypoco%2Fmyphoto%2F20100424%2F19%2F53310080201004241856521800459127582_005.jpg",
                     "http://tianye.work");
             render(newMsg);
-        }else {
+        }else if (appid.equals("wxdc8f34c4b9962370")){          //途听服务号
             OutNewsMsg newMsg = new OutNewsMsg(inTextMsg);      //图文消息
 
-            newMsg.addNews("招聘，找工作？点我呢！！",
-                    "点击开启",
-                    "http://hboss.htmlk.cn/images/icons/zhaopin.jpg",
-                    appUrl);
+            newMsg.addNews("途听旅行服务号默认回复",
+                    "点击打开首页",
+                    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503818438593&di=eeeb1d7b16a292f3482b27080cf2bb98&imgtype=0&src=http%3A%2F%2Foss.gkstk.com%2Fimages%2F2017%2F2%2F23121552520.jpg",
+                    App.APP_URL);
             render(newMsg);
         }
 
