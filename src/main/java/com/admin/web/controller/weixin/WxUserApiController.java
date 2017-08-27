@@ -1,12 +1,12 @@
 package com.admin.web.controller.weixin;
 
+import app.App;
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.UserInfo;
 import com.admin.web.model.weixin.WxUserInfo;
 import com.admin.web.util.R;
 import com.admin.web.util.WxUtils;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
 import com.jfinal.weixin.sdk.api.SnsAccessToken;
@@ -37,8 +37,9 @@ public class WxUserApiController extends BaseBussinessController {
             renderJson(R.error("未获取到 weixin code 信息"));
             return;
         }
-        String appId  = PropKit.get("service.appid");
-        String secret = PropKit.get("service.appSecret");
+
+        String appId  = App.APP_CONFIG.getAppId();
+        String secret = App.APP_CONFIG.getAppSecret();
         SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
 
         String openId = snsAccessToken.getOpenid();

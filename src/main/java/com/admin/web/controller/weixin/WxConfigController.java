@@ -1,12 +1,12 @@
 package com.admin.web.controller.weixin;
 
+import app.App;
 import com.admin.web.model.weixin.WxMediaArticles;
 import com.admin.web.util.R;
 import com.admin.web.util.WxUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.HashKit;
-import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.*;
 import org.omg.CORBA.Object;
@@ -25,19 +25,17 @@ public class WxConfigController extends Controller {
      *  服务号授权跳转
      */
     public void oauth() {
-        // 华人老板
-        String appId = PropKit.get("service.appid");
-        // 途听
-        //String appId = PropKit.get("tut.appid");
+
+        String appId = App.APP_CONFIG.getAppId();
 
         String redirectUri = null;
         String state = getPara("state","");
         try {
             System.out.println("oauth state = " + state);
             // 华人老板
-            redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
+            //redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
             // 途听
-            //redirectUri = URLEncoder.encode(PropKit.get("tut.url") + "/wx/user/login", "UTF-8");
+            redirectUri = URLEncoder.encode(App.APP_ADMIN_URL + "/wx/user/login", "UTF-8");
             if (StrKit.notBlank(state)){
                 state = URLEncoder.encode(state, "UTF-8");
 
@@ -84,10 +82,7 @@ public class WxConfigController extends Controller {
             String signature = HashKit.sha1(str);
 
             Map<String, String> map = new HashMap<>();
-            // 华人老板
-            map.put("appId", ApiConfigKit.getApiConfig().getAppId());
-            // 途听
-           // map.put("appId", PropKit.get("tut.appid"));
+            map.put("appId", App.APP_CONFIG.getAppId());
             map.put("nonceStr", nonce_str);
             map.put("timestamp", timestamp);
             map.put("url", url);
