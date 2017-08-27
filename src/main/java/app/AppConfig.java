@@ -110,7 +110,7 @@ public class AppConfig extends AppBaseConfig {
 		ApiConfigKit.putApiConfig(serviceTT);
 
 		// 全局变量配置
-		App.APP_CONFIG = serviceTT;
+		//App.APP_CONFIG = serviceTT;
 		//App.APP_URL = "http://hboss.htmlk.cn";
 		App.APP_URL = "https://www.tutlx.com";
 		App.APP_ADMIN_URL = "https://www.tutlx.com";

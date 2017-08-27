@@ -136,7 +136,7 @@ service.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 
 ## 途听 微信服务号 config
 #---------------------------------------------------------------------------------#
-tut.url = http://test.13701918.com
+tut.url = https://www.tutlx.com/
 tut.token = tutlx
 tut.appid = wxdc8f34c4b9962370
 tut.appSecret = d855dce6ac617f9891b527364d1df662
