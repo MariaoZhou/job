@@ -8,6 +8,14 @@ $(document).ready(function() {1
         },
         error: function(data) {}
     });
+
+    $("#myImageForm").ajaxForm({
+        dataType: "json",
+        success: function(data) {
+            bootbox.alert(data.msg);
+        },
+        error: function(data) {}
+    });
 });    
 </script>
 <%}; %>
@@ -19,8 +27,7 @@ layout("/common/layout/_main_layout.html",{pageTitle:'Excel导入/导出', pageJ
 <div class="row">
 	<div class="col-xs-12">
 
-		<form id="myArticleForm" action="${ctxPath}/job/pc/excelImport" method="post" enctype=”multipart/form-data”>
-
+        <form id="myImageForm" action="${ctxPath}/job/index/uploadImage" method="post" enctype=”multipart/form-data”>
             <div class="page-header">
                 <h1>
                     图片上传
@@ -31,6 +38,9 @@ layout("/common/layout/_main_layout.html",{pageTitle:'Excel导入/导出', pageJ
                 <input type="file" name="imageFile" id="imageFile" class="col-xs-3">
                 <button type="submit" class="btn btn-default" class="col-xs-3">确认上传</button>
             </div>
+        </form>
+
+		<form id="myArticleForm" action="${ctxPath}/job/pc/excelImport" method="post" enctype=”multipart/form-data”>
 
             <div class="page-header">
                 <h1>
