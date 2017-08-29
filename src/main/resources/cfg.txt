@@ -100,8 +100,6 @@ app.uploads.basedir = /var/uploads
 app.downloads.basedir = /var/downloads
 app.post = false
 app.name = 华人老板
-app.url = http://hboss.htmlk.cn
-#app.url = http://test.13701918.com
 #---------------------------------------------------------------------------------#
 
 ## APP更新使用
@@ -114,7 +112,7 @@ app.update.desc = 提高用户体验，修复一些已知问题。
 
 ##微信公众号 config
 #---------------------------------------------------------------------------------#
-weixin.url = https://hboss.htmlk.cn
+weixin.url = https://www.hboss.com
 weixin.token = hbossjob
 weixin.appid = wx3ce66e0d82944807
 weixin.appSecret = 610a20439b871eeee479b06cbec091b7
@@ -125,7 +123,7 @@ weixin.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 
 ##微信服务号 config
 #---------------------------------------------------------------------------------#
-service.url = https://hboss.htmlk.cn
+service.url = https://www.hboss.com
 service.token = hbossService
 service.appid = wxc6fffa9280cb63e9
 service.appSecret = f3a1cbde291ec0ef3bb5c1c002f32c27

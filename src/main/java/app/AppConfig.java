@@ -107,13 +107,15 @@ public class AppConfig extends AppBaseConfig {
 
 		//ApiConfigKit.putApiConfig(ac);
 		ApiConfigKit.putApiConfig(serviceAC);
-		ApiConfigKit.putApiConfig(serviceTT);
+		//ApiConfigKit.putApiConfig(serviceTT);
 
 		// 全局变量配置
-		App.APP_CONFIG = serviceTT;
-		//App.APP_URL = "http://hboss.htmlk.cn";
-		App.APP_URL = "https://www.tutlx.com";
-		App.APP_ADMIN_URL = "https://www.tutlx.com";
+//		App.APP_CONFIG = serviceTT;
+        App.APP_CONFIG = serviceAC;
+		App.APP_URL = "http://www.hboss.com";
+		App.APP_ADMIN_URL = "https://www.hboss.com";
+		//App.APP_URL = "https://www.tutlx.com";
+		//App.APP_ADMIN_URL = "https://www.tutlx.com";
 
 	    //CacheExtKit.use(CacheExtKit.REDIS_TYPE);
 	}

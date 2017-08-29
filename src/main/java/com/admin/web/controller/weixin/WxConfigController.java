@@ -166,7 +166,7 @@ public class WxConfigController extends Controller {
      * 创建菜单
      */
     public void createMenu() {
-        String str = "{\"button\":[{\"name\":\"1分钟招到好工人\",\"type\":\"view\",\"url\":\"http://hboss.htmlk.cn\"}]}";
+        String str = "{\"button\":[{\"name\":\"1分钟招到好工人\",\"type\":\"view\",\"url\":\""+App.APP_URL+"\"}]}";
         ApiResult apiResult = MenuApi.createMenu(str);
         if (apiResult.isSucceed())
             renderText(apiResult.getJson());

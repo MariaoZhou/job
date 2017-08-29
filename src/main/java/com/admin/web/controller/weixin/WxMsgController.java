@@ -20,7 +20,7 @@ import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 public class WxMsgController extends MsgControllerAdapter {
 
     static Log logger = Log.getLog(WxMsgController.class);
-    private final String appUrl = "http://hboss.htmlk.cn/#!/";
+    private final String appUrl = "http://www.hboss.com/#!/";
 
     /**
      * 文字消息 / 关键字
@@ -41,7 +41,7 @@ public class WxMsgController extends MsgControllerAdapter {
 
                 newMsg.addNews("招聘，找工作？点我呢！！",
                         "点击开启",
-                        "http://hboss.htmlk.cn/images/icons/zhaopin.jpg",
+                        "http://www.hboss.com/images/icons/zhaopin.jpg",
                         appUrl);
                 render(newMsg);
             }else if(msgContent.equals("聊天记录") || msgContent.equals("结论")){
