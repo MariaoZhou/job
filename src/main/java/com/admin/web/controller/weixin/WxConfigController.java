@@ -36,7 +36,7 @@ public class WxConfigController extends Controller {
             // 华人老板
             //redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
             // 途听
-            redirectUri = URLEncoder.encode(App.APP_ADMIN_URL + "/wx/user/login", "UTF-8");
+            redirectUri = URLEncoder.encode(App.APP_ADMIN_URL + "/wx/user/login?appid="+appId, "UTF-8");
             if (StrKit.notBlank(state)){
                 state = URLEncoder.encode(state, "UTF-8");
 
@@ -108,7 +108,7 @@ public class WxConfigController extends Controller {
 
         String state = getPara("state","");
 
-        String redirectUri = URLEncoder.encode("https://www.hboss.com/wx/user/login", "UTF-8");
+        String redirectUri = URLEncoder.encode(App.APP_ADMIN_URL+"/wx/user/login?appid="+appId, "UTF-8");
         System.out.println("redirectUri = " + redirectUri);
         if (StrKit.notBlank(state)){
             state = URLEncoder.encode(state, "UTF-8");

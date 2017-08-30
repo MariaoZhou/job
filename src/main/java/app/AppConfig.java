@@ -105,8 +105,15 @@ public class AppConfig extends AppBaseConfig {
         serviceTT.setAppId(PropKit.get("tut.appid"));
         serviceTT.setAppSecret(PropKit.get("tut.appSecret"));
 
+        /** 开放平台 */
+		ApiConfig serviceOpen = new ApiConfig();
+		serviceOpen.setAppId(PropKit.get("open.appid"));
+		serviceOpen.setAppSecret(PropKit.get("open.appSecret"));
+
+
 		//ApiConfigKit.putApiConfig(ac);
 		ApiConfigKit.putApiConfig(serviceAC);
+		ApiConfigKit.putApiConfig(serviceOpen);
 		//ApiConfigKit.putApiConfig(serviceTT);
 
 		// 全局变量配置

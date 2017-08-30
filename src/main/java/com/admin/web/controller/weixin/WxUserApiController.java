@@ -8,10 +8,7 @@ import com.admin.web.util.R;
 import com.admin.web.util.WxUtils;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
-import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.api.SnsAccessToken;
-import com.jfinal.weixin.sdk.api.SnsAccessTokenApi;
-import com.jfinal.weixin.sdk.api.SnsApi;
+import com.jfinal.weixin.sdk.api.*;
 
 import java.util.Date;
 
@@ -31,23 +28,25 @@ public class WxUserApiController extends BaseBussinessController {
     public void login(){
 
         String state = getPara("state","");
+        String appId = getPara("appid","");
+        System.out.println(" login appId = " + appId);
         //用户同意授权，获取code
         String code = getPara("code");
         if (StrKit.isBlank(code)) {
             renderJson(R.error("未获取到 weixin code 信息"));
             return;
         }
-
-        String appId  = App.APP_CONFIG.getAppId();
-        String secret = App.APP_CONFIG.getAppSecret();
-        SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(appId, secret, code);
+        ApiConfig apiConfig = ApiConfigKit.getApiConfig(appId);
+        System.out.println("getAppId = " + apiConfig.getAppId());
+        System.out.println("getAppSecret = " + apiConfig.getAppSecret());
+        SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(apiConfig.getAppId(), apiConfig.getAppSecret(), code);
 
         String openId = snsAccessToken.getOpenid();
         String token  = snsAccessToken.getAccessToken();
 
         //拉取用户信息(需scope为 snsapi_userinfo)
         ApiResult apiResult = SnsApi.getUserInfo(token, openId);
-
+        System.out.println("apiResult = " + apiResult);
         try {
             System.out.println("登录的用户 openid" + openId);
             System.out.println("登录的用户 state" + state);
