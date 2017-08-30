@@ -23,7 +23,7 @@ import java.util.*;
 public class WxConfigController extends Controller {
 
     /**
-     *  服务号授权跳转
+     *  服务号 手机端授权登录
      */
     public void oauth() {
 
@@ -33,9 +33,6 @@ public class WxConfigController extends Controller {
         String state = getPara("state","");
         try {
             System.out.println("oauth state = " + state);
-            // 华人老板
-            //redirectUri = URLEncoder.encode(PropKit.get("service.url") + "/wx/user/login", "UTF-8");
-            // 途听
             redirectUri = URLEncoder.encode(App.APP_ADMIN_URL + "/wx/user/login?appid="+appId, "UTF-8");
             if (StrKit.notBlank(state)){
                 state = URLEncoder.encode(state, "UTF-8");
@@ -52,6 +49,28 @@ public class WxConfigController extends Controller {
         renderJson(R.ok().put(url));
     }
 
+    /**
+     * 开放平台 授权登录
+     * 生成网页二维码授权链接
+     */
+    public void getQrConnectURL() throws UnsupportedEncodingException {
+
+        //开放平台
+        String appId = PropKit.get("open.appid");
+
+        String state = getPara("state","");
+
+        String redirectUri = URLEncoder.encode(App.APP_ADMIN_URL+"/wx/user/login?appid="+appId, "UTF-8");
+        System.out.println("redirectUri = " + redirectUri);
+        if (StrKit.notBlank(state)){
+            state = URLEncoder.encode(state, "UTF-8");
+
+            System.out.println("oauth state URLEncoder = " + state);
+        }
+        String url = SnsAccessTokenApi.getQrConnectURL(appId, redirectUri, state);
+        System.out.println("url = " + url);
+        renderJson(R.ok().put(url));
+    }
 
     /**
      *
@@ -96,28 +115,6 @@ public class WxConfigController extends Controller {
         }else{
             renderJson(R.error("URL参数为空"));
         }
-    }
-
-    /**
-     * 生成网页二维码授权链接
-     */
-    public void getQrConnectURL() throws UnsupportedEncodingException {
-
-        //开放平台
-        String appId = PropKit.get("open.appid");
-
-        String state = getPara("state","");
-
-        String redirectUri = URLEncoder.encode(App.APP_ADMIN_URL+"/wx/user/login?appid="+appId, "UTF-8");
-        System.out.println("redirectUri = " + redirectUri);
-        if (StrKit.notBlank(state)){
-            state = URLEncoder.encode(state, "UTF-8");
-
-            System.out.println("oauth state URLEncoder = " + state);
-        }
-        String url = SnsAccessTokenApi.getQrConnectURL(appId, redirectUri, state);
-        System.out.println("url = " + url);
-        renderJson(R.ok().put(url));
     }
 
     /**
