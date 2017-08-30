@@ -7,6 +7,7 @@ import com.admin.web.util.WxUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.HashKit;
+import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.*;
 import org.omg.CORBA.Object;
@@ -102,7 +103,8 @@ public class WxConfigController extends Controller {
      */
     public void getQrConnectURL() throws UnsupportedEncodingException {
 
-        String appId = App.APP_CONFIG.getAppId();
+        //开放平台
+        String appId = PropKit.get("open.appid");
 
         String state = getPara("state","");
 
