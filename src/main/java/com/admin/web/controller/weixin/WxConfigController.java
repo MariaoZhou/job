@@ -98,6 +98,27 @@ public class WxConfigController extends Controller {
     }
 
     /**
+     * 生成网页二维码授权链接
+     */
+    public void getQrConnectURL() throws UnsupportedEncodingException {
+
+        String appId = App.APP_CONFIG.getAppId();
+
+        String state = getPara("state","");
+
+        String redirectUri = URLEncoder.encode("https://www.hboss.com/wx/user/login", "UTF-8");
+        System.out.println("redirectUri = " + redirectUri);
+        if (StrKit.notBlank(state)){
+            state = URLEncoder.encode(state, "UTF-8");
+
+            System.out.println("oauth state URLEncoder = " + state);
+        }
+        String url = SnsAccessTokenApi.getQrConnectURL(appId, redirectUri, state);
+        System.out.println("url = " + url);
+        renderJson(R.ok().put(url));
+    }
+
+    /**
      * 获取文章素材
      */
     public void getNew(){
