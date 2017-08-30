@@ -48,14 +48,15 @@ public class WxUserApiController extends BaseBussinessController {
         ApiResult apiResult = SnsApi.getUserInfo(token, openId);
         System.out.println("apiResult = " + apiResult);
         try {
-            System.out.println("登录的用户 openid" + openId);
-            System.out.println("登录的用户 state" + state);
-            System.out.println("登录的用户 apiResult" + apiResult);
+            System.out.println("登录的用户 openid: " + openId);
+            System.out.println("登录的用户 state : " + state);
+
             WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
 
-            UserInfo user = UserInfo.dao.findFirst("select * from user_info where openid = ?", openId);
+            UserInfo user = UserInfo.dao.findFirst("select * from user_info where openid = ? or unionId = ?", openId, snsAccessToken.getUnionid());
 
             if (user == null ){
+                System.out.println("查询用户 不存在 ");
                 user = new UserInfo();
                 user.setHead(wxUserInfo.getHeadimgurl());
                 user.setName(wxUserInfo.getNickname());
@@ -64,23 +65,9 @@ public class WxUserApiController extends BaseBussinessController {
                 user.setCreateDate(new Date());
                 user.setUpdateDate(new Date());
                 user.save();
+            }else {
+                System.out.println("查询用户 存在 " + user.toJson());
             }
-
-            /*JobMember member = new JobMember();
-            member.setOpenId(wxUserInfo.getOpenid());
-            //member.setName(userJson.getString("nickName"));
-            member.setLanguage(wxUserInfo.getLanguage());
-            member.setImage(wxUserInfo.getHeadimgurl());	//头像
-            member.setCountry(wxUserInfo.getCountry());	//国家
-            member.setSex(wxUserInfo.getSex());			//性别 值为1时是男性，值为2时是女性，值为0时是未知
-            member.setRole("0");						//默认角色  应聘者
-            member.setState("0");						//状态 激活
-            member.setCreateDate(new Date());
-            member.setMobileCode(wxUserInfo.getProvince());	//城市 拼音 全拼 TODO 暂时使用 mobileCode字段
-
-            JobMemberService jobService = Duang.duang(JobMemberService.class);
-            System.out.println("jobmember =======" + member.toString());
-            jobService.saveAndUpdateMember(member);*/
 
             // 重定向 前端url 替换okid 关键字为 userId
             if (StrKit.notBlank(state)){

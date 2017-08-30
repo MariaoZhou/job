@@ -25,6 +25,14 @@ public abstract class BaseUserInfo<M extends BaseUserInfo<M>> extends Model<M> i
 		return get("openId");
 	}
 
+	public void setUnionId(java.lang.String unionId) {
+		set("unionId", unionId);
+	}
+
+	public java.lang.String getUnionId() {
+		return get("unionId");
+	}
+
 	public void setName(java.lang.String name) {
 		set("name", name);
 	}

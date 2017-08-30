@@ -63,6 +63,7 @@ public class WxConfigController extends Controller {
         String redirectUri = URLEncoder.encode(App.APP_ADMIN_URL+"/wx/user/login?appid="+appId, "UTF-8");
         System.out.println("redirectUri = " + redirectUri);
         if (StrKit.notBlank(state)){
+            System.out.println("oauth state = " + state);
             state = URLEncoder.encode(state, "UTF-8");
 
             System.out.println("oauth state URLEncoder = " + state);
