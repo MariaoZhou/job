@@ -61,6 +61,7 @@ public class WxUserApiController extends BaseBussinessController {
                 user.setHead(wxUserInfo.getHeadimgurl());
                 user.setName(wxUserInfo.getNickname());
                 user.setOpenId(wxUserInfo.getOpenid());
+                user.setUnionId(snsAccessToken.getUnionid());
 
                 user.setCreateDate(new Date());
                 user.setUpdateDate(new Date());
