@@ -51,6 +51,11 @@ public class WxUtils {
             city = r.get("city").toString();
         }
 
+        String unionid = "";
+        if (r.get("unionid")!=null){
+            unionid = r.get("unionid").toString();
+        }
+
         String country = "";
         if (r.get("country")!=null){
             country = r.get("country").toString();
@@ -128,7 +133,7 @@ public class WxUtils {
             subscribe_time=DateUtils.formatDateTime(new Date(Long.parseLong(subscribe_time) * 1000L));
         }
 
-        WxUserInfo userInfo = new WxUserInfo(city, country, groupid, headimgurl, language, nickname, openid, province, remark, sex, subscribe, subscribe_time);
+        WxUserInfo userInfo = new WxUserInfo(city, country, groupid, headimgurl, language, nickname, openid, province, remark, sex, subscribe, subscribe_time, unionid);
         return userInfo;
     }
 

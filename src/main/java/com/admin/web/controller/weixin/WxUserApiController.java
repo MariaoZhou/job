@@ -1,6 +1,5 @@
 package com.admin.web.controller.weixin;
 
-import app.App;
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.UserInfo;
 import com.admin.web.model.weixin.WxUserInfo;
@@ -61,7 +60,7 @@ public class WxUserApiController extends BaseBussinessController {
                 user.setHead(wxUserInfo.getHeadimgurl());
                 user.setName(wxUserInfo.getNickname());
                 user.setOpenId(wxUserInfo.getOpenid());
-                user.setUnionId(snsAccessToken.getUnionid());
+                user.setUnionId(wxUserInfo.getUnionid());
 
                 user.setCreateDate(new Date());
                 user.setUpdateDate(new Date());

@@ -17,10 +17,12 @@ public class WxUserInfo {
     private String sex;
     private String subscribe;
     private String subscribe_time;
+    private String unionid;
 
 
     public WxUserInfo(String city, String country, String groupid, String headimgurl, String language, String nickname,
-                      String openid, String province, String remark, String sex, String subscribe, String subscribe_time) {
+                      String openid, String province, String remark, String sex, String subscribe, String subscribe_time,
+                      String unionid) {
         this.city = city;
         this.country = country;
         this.groupid = groupid;
@@ -33,6 +35,7 @@ public class WxUserInfo {
         this.sex = sex;
         this.subscribe = subscribe;
         this.subscribe_time = subscribe_time;
+        this.unionid = unionid;
     }
 
     @Override
@@ -162,5 +165,11 @@ public class WxUserInfo {
         this.subscribe_time = subscribe_time;
     }
 
+    public String getUnionid() {
+        return unionid;
+    }
 
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
 }
