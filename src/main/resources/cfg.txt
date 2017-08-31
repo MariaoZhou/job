@@ -100,6 +100,8 @@ app.uploads.basedir = /var/uploads
 app.downloads.basedir = /var/downloads
 app.post = false
 app.name = 华人老板
+app.url = http://m.hboss.com
+app.admin.url = https://pc.hboss.com
 #---------------------------------------------------------------------------------#
 
 ## APP更新使用
@@ -123,7 +125,7 @@ weixin.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 
 ##微信服务号 config
 #---------------------------------------------------------------------------------#
-service.url = https://www.hboss.com
+service.url = http://m.hboss.com
 service.token = hbossService
 service.appid = wxc6fffa9280cb63e9
 service.appSecret = f3a1cbde291ec0ef3bb5c1c002f32c27
@@ -134,7 +136,7 @@ service.encodingAesKey = XTQOXSCYm5ogjzhK1LtodmQXdhNWZCfZzz7PPfFgkG1
 
 ##开放平台
 #---------------------------------------------------------------------------------#
-#open.token = hbossService
+#open.token =
 open.appid = wxba95f473fad91751
 open.appSecret = d1720f71af37075bbd026cd77757d133
 #---------------------------------------------------------------------------------#
@@ -149,8 +151,6 @@ tut.appSecret = d855dce6ac617f9891b527364d1df662
 tut.encryptMessage = false
 tut.encodingAesKey = 9p5Y8bTcM9CbUQiszHiRro0ITsDlmEU1pyBaguGlNTT
 #---------------------------------------------------------------------------------#
-
-
 
 ##微信小程序
 #---------------------------------------------------------------------------------#

@@ -119,10 +119,8 @@ public class AppConfig extends AppBaseConfig {
 		// 全局变量配置
 //		App.APP_CONFIG = serviceTT;
         App.APP_CONFIG = serviceAC;
-		App.APP_URL = "http://www.hboss.com";
-		App.APP_ADMIN_URL = "https://www.hboss.com";
-		//App.APP_URL = "https://www.tutlx.com";
-		//App.APP_ADMIN_URL = "https://www.tutlx.com";
+		App.APP_URL = PropKit.get("app.url");
+		App.APP_ADMIN_URL = PropKit.get("app.admin.url");
 
 	    //CacheExtKit.use(CacheExtKit.REDIS_TYPE);
 	}
