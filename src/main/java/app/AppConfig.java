@@ -113,7 +113,7 @@ public class AppConfig extends AppBaseConfig {
 
 		//ApiConfigKit.putApiConfig(ac);
 		ApiConfigKit.putApiConfig(serviceAC);
-		//ApiConfigKit.putApiConfig(serviceOpen);
+		ApiConfigKit.putApiConfig(serviceOpen);
 		//ApiConfigKit.putApiConfig(serviceTT);
 
 		// 全局变量配置
