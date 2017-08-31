@@ -37,7 +37,6 @@ public class WxUserApiController extends BaseBussinessController {
         }
         ApiConfig apiConfig = ApiConfigKit.getApiConfig(appId);
         System.out.println("getAppId = " + apiConfig.getAppId());
-        System.out.println("getAppSecret = " + apiConfig.getAppSecret());
         SnsAccessToken snsAccessToken = SnsAccessTokenApi.getSnsAccessToken(apiConfig.getAppId(), apiConfig.getAppSecret(), code);
 
         String openId = snsAccessToken.getOpenid();
