@@ -111,9 +111,9 @@ public class AppConfig extends AppBaseConfig {
 		serviceOpen.setAppSecret(PropKit.get("open.appSecret"));
 
 
-		ApiConfigKit.putApiConfig(ac);
-		//ApiConfigKit.putApiConfig(serviceAC);
-		//ApiConfigKit.putApiConfig(serviceOpen);
+		//ApiConfigKit.putApiConfig(ac);
+		ApiConfigKit.putApiConfig(serviceAC);
+		ApiConfigKit.putApiConfig(serviceOpen);
 		//ApiConfigKit.putApiConfig(serviceTT);
 
 		// 全局变量配置
