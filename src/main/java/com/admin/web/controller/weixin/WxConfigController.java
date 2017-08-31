@@ -1,6 +1,7 @@
 package com.admin.web.controller.weixin;
 
 import app.App;
+import com.admin.web.model.UserInfo;
 import com.admin.web.model.weixin.WxMediaArticles;
 import com.admin.web.util.R;
 import com.admin.web.util.WxUtils;
@@ -220,17 +221,22 @@ public class WxConfigController extends Controller {
     /**
      * 获取用户信息
      */
-    public void findUserByOpenId(){
-        ApiResult apiResult = UserApi.getUserInfo("o7KsO0p3batUuqhMD30SwqUwuoBY");
-        System.out.println("apiResult = " + apiResult);
-        apiResult = UserApi.getUserInfo("o7KsO0vXvKfMKrR0s9_Zp20xVyGY");
-        System.out.println("apiResult2 = " + apiResult);
-        apiResult = UserApi.getUserInfo("7KsO0rp_HpXXCO-4FeNis2lGk7M");
-        System.out.println("apiResult3 = " + apiResult);
+    public void updateUser(){
+        List<UserInfo> userInfos = UserInfo.dao.find("select * from " + UserInfo.table + " where unionId ==''");
 
+        for (UserInfo user : userInfos){
+            System.out.println("user name = " + user.getName());
+            System.out.println("user openid= " + user.getOpenId());
+            ApiResult apiResult = UserApi.getUserInfo(user.getOpenId());
+            System.out.println("apiResult = " + apiResult.getJson());
+            String unionId = apiResult.get("unionid");
+            user.setUnionId(unionId);
 
-        System.out.println(UserApi.getFollowers(null).getJson());
-        renderText(apiResult.getJson());
+            user.update();
+
+        }
+
     }
+
 
 }
