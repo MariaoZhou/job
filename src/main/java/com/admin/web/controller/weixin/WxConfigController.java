@@ -223,7 +223,7 @@ public class WxConfigController extends Controller {
      */
     public void updateUser(){
         List<UserInfo> userInfos = UserInfo.dao.find("select * from " + UserInfo.table + " where unionId ==''");
-
+        System.out.println("userInfos = " + userInfos.size());
         for (UserInfo user : userInfos){
             System.out.println("user name = " + user.getName());
             System.out.println("user openid= " + user.getOpenId());
