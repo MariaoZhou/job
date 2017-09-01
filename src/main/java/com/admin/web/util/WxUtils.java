@@ -78,8 +78,8 @@ public class WxUtils {
 
         String nickname = "";
         if (r.get("nickname") != null){
-            System.out.println("nickname = " + nickname);
-            nickname = EmojiUtil.getEmojiUnicodeString(r.get("nickname").toString());
+            System.out.println("nickname = " + r.get("nickname"));
+            nickname = EmojiUtil.getNonEmojiString(r.get("nickname").toString());
             System.out.println("nickname new = " + nickname);
         }
 
