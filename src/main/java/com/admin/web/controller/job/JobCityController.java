@@ -89,6 +89,7 @@ public class JobCityController extends BaseBussinessController {
 	@Override
 	public void onExceptionError(Exception e) {
 		setSessionErrorMessage(e.getMessage());
-		redirect("/job/city");	}
+		redirect("/job/city");
+	}
 
 }

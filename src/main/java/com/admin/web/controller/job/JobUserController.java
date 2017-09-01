@@ -283,8 +283,9 @@ public class JobUserController extends BaseBussinessController {
 
 	@Override
 	public void onExceptionError(Exception e) {
-		// TODO Auto-generated method stub
-		
+        log.error(e.getMessage());
+        e.printStackTrace();
+        renderJson(R.error("系统异常, 请稍候重试"));
 	}
 
 }

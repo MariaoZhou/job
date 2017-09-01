@@ -1,6 +1,7 @@
 package com.admin.web.controller.weixin;
 
 import app.App;
+import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.UserInfo;
 import com.admin.web.model.weixin.WxMediaArticles;
 import com.admin.web.util.R;
@@ -21,7 +22,7 @@ import java.util.*;
  * 微信工具类 controller
  */
 @ControllerBind(controllerKey = "/weixin/config")
-public class WxConfigController extends Controller {
+public class WxConfigController extends BaseBussinessController {
 
     /**
      *  服务号 手机端授权登录
@@ -239,4 +240,10 @@ public class WxConfigController extends Controller {
     }
 
 
+    @Override
+    public void onExceptionError(Exception e) {
+        e.printStackTrace();
+        log.error(e.getMessage());
+        redirect(App.APP_URL);
+    }
 }

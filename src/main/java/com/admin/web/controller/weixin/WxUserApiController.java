@@ -1,5 +1,6 @@
 package com.admin.web.controller.weixin;
 
+import app.App;
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.UserInfo;
 import com.admin.web.model.weixin.WxUserInfo;
@@ -28,11 +29,11 @@ public class WxUserApiController extends BaseBussinessController {
 
         String state = getPara("state","");
         String appId = getPara("appid","");
-        System.out.println(" login appId = " + appId);
         //用户同意授权，获取code
         String code = getPara("code");
         if (StrKit.isBlank(code)) {
-            renderJson(R.error("未获取到 weixin code 信息"));
+            log.error("未获取到 weixin code 信息");
+            redirect(App.APP_URL);
             return;
         }
         ApiConfig apiConfig = ApiConfigKit.getApiConfig(appId);
@@ -47,14 +48,10 @@ public class WxUserApiController extends BaseBussinessController {
         System.out.println("apiResult = " + apiResult);
         try {
             System.out.println("登录的用户 openid: " + openId);
-            System.out.println("登录的用户 state : " + state);
-
             WxUserInfo wxUserInfo = WxUtils.wxUserInfo(apiResult);
-
-            UserInfo user = UserInfo.dao.findFirst("select * from user_info where openid = ? or unionId = ?", openId, snsAccessToken.getUnionid());
+            UserInfo user = UserInfo.dao.findFirst("select * from user_info where openid = ? or name = ?", openId, wxUserInfo.getNickname());
 
             if (user == null ){
-                System.out.println("查询用户 不存在 ");
                 user = new UserInfo();
                 user.setHead(wxUserInfo.getHeadimgurl());
                 user.setName(wxUserInfo.getNickname());
@@ -77,16 +74,18 @@ public class WxUserApiController extends BaseBussinessController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            renderJson(R.error("用户信息错误, 请确定参数是否正确"));
+            log.error("用户信息错误, 请确定参数是否正确", e);
+            redirect(App.APP_URL);
         }
-
-
 
     }
 
 
 	@Override
-	public void onExceptionError(Exception e) {renderJson(R.error("接口调用异常"));}
+	public void onExceptionError(Exception e) {
+        e.printStackTrace();
+        log.error(e.getMessage());
+        redirect(App.APP_URL);
+    }
 
 }

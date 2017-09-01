@@ -182,6 +182,8 @@ public class JobInfoController extends BaseBussinessController {
 
 	@Override
 	public void onExceptionError(Exception e) {
+        log.error(e.getMessage());
+        e.printStackTrace();
         renderJson(R.error("系统异常, 请稍候重试"));
 		
 	}

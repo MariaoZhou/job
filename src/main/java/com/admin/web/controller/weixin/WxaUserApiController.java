@@ -1,5 +1,6 @@
 package com.admin.web.controller.weixin;
 
+import app.App;
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.util.R;
 import com.alibaba.fastjson.JSON;
@@ -127,6 +128,10 @@ public class WxaUserApiController extends BaseBussinessController {
 	}
 
 	@Override
-	public void onExceptionError(Exception e) {renderJson(R.error("接口调用异常"));}
+	public void onExceptionError(Exception e) {
+		e.printStackTrace();
+		log.error(e.getMessage());
+		redirect(App.APP_URL);
+	}
 
 }
