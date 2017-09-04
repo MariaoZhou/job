@@ -46,7 +46,7 @@ layout("/common/layout/_main_layout.html",{pageTitle:'用户管理', pageJavaScr
 		<form id="queryForm" name="queryForm" class="form-inline" role="form" action="${ctxPath}/job/pc/userIndex" method="get">
 			<input type="hidden" name="page" />
 			<label>用户名称</label>
-			<input type="text" class="input-large" name="username" placeholder="用户名称" value="${name!}"/>
+			<input type="text" class="input-large" name="name" placeholder="用户名称" value="${name!}"/>
 			<button type="submit" class="btn btn-info btn-sm" style="margin-left: 30px">
 				<i class="ace-icon fa fa-key bigger-110"></i>查询
 			</button>
@@ -101,7 +101,7 @@ for(item in page.list){
 		<div class="hidden-sm hidden-xs action-buttons">
 			<a title="加入黑名单" class="green" href="${ctxPath}/job/pc/updateBlacklist/?id=${item.id}&blacklist=1"> <i class="ace-icon fa fa-pencil bigger-130"></i></a>
 			<a title="取消加入黑名单" class="blue" href="${ctxPath}/job/pc/updateBlacklist/?id=${item.id}&blacklist=0"> <i class="ace-icon fa fa-edit bigger-130"></i></a>
-			<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>
+			<!--<a title="删除" class="red" href="javascript:deleteByid(${item.id});"> <i class="ace-icon fa fa-trash-o bigger-130"></i></a>-->
 		</div>
 
 	</td>         

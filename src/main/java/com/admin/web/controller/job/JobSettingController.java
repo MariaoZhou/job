@@ -192,7 +192,7 @@ public class JobSettingController extends BaseBussinessController {
     public void userIndex(){
         int page = getParaToInt("_page", 1);
         UserInfo info = new UserInfo();
-        info.setName(getPara("username"));
+        info.setName(getPara("name"));
 
 
         Page<UserInfo> list = UserInfo.dao.findPage(info, page, Consts.PAGE_DEFAULT_SIZE);
