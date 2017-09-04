@@ -186,6 +186,37 @@ public class JobSettingController extends BaseBussinessController {
 
     }
 
+    /**
+     * pc 后台用户管理 - 列表
+     */
+    public void userIndex(){
+        int page = getParaToInt("_page", 1);
+        UserInfo info = new UserInfo();
+        info.setName(getPara("username"));
+
+
+        Page<UserInfo> list = UserInfo.dao.findPage(info, page, Consts.PAGE_DEFAULT_SIZE);
+        keepPara();
+        setAttr("page", list);
+        render("userList.html");
+
+    }
+
+    /**
+     * 更新黑名单
+     */
+    public void updateBlacklist(){
+        int userId = getParaToInt("id");
+        String blacklist = getPara("blacklist","0");
+        UserInfo userInfo = new UserInfo();
+        userInfo.setBlacklist(blacklist);
+        userInfo.setId(userId);
+
+        userInfo.update();
+        setSessionSuccessMessage("操作成功");
+        redirect("/job/pc/userIndex");
+    }
+
 	@Override
 	public void onExceptionError(Exception e) {
 		setSessionErrorMessage("导入/导出 失败");

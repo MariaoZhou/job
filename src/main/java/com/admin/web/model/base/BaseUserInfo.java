@@ -73,4 +73,12 @@ public abstract class BaseUserInfo<M extends BaseUserInfo<M>> extends Model<M> i
 		return get("updateDate");
 	}
 
+    public void setBlacklist(java.lang.String blacklist) {
+        set("blacklist", blacklist);
+    }
+
+    public java.lang.String getBlacklist() {
+        return get("blacklist");
+    }
+
 }
