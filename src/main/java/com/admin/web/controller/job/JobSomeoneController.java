@@ -4,6 +4,7 @@ import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.City;
 import com.admin.web.model.JobData;
 import com.admin.web.model.Someone;
+import com.admin.web.model.UserInfo;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
@@ -53,6 +54,15 @@ public class JobSomeoneController extends BaseBussinessController {
 
         // 用户id
         String userId = getPara("userId");
+        UserInfo userInfo = UserInfo.dao.findById(userId);
+
+        if (userInfo.getBlacklist().equals("1")){
+            renderJson(R.error("您在黑名单中, 不能发布信息."));
+            return;
+        }
+
+        someone.setUserId(userInfo.getId());
+        someone.setUserName(userInfo.getName());
         // 城市id
         String cityId = getPara("cityId");
 

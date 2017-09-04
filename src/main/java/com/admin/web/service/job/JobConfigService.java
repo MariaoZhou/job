@@ -271,10 +271,6 @@ public class JobConfigService extends BaseBussinessService {
             someone.setCountriesId(city.getCountriesId());
             someone.setCountriesName(city.getCountriesName());
 
-            UserInfo userInfo = UserInfo.dao.findById(userId);
-            someone.setUserName(userInfo.getName());
-            someone.setUserId(userInfo.getId());
-
             someone.setStatus("0");
             if (someone.getId()!=null){
                 someone.setUpdateDate(new Date());
@@ -305,10 +301,6 @@ public class JobConfigService extends BaseBussinessService {
             job.setCityName(city.getName());
             job.setCountriesId(city.getCountriesId());
             job.setCountriesName(city.getCountriesName());
-
-            UserInfo userInfo = UserInfo.dao.findById(userId);
-            job.setUserId(userInfo.getId());
-            job.setUserName(userInfo.getName());
 
             // 薪资排序
             String salaryOrder = Data.dao.getCodeDescByCodeAndType(job.getJobSalaryName(),"JOB_SALARY");

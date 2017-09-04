@@ -2,7 +2,7 @@ package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.JobInfo;
-import com.admin.web.model.Someone;
+import com.admin.web.model.UserInfo;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
@@ -101,8 +101,20 @@ public class JobInfoController extends BaseBussinessController {
         job.setId(id);
         // 用户id
         String userId = getPara("userId");
+
+        UserInfo userInfo = UserInfo.dao.findById(userId);
+
+        if (userInfo.getBlacklist().equals("1")){
+            renderJson(R.error("您在黑名单中, 不能发布职位信息."));
+            return;
+        }
+
+        job.setUserId(userInfo.getId());
+        job.setUserName(userInfo.getName());
+
         // 城市id
         String cityId = getPara("cityId");
+
 
         // 公司信息
         String companyName = getPara("companyName");
