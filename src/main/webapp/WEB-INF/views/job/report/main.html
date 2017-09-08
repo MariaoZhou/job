@@ -1,0 +1,48 @@
+<% var pageJavaScript = { %>
+<script>
+jQuery(function($) {
+	$('table.datatable').datatable({checkable: true, sortable: true});
+});
+
+</script>
+<%}; %>
+
+<%
+layout("/common/layout/_main_layout.html",{pageTitle:'统计列表', pageJavaScript:pageJavaScript}){
+%>
+
+<h4 class="header blue">数据统计</h4>
+
+<div class="row">
+	<div class="col-xs-12">
+
+	</div>
+</div>
+
+<div class="hr hr-double dotted"></div>
+
+<div id="row">
+
+<table class="table datatable">
+  <thead>
+    <tr>
+      <th data-width="40%">关键字</th>
+      <th data-width="70%">数量统计</th>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for(item in list){
+%>
+
+  <tr>
+    <td>${item.key}</td>
+    <td>${item.num}条记录</td>
+  </tr>
+
+<%}%>   
+  </tbody>  
+</table>
+
+</div>
+<%} %>
