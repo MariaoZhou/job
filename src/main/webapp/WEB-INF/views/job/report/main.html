@@ -1,8 +1,8 @@
 <% var pageJavaScript = { %>
 <script>
-jQuery(function($) {
-	$('table.datatable').datatable({checkable: true, sortable: true});
-});
+    jQuery(function ($) {
+        $('table.datatable').datatable({checkable: true, sortable: true});
+    });
 
 </script>
 <%}; %>
@@ -14,35 +14,38 @@ layout("/common/layout/_main_layout.html",{pageTitle:'统计列表', pageJavaScr
 <h4 class="header blue">数据统计</h4>
 
 <div class="row">
-	<div class="col-xs-12">
+    <div class="col-xs-12">
 
-	</div>
+    </div>
 </div>
 
 <div class="hr hr-double dotted"></div>
 
 <div id="row">
+    <h5>职位信息总数: ${count}条</h5>
+    <span ></span>
+    <table class="table datatable">
+        <thead>
+        <tr>
+            <th data-width="30%">关键字</th>
+            <th data-width="30%">数量统计 ( 条数 / 总条数 )</th>
+            <th data-width="30%">百分比</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+        for(item in list){
+        %>
 
-<table class="table datatable">
-  <thead>
-    <tr>
-      <th data-width="40%">关键字</th>
-      <th data-width="70%">数量统计</th>
-    </tr>
-  </thead>
-  <tbody>
-<%
-for(item in list){
-%>
+        <tr>
+            <td>${item.key}</td>
+            <td>${item.num}/${count}</td>
+            <td>${item.num/count,numberFormat="#%"}</td>
+        </tr>
 
-  <tr>
-    <td>${item.key}</td>
-    <td>${item.num}条记录</td>
-  </tr>
-
-<%}%>   
-  </tbody>  
-</table>
+        <%}%>
+        </tbody>
+    </table>
 
 </div>
 <%} %>

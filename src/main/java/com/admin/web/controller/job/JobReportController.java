@@ -1,6 +1,7 @@
 package com.admin.web.controller.job;
 
 import com.admin.web.base.BaseBussinessController;
+import com.admin.web.model.JobInfo;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
@@ -21,6 +22,7 @@ public class JobReportController extends BaseBussinessController {
 
         String data = Data.dao.getCodeByCodeDescAndType("REPORT_KEY", "统计关键字");
         String[] keys = data.split(",");
+        List<JobInfo> jobInfo =JobInfo.dao.find("select * from "+ JobInfo.table);
 
 
         String sql = "SELECT count(j.title) as 'report' FROM j_job_info j where instr(j.title, ?);";
@@ -35,7 +37,7 @@ public class JobReportController extends BaseBussinessController {
         }
 
 		keepPara();
-		setAttr("list", reportList);
+		setAttr("list", reportList).setAttr("count", jobInfo.size());
 		render("main.html");
 	}
 
