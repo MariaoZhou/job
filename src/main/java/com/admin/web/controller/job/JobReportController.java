@@ -31,7 +31,7 @@ public class JobReportController extends BaseBussinessController {
             Map<String, String> report = new HashMap<>();
             Record record = Db.findFirst(sql , key);
             report.put("key", key);
-            report.put("num", record.get("report"));
+            report.put("num", record.get("report").toString());
             reportList.add(report);
 
         }
