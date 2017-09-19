@@ -113,14 +113,6 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 		return get("someoneTypeName");
 	}
 
-	public void setStatus(java.lang.String status) {
-		set("status", status);
-	}
-
-	public java.lang.String getStatus() {
-		return get("status");
-	}
-
 	public void setTitle(java.lang.String title) {
 		set("title", title);
 	}
@@ -135,6 +127,14 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 
 	public java.lang.String getTel() {
 		return get("tel");
+	}
+
+	public void setStatus(java.lang.String status) {
+		set("status", status);
+	}
+
+	public java.lang.String getStatus() {
+		return get("status");
 	}
 
 	public void setDetails(java.lang.String details) {
@@ -160,22 +160,5 @@ public abstract class BaseSomeone<M extends BaseSomeone<M>> extends Model<M> imp
 	public java.util.Date getUpdateDate() {
 		return get("updateDate");
 	}
-
-    public java.lang.Integer getCJobId() { return get("cJobId");}
-    public void setCJobId(java.lang.Integer jobId) {
-        set("cJobId", jobId);
-    }
-
-
-    public void setCId(java.lang.Integer jobId) {
-        set("cId", jobId);
-    }
-    public java.lang.Integer getCId() { return get("cId");}
-
-
-    public java.lang.Integer getCUserId() { return get("cUserId");}
-    public void setCUserId(java.lang.Integer jobId) {
-        set("cUserId", jobId);
-    }
 
 }

@@ -48,85 +48,87 @@ Table: j_job_info
  countriesName       | VARCHAR(255) | YES  |     |         | 国家名称    
  cityId              | INT(10)      | YES  |     |         | 城市id    
  cityName            | VARCHAR(255) | YES  |     |         | 城市名称    
- jobTypeName         | VARCHAR(255) | YES  |     |         | 工作种类id
- jobNatureName       | VARCHAR(255) | YES  |     |         | 工作性质
- jobWelfareName      | VARCHAR(255) | YES  |     |         | 工作福利id
- jobSalaryName       | VARCHAR(255) | YES  |     |         | 工作薪资id
- jobSalaryOrder      | INT(10)      | YES  |     |         | 薪资 排序
- jobRequirementsName | VARCHAR(255) | YES  |     |         | 居住要求
- details             | VARCHAR(255) | YES  |     |         | 居住详情
- createDate          | DATETIME(19) | YES  |     |         |
- updateDate          | DATETIME(19) | YES  |     |         |
+ jobTypeName         | VARCHAR(255) | YES  |     |         | 工作种类id  
+ jobNatureName       | VARCHAR(255) | YES  |     |         | 工作性质    
+ jobWelfareName      | VARCHAR(255) | YES  |     |         | 工作福利id  
+ jobSalaryName       | VARCHAR(255) | YES  |     |         | 工作薪资id  
+ jobSalaryOrder      | INT(10)      | YES  |     |         | 薪资 排序   
+ jobRequirementsName | VARCHAR(255) | YES  |     |         | 居住要求    
+ details             | VARCHAR(255) | YES  |     |         | 居住详情    
+ createDate          | DATETIME(19) | YES  |     |         |         
+ updateDate          | DATETIME(19) | YES  |     |         |         
 ---------------------+--------------+------+-----+---------+---------
 
 Table: j_proposal
 ----------+--------------+------+-----+---------+---------
- Field    | Type         | Null | Key | Default | Remarks
+ Field    | Type         | Null | Key | Default | Remarks 
 ----------+--------------+------+-----+---------+---------
- id       | INT(10)      | NO   | PRI |         |
- userId   | INT(10)      | YES  |     |         | 反馈人id
- userName | VARCHAR(255) | YES  |     |         | 反馈人名称
- details  | VARCHAR(255) | YES  |     |         | 意见详情
+ id       | INT(10)      | NO   | PRI |         |         
+ userId   | INT(10)      | YES  |     |         | 反馈人id   
+ userName | VARCHAR(255) | YES  |     |         | 反馈人名称   
+ details  | VARCHAR(255) | YES  |     |         | 意见详情    
 ----------+--------------+------+-----+---------+---------
 
 Table: j_someone
 ------------------+--------------+------+-----+---------+---------
- Field            | Type         | Null | Key | Default | Remarks
+ Field            | Type         | Null | Key | Default | Remarks 
 ------------------+--------------+------+-----+---------+---------
- id               | INT(10)      | NO   | PRI |         |
- countriesId      | INT(10)      | YES  |     |         | 国家id
- countriesName    | VARCHAR(255) | YES  |     |         | 国家名称
- companyName      | VARCHAR(255) | YES  |     |         |
- companyPublicity | VARCHAR(255) | YES  |     |         |
- companyQRCode    | VARCHAR(255) | YES  |     |         |
- companyInfo      | VARCHAR(255) | YES  |     |         |
- companyLogo      | VARCHAR(255) | YES  |     |         |
- userId           | INT(10)      | YES  |     |         |
- userName         | VARCHAR(255) | YES  |     |         |
- cityId           | INT(10)      | YES  |     |         | 城市id
- cityName         | VARCHAR(255) | YES  |     |         | 城市名称
+ id               | INT(10)      | NO   | PRI |         |         
+ countriesId      | INT(10)      | YES  |     |         | 国家id    
+ countriesName    | VARCHAR(255) | YES  |     |         | 国家名称    
+ companyName      | VARCHAR(255) | YES  |     |         |         
+ companyPublicity | VARCHAR(255) | YES  |     |         |         
+ companyQRCode    | VARCHAR(255) | YES  |     |         |         
+ companyInfo      | VARCHAR(255) | YES  |     |         |         
+ companyLogo      | VARCHAR(255) | YES  |     |         |         
+ userId           | INT(10)      | YES  |     |         |         
+ userName         | VARCHAR(255) | YES  |     |         |         
+ cityId           | INT(10)      | YES  |     |         | 城市id    
+ cityName         | VARCHAR(255) | YES  |     |         | 城市名称    
  someoneTypeName  | VARCHAR(255) | YES  |     |         | 分类 类型 名称
- title            | VARCHAR(255) | YES  |     |         | 标题
- tel              | VARCHAR(255) | YES  |     |         | 联系电话
+ title            | VARCHAR(255) | YES  |     |         | 标题      
+ tel              | VARCHAR(255) | YES  |     |         | 联系电话    
  status           | VARCHAR(255) | YES  |     |         | 状态 0招聘中 1结束招聘
- details          | VARCHAR(255) | YES  |     |         | 详细说明
- createDate       | DATETIME(19) | YES  |     |         |
- updateDate       | DATETIME(19) | YES  |     |         |
+ details          | VARCHAR(255) | YES  |     |         | 详细说明    
+ createDate       | DATETIME(19) | YES  |     |         |         
+ updateDate       | DATETIME(19) | YES  |     |         |         
 ------------------+--------------+------+-----+---------+---------
 
 Table: j_upload_file
 ------------+--------------+------+-----+---------+---------
- Field      | Type         | Null | Key | Default | Remarks
+ Field      | Type         | Null | Key | Default | Remarks 
 ------------+--------------+------+-----+---------+---------
- id         | INT(10)      | NO   | PRI |         |
- name       | VARCHAR(255) | YES  |     |         | 文件名称
- uploadPath | VARCHAR(255) | YES  |     |         | 文件 存储地址
+ id         | INT(10)      | NO   | PRI |         |         
+ name       | VARCHAR(255) | YES  |     |         | 文件名称    
+ uploadPath | VARCHAR(255) | YES  |     |         | 文件 存储地址 
  urlPath    | VARCHAR(255) | YES  |     |         | url 访问地址
- type       | VARCHAR(255) | YES  |     |         | 文件类型
+ type       | VARCHAR(255) | YES  |     |         | 文件类型    
 ------------+--------------+------+-----+---------+---------
 
 Table: user_collection
 ----------+--------------+------+-----+---------+---------
- Field    | Type         | Null | Key | Default | Remarks
+ Field    | Type         | Null | Key | Default | Remarks 
 ----------+--------------+------+-----+---------+---------
- id       | INT(10)      | NO   | PRI |         |
- userId   | INT(10)      | YES  |     |         |
- userName | VARCHAR(255) | YES  |     |         | 用户名称
- titel    | VARCHAR(255) | YES  |     |         | 标题
+ id       | INT(10)      | NO   | PRI |         |         
+ userId   | INT(10)      | YES  |     |         |         
+ userName | VARCHAR(255) | YES  |     |         | 用户名称    
+ titel    | VARCHAR(255) | YES  |     |         | 标题      
  type     | VARCHAR(5)   | YES  |     |         | 类型 1招聘 2找人办事
  jobId    | INT(10)      | YES  |     |         | 关联id 关联招聘/找人办事
 ----------+--------------+------+-----+---------+---------
 
 Table: user_company
 -----------+--------------+------+-----+---------+---------
- Field     | Type         | Null | Key | Default | Remarks
+ Field     | Type         | Null | Key | Default | Remarks 
 -----------+--------------+------+-----+---------+---------
- id        | INT(10)      | NO   | PRI |         |
- name      | VARCHAR(255) | YES  |     |         | 公司名称
- publicity | VARCHAR(255) | YES  |     |         | 宣传图 地址
- QRCode    | VARCHAR(255) | YES  |     |         | 二维码 地址
- info      | VARCHAR(255) | YES  |     |         | 宣传语
- logo      | VARCHAR(255) | YES  |     |         | 公司logo
+ id        | INT(10)      | NO   | PRI |         |         
+ userId    | INT(10)      | YES  |     |         |         
+ userName  | VARCHAR(255) | YES  |     |         |         
+ name      | VARCHAR(255) | YES  |     |         | 公司名称    
+ publicity | VARCHAR(255) | YES  |     |         | 宣传图 地址  
+ QRCode    | VARCHAR(255) | YES  |     |         | 二维码 地址  
+ info      | VARCHAR(255) | YES  |     |         | 宣传语     
+ logo      | VARCHAR(255) | YES  |     |         | 公司logo  
 -----------+--------------+------+-----+---------+---------
 
 Table: user_info
@@ -135,12 +137,26 @@ Table: user_info
 ------------+--------------+------+-----+---------+---------
  id         | INT(10)      | NO   | PRI |         |         
  openId     | VARCHAR(255) | YES  |     |         |         
+ unionId    | VARCHAR(255) | YES  |     |         |         
  name       | VARCHAR(255) | YES  |     |         | 名称      
  head       | VARCHAR(255) | YES  |     |         | 头像      
  tel        | VARCHAR(255) | YES  |     |         | 联系方式    
  createDate | DATETIME(19) | YES  |     |         | 创建时间    
  updateDate | DATETIME(19) | YES  |     |         | 修改时间    
+ blacklist  | VARCHAR(255) | YES  |     | 0       | 黑名单 1   
 ------------+--------------+------+-----+---------+---------
+
+Table: user_tel_exp
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ user_id     | INT(10)      | YES  |     |         |         
+ tel         | VARCHAR(255) | YES  |     |         |         
+ phone_exp   | VARCHAR(4)   | YES  |     |         |         
+ create_date | DATETIME(19) | YES  |     |         |         
+ update_date | DATETIME(19) | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
 
 Table: wx_msg
 ----------------+--------------+------+-----+---------+---------
@@ -148,12 +164,12 @@ Table: wx_msg
 ----------------+--------------+------+-----+---------+---------
  id             | INT(10)      | NO   | PRI |         |         
  type           | VARCHAR(255) | YES  |     |         | 类型  1默认回复 2关注时回复 3关键字回复
- msgType        | VARCHAR(255) | YES  |     |         | 消息类型 1图文 0 文字
  text           | VARCHAR(255) | YES  |     |         | 文本回复内容  
  newTitle       | VARCHAR(255) | YES  |     |         | 图文标题    
  newUrl         | VARCHAR(255) | YES  |     |         | 图文url   
  newDescription | VARCHAR(255) | YES  |     |         | 图文消息描述  
  newPicUrl      | VARCHAR(255) | YES  |     |         | 图片链接    
- keyword        | VARCHAR(255) | YES  |     |         | 关键字     
+ msgType        | VARCHAR(255) | YES  |     |         |         
+ keyword        | VARCHAR(255) | YES  |     |         |         
 ----------------+--------------+------+-----+---------+---------
 

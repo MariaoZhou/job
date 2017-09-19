@@ -20,12 +20,13 @@ public class _MappingKit {
 		arp.addMapping("j_company_info", "id", CompanyInfo.class);
 		arp.addMapping("j_countries", "id", Countries.class);
 		arp.addMapping("j_job_info", "id", JobInfo.class);
-		arp.addMapping("user_company", "id", UserCompany.class);
 		arp.addMapping("j_proposal", "id", Proposal.class);
 		arp.addMapping("j_someone", "id", Someone.class);
 		arp.addMapping("j_upload_file", "id", UploadFile.class);
 		arp.addMapping("user_collection", "id", UserCollection.class);
+		arp.addMapping("user_company", "id", UserCompany.class);
 		arp.addMapping("user_info", "id", UserInfo.class);
+		arp.addMapping("user_tel_exp", "id", UserTelExp.class);
 		arp.addMapping("wx_msg", "id", WxMsg.class);
 	}
 }

@@ -17,7 +17,7 @@
 #---------------------------------------------------------------------------------#
 db.ds = localdev,test,prod
 db.localdev.active = true
-db.localdev.url = localhost:3306/job
+db.localdev.url = 47.93.198.232:3306/job
 db.localdev.dbtype = mysql
 db.localdev.publickey = MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOxCRVdIy/YGy823SUVTplSCc2cRnYJsuMBizk/wMsJ5OBTMxsFvbJ3yj+MaGQrrGTuJad9Vp9pmAZGxBemuxzkCAwEAAQ==
 db.localdev.user = root
@@ -60,9 +60,9 @@ db.prod.usesystem = true
 # 8. ge.excludedtableprefixes：生成时不包含的表名前缀
 #---------------------------------------------------------------------------------#
 ge.localdev.dict=true
-ge.localdev.base.model.outdir=E:/rongrong/rr-job/src/main/java/com/admin/web/model/base
+ge.localdev.base.model.outdir=E:/piaotu-rr-job-master/rr-job/src/main/java/com/admin/web/model/base
 ge.localdev.base.model.package=com.admin.web.model.base
-ge.localdev.model.outdir=E:/rongrong/rr-job/src/main/java/com/admin/web/model
+ge.localdev.model.outdir=E:/piaotu-rr-job-master/rr-job/src/main/java/com/admin/web/model
 ge.localdev.model.package=com.admin.web.model
 ge.localdev.removedtablenameprefixes=j_
 ge.localdev.excludedtable=

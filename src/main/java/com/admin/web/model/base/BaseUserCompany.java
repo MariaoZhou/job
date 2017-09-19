@@ -9,67 +9,67 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseUserCompany<M extends BaseUserCompany<M>> extends Model<M> implements IBean {
 
-	public void setId(Integer id) {
+	public void setId(java.lang.Integer id) {
 		set("id", id);
 	}
 
-	public Integer getId() {
+	public java.lang.Integer getId() {
 		return get("id");
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(java.lang.Integer userId) {
 		set("userId", userId);
 	}
 
-	public Integer getUserId() {
+	public java.lang.Integer getUserId() {
 		return get("userId");
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(java.lang.String userName) {
 		set("userName", userName);
 	}
 
-	public String getUserName() {
+	public java.lang.String getUserName() {
 		return get("userName");
 	}
 
-	public void setName(String name) {
+	public void setName(java.lang.String name) {
 		set("name", name);
 	}
 
-	public String getName() {
+	public java.lang.String getName() {
 		return get("name");
 	}
 
-	public void setPublicity(String publicity) {
+	public void setPublicity(java.lang.String publicity) {
 		set("publicity", publicity);
 	}
 
-	public String getPublicity() {
+	public java.lang.String getPublicity() {
 		return get("publicity");
 	}
 
-	public void setQRCode(String QRCode) {
+	public void setQRCode(java.lang.String QRCode) {
 		set("QRCode", QRCode);
 	}
 
-	public String getQRCode() {
+	public java.lang.String getQRCode() {
 		return get("QRCode");
 	}
 
-	public void setInfo(String info) {
+	public void setInfo(java.lang.String info) {
 		set("info", info);
 	}
 
-	public String getInfo() {
+	public java.lang.String getInfo() {
 		return get("info");
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(java.lang.String logo) {
 		set("logo", logo);
 	}
 
-	public String getLogo() {
+	public java.lang.String getLogo() {
 		return get("logo");
 	}
 

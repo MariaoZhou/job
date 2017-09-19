@@ -25,14 +25,6 @@ public abstract class BaseWxMsg<M extends BaseWxMsg<M>> extends Model<M> impleme
 		return get("type");
 	}
 
-	public void setMsgType(java.lang.String msgType) {
-		set("msgType", msgType);
-	}
-
-	public java.lang.String getMsgType() {
-		return get("msgType");
-	}
-
 	public void setText(java.lang.String text) {
 		set("text", text);
 	}
@@ -71,6 +63,14 @@ public abstract class BaseWxMsg<M extends BaseWxMsg<M>> extends Model<M> impleme
 
 	public java.lang.String getNewPicUrl() {
 		return get("newPicUrl");
+	}
+
+	public void setMsgType(java.lang.String msgType) {
+		set("msgType", msgType);
+	}
+
+	public java.lang.String getMsgType() {
+		return get("msgType");
 	}
 
 	public void setKeyword(java.lang.String keyword) {

@@ -3,18 +3,23 @@ package com.admin.web.controller.job;
 import com.admin.web.base.BaseBussinessController;
 import com.admin.web.model.JobInfo;
 import com.admin.web.model.UserInfo;
+import com.admin.web.model.UserTelExp;
 import com.admin.web.service.job.JobConfigService;
 import com.admin.web.swagger.annotation.Api;
 import com.admin.web.swagger.annotation.ApiOperation;
 import com.admin.web.swagger.annotation.Param;
 import com.admin.web.swagger.annotation.Params;
+import com.admin.web.util.ExampleSendMessage;
 import com.admin.web.util.R;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.rlax.framework.common.Consts;
 
+import java.sql.DataTruncation;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -190,6 +195,68 @@ public class JobInfoController extends BaseBussinessController {
             JobInfo jobInfo = JobInfo.dao.findById(jobId);
             renderJson(R.ok().put(jobInfo));
         }
+    }
+
+    @ApiOperation(description = " 获取 用户手机号 并生成验证码" ,url = "/job/info/getPhoneNumber", tag = "JobInfoController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "用户id 必填", dataType = "int"),
+            @Param(name = "tel", description = "联系电话 必填", dataType = "String")
+    })
+    public void getPhoneNumber(){
+        String userId = getPara("userId");
+        String tel = getPara("tel");
+        if(userId!=null && tel!=null){
+            Integer a = (int)(Math.random()*(9999-1000+1))+1000;//生成一个四位随机数
+            String telExp=a.toString();
+            UserTelExp userTelExp=new UserTelExp();
+            userTelExp.setUserId(Integer.parseInt(userId));
+            userTelExp.setTel(tel);
+            userTelExp.setPhoneExp(telExp);
+            userTelExp.setCreateDate(new Date());
+
+            boolean status=userTelExp.save();
+            if(status){
+                if(ExampleSendMessage.exampleSendMessage(tel,telExp)) {
+                    renderJson(R.ok().put("telExp", userTelExp.getPhoneExp()));
+                }else {
+                    renderJson(R.error("获取验证码失败"));
+                }
+            }else{
+                renderJson(R.error());
+            }
+        }else{
+            renderJson(R.error());
+        }
+    }
+
+    @ApiOperation(description = "检测验证码是否正确" ,url = "/job/info/checkTelExp", tag = "JobInfoController", httpMethod = "get")
+    @Params({
+            @Param(name = "userId", description = "用户id 必填", dataType = "int"),
+            @Param(name = "tel", description = "联系电话 必填", dataType = "String"),
+            @Param(name = "telExp", description = "验证码 必填", dataType = "String")
+    })
+    public void checkTelExp(){
+        String userId=getPara("userId");
+        String tel=getPara("tel");
+        String telExp=getPara("telExp");
+        UserTelExp userTelExp=new UserTelExp();
+        List<String> params = new ArrayList<>();
+        params.add(userId);
+        params.add(tel);
+
+        String sql = "select * from user_tel_exp where user_id = ? and tel = ?" ;
+        userTelExp=UserTelExp.dao.findFirst(sql,params.toArray());
+        Date d1=userTelExp.getCreateDate();
+        Date d2=new Date();
+        long m = d2.getTime() - d1.getTime();
+        if(m/(1000*60*60)<=1&&telExp.equals(userTelExp.getPhoneExp())){
+            renderJson(R.ok());
+        }else if(m/(1000*60*60)<=1){
+            renderJson(R.error("验证码输入错误，请重新输入"));
+        }else{
+            renderJson(R.error("获取超时。请重新获取验证码"));
+        }
+
     }
 
 	@Override
